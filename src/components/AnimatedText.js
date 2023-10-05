@@ -10,18 +10,19 @@ const AnimatedText = ({ className }) => {
   React.useEffect(() => {
     const options = {
       strings: [
-        "Welcome to my site :)",
-        "Talk to me about Photography <span aria-label='camera' role='img'>📷</span>",
-        "Talk to me about Switchfoot 🎸",
-        "Talk to me about the Atlanta Braves ⚾",
-        "Talk to me about CS Lewis 📚",
-        "Talk to me about React 👨‍💻",
-        "Talk to me about DC Comics 🗯️",
+        "Nice to meet you :)",
+        "Talk to me about \nPhotography 📷",
+        "Talk to me about \nSwitchfoot 🎸",
+        "Talk to me about \nthe Braves ⚾",
+        "Talk to me about \nCS Lewis 📚",
+        "Talk to me about \nReact 👨‍💻",
+        "Talk to me about \nDC Comics 🗯️",
       ],
       typeSpeed: 40,
       backSpeed: 30,
       loop: true,
       loopCount: Infinity,
+      contentType: "text",
     };
 
     // elRef refers to the <span> rendered below

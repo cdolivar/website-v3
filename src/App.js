@@ -6,7 +6,7 @@ import AnimatedText from "./components/AnimatedText";
 const App = () => {
   const GlobalStyle = createGlobalStyle`
   body {
-    background: linear-gradient(90deg, hsla(217, 100%, 50%, 1) 0%, hsla(186, 100%, 69%, 1) 100%);;
+    background: linear-gradient(90deg, hsla(217, 100%, 50%, 1) 0%, hsla(186, 100%, 69%, 1) 100%);
   }
   `;
 
@@ -18,8 +18,9 @@ const App = () => {
 
   const Text = styled.div`
     padding: 5px 0;
-    line-height: 1.25em;
+    line-height: 1.2em;
     color: #d5dedd !important;
+    word-wrap: break-word;
   `;
 
   return (
@@ -35,7 +36,10 @@ const App = () => {
             Kamusta!
           </Text>{" "}
           👋
-          <Text>My name is Charles but I like to go by David</Text>
+          <Text>
+            My name is Charles <br />
+            but I like to go by David
+          </Text>
           <Text as={AnimatedText} />
         </headernpm>
       </Container>
