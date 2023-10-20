@@ -32,6 +32,7 @@ const App = () => {
     line-height: 1.2em;
     color: #d5dedd !important;
     word-wrap: break-word;
+    padding-left: 10px;
   `;
 
   return (
@@ -55,7 +56,6 @@ const App = () => {
         style={{
           height: 300,
           maxWidth: 400,
-          width: "50%",
           margin: "0 auto",
         }}
         options={{
