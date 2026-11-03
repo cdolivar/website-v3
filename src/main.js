@@ -39,10 +39,10 @@ const LIGHT = (() => {
 
 /* ---------- State ---------- */
 
-let q = reducedMotion ? Q.identity() : Q.normalize(Q.fromAxisAngle(0.8, -1, 0.25, 2.5));
-let mode = "snap"; // drag | inertia | snap | idle
+let q = Q.identity();
+let mode = "idle"; // drag | inertia | snap | idle
 let snapTarget = 0;
-let lockedActive = 0; // set while flying to a chosen face (the intro flies to the front)
+let lockedActive = 0; // set while flying to a chosen face
 let vel = [0, 0]; // screen-space angular velocity, rad/ms
 let active = -1;
 
@@ -96,9 +96,10 @@ function updateBadge(i) {
   if (badge) badge.textContent = `↻ ${shown[i] + 1}/${layers[i].length}`;
 }
 
-function currentImage(i) {
+// The room takes the color of the shown layer's photo, if it has one.
+function currentBackdrop(i) {
   const img = layers[i][shown[i]].querySelector("img");
-  return img ? img.currentSrc || img.src : null;
+  return img ? `url("${img.currentSrc || img.src}")` : null;
 }
 
 let ambientIndex = 0;
@@ -109,7 +110,7 @@ function setAmbient(src) {
   const next = ambient[ambientIndex];
   on.classList.remove("is-on");
   if (src) {
-    next.style.backgroundImage = `url("${src}")`;
+    next.style.backgroundImage = src;
     next.dataset.src = src;
     next.classList.add("is-on");
   } else {
@@ -117,19 +118,33 @@ function setAmbient(src) {
   }
 }
 
+// The title is split into letters so each can rise in on its own.
+function setTitle(text, split) {
+  caption.title.textContent = "";
+  caption.title.setAttribute("aria-label", text);
+  if (!split) return void (caption.title.textContent = text);
+  for (const c of text) {
+    const span = document.createElement("span");
+    span.className = "ch";
+    span.setAttribute("aria-hidden", "true");
+    span.textContent = c;
+    caption.title.append(span);
+  }
+}
+
 function renderCaption(animate) {
   const face = faces[active];
   const layer = layers[active][shown[active]];
   const count = layers[active].length;
-  const fallback = count < 2 ? "" : shown[active] === count - 1 ? "Tap to start over." : "Tap to see more.";
+  const fallback = shown[active] < count - 1 ? "Tap to see more." : "Tap for the next side.";
   const update = () => {
     caption.frame.textContent = String(active + 1).padStart(2, "0");
     caption.label.textContent = layer.dataset.label || "";
-    caption.title.textContent = face.dataset.name;
+    setTitle(face.dataset.name, animate && !reducedMotion);
     caption.sub.textContent = layer.dataset.sub || face.dataset.sub || fallback;
   };
   if (!animate || reducedMotion) return update();
-  gsap.killTweensOf([caption.title, caption.sub, caption.label]);
+  gsap.killTweensOf([caption.title, caption.title.children, caption.sub, caption.label]);
   gsap.to([caption.title, caption.sub, caption.label], {
     y: -8,
     autoAlpha: 0,
@@ -137,11 +152,9 @@ function renderCaption(animate) {
     ease: "power2.in",
     onComplete: () => {
       update();
-      gsap.fromTo(
-        [caption.title, caption.sub, caption.label],
-        { y: 10, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: 0.45, stagger: 0.04, ease: "power3.out" }
-      );
+      gsap.set(caption.title, { y: 0, autoAlpha: 1 });
+      gsap.fromTo(caption.title.children, { yPercent: 70, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.55, stagger: 0.03, ease: "power3.out" });
+      gsap.fromTo([caption.sub, caption.label], { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, stagger: 0.04, delay: 0.1, ease: "power3.out" });
     },
   });
 }
@@ -152,7 +165,20 @@ function setActive(i) {
   faces.forEach((f, n) => f.classList.toggle("is-active", n === i));
   navButtons.forEach((b) => b.setAttribute("aria-current", String(+b.dataset.goto === i)));
   renderCaption(true);
-  setAmbient(currentImage(i));
+  setAmbient(currentBackdrop(i));
+}
+
+// A tap moves the tour forward: every layer on this side, then the next side.
+function advance(i) {
+  if (shown[i] < layers[i].length - 1) return flip(i);
+  goTo((i + 1) % faces.length);
+  resetFace(i);
+}
+
+function resetFace(i) {
+  shown[i] = 0;
+  layers[i].forEach((layer) => layer.classList.remove("is-shown"));
+  updateBadge(i);
 }
 
 function flip(i) {
@@ -166,7 +192,7 @@ function flip(i) {
   flash.classList.add("is-on");
   updateBadge(i);
   renderCaption(true);
-  setAmbient(currentImage(i));
+  setAmbient(currentBackdrop(i));
 }
 
 /* ---------- Input ---------- */
@@ -245,15 +271,16 @@ window.addEventListener(
   true
 );
 
-faces.forEach((face, i) => {
-  face.addEventListener("click", (e) => {
-    if (i !== active) {
-      e.preventDefault();
-      goTo(i);
-    } else if (!e.target.closest("a")) {
-      flip(i);
-    }
-  });
+// The browser can't hit-test the side faces while the cube is edge-on to the page,
+// so a click on them never reaches the face. Decide from the active face's box instead.
+function overActiveFace(x, y) {
+  const r = faces[active].getBoundingClientRect();
+  return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+}
+
+stage.addEventListener("click", (e) => {
+  if (e.target.closest("a, button")) return;
+  if (overActiveFace(e.clientX, e.clientY)) advance(active);
 });
 
 document.querySelectorAll("[data-goto]").forEach((el) => {
@@ -276,7 +303,7 @@ document.addEventListener("keydown", (e) => {
     goTo(+e.key - 1);
   } else if ((e.key === "Enter" || e.key === " ") && !onControl) {
     e.preventDefault();
-    flip(active);
+    advance(active);
   }
 });
 
@@ -346,10 +373,73 @@ function frame(now) {
 
 /* ---------- Intro ---------- */
 
+// The cube is already assembled and facing front; it only fades in. The page stays
+// covered (see .is-loading) until fonts are in and the fade's start state is painted.
 setActive(0);
 requestAnimationFrame(frame);
 
 if (!reducedMotion) {
-  gsap.fromTo(cube, { "--explode": "140px", opacity: 0 }, { "--explode": "0px", opacity: 1, duration: 1.8, ease: "expo.out" });
-  gsap.from([".caption", ".strip", ".top"], { y: 16, autoAlpha: 0, duration: 1, stagger: 0.08, delay: 0.5, ease: "power3.out" });
+  gsap.from(".scene", { y: 14, autoAlpha: 0, duration: 0.9, ease: "power3.out", lazy: false });
+  gsap.from([".caption", ".strip", ".top"], { y: 12, autoAlpha: 0, duration: 0.8, stagger: 0.06, delay: 0.2, ease: "power3.out", lazy: false });
 }
+
+const uncover = () => requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.remove("is-loading")));
+Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 1200))]).then(uncover);
+
+/* ---------- Local time ---------- */
+
+const clock = document.querySelector("[data-time]");
+if (clock) {
+  const fmt = new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/New_York" });
+  const tick = () => (clock.textContent = fmt.format(new Date()));
+  tick();
+  setInterval(tick, 15000);
+}
+
+/* ---------- Cursor ---------- */
+
+if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
+  const dot = Object.assign(document.createElement("div"), { className: "cursor cursor--dot" });
+  const ring = Object.assign(document.createElement("div"), { className: "cursor cursor--ring" });
+  document.body.append(ring, dot);
+  document.body.classList.add("has-cursor");
+  let mx = -100, my = -100, rx = -100, ry = -100;
+  window.addEventListener("pointermove", (e) => {
+    mx = e.clientX;
+    my = e.clientY;
+    ring.classList.toggle("is-link", !!e.target.closest?.("a, button") || overActiveFace(e.clientX, e.clientY));
+  });
+  window.addEventListener("pointerdown", () => ring.classList.add("is-drag"));
+  window.addEventListener("pointerup", () => ring.classList.remove("is-drag"));
+  const follow = () => {
+    rx += (mx - rx) * (reducedMotion ? 1 : 0.2);
+    ry += (my - ry) * (reducedMotion ? 1 : 0.2);
+    dot.style.transform = `translate(${mx}px, ${my}px)`;
+    ring.style.transform = `translate(${rx}px, ${ry}px)`;
+    requestAnimationFrame(follow);
+  };
+  follow();
+}
+
+/* ---------- Theme ---------- */
+
+const toggle = document.querySelector("[data-theme-toggle]");
+const themeColor = document.querySelector('meta[name="theme-color"]');
+
+function renderTheme() {
+  const dark = document.documentElement.dataset.theme !== "light";
+  // the button names what a click will switch to
+  toggle.textContent = dark ? "Light" : "Dark";
+  toggle.setAttribute("aria-label", `Switch to ${dark ? "light" : "dark"} theme`);
+  themeColor.content = dark ? "#000000" : "#ffffff";
+}
+
+toggle.addEventListener("click", () => {
+  const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+  document.documentElement.dataset.theme = next;
+  try {
+    localStorage.setItem("theme", next);
+  } catch {}
+  renderTheme();
+});
+renderTheme();

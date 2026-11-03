@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="is-loading" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Charles David Olivar — Software Engineer</title>
-    <meta name="description" content="Charles David Olivar — software engineer building React and TypeScript product experiences. Squarespace, Priceline, Indeed, UC Berkeley." />
-    <meta name="theme-color" content="#0d0b09" />
+    <meta name="description" content="Charles David Olivar is a software engineer in Charlottesville. Before this: Squarespace, Priceline and Indeed." />
+    <meta name="theme-color" content="#000000" />
     <link rel="canonical" href="https://charlesdavidolivar.com/" />
     <link rel="icon" href="/logo/logo.ico" />
     <link rel="icon" type="image/svg+xml" href="/logo/logo.svg" />
@@ -14,13 +14,21 @@
     <meta property="og:type" content="profile" />
     <meta property="og:url" content="https://charlesdavidolivar.com/" />
     <meta property="og:title" content="Charles David Olivar — Software Engineer" />
-    <meta property="og:description" content="React and TypeScript product engineer. Squarespace, Priceline, Indeed." />
+    <meta property="og:description" content="Software engineer. Squarespace, Priceline, Indeed." />
     <meta property="og:image" content="https://charlesdavidolivar.com/logo512.png" />
     <meta name="twitter:card" content="summary" />
+    <script>
+      // Set the theme before first paint so there is no flash.
+      try {
+        var t = localStorage.getItem("theme");
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.dataset.theme = t;
+        document.querySelector('meta[name="theme-color"]').content = t === "light" ? "#ffffff" : "#000000";
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div class="ambient" aria-hidden="true"><div class="ambient__layer"></div><div class="ambient__layer"></div></div>
-    <div class="grain" aria-hidden="true"></div>
 
     <header class="top">
       <a class="top__logo" href="#" data-goto="0" aria-label="Charles David Olivar — back to the first face">
@@ -31,17 +39,21 @@
         </svg>
         <span>Charles David Olivar</span>
       </a>
-      <nav class="top__contact" aria-label="Contact">
-        <a href="mailto:CharlesDavidOlivar@gmail.com">Email</a>
-        <a href="https://www.linkedin.com/in/charles-david-olivar" target="_blank" rel="noopener">LinkedIn ↗</a>
-      </nav>
+      <p class="top__time" aria-hidden="true">Charlottesville, VA <span data-time></span></p>
+      <div class="top__actions">
+        <nav class="top__contact" aria-label="Contact">
+          <a href="mailto:CharlesDavidOlivar@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/charles-david-olivar" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle>Light</button>
+      </div>
     </header>
 
-    <main class="stage" aria-roledescription="resume cube" aria-label="A cube with six sides: introduction, Squarespace, Priceline, Indeed, toolkit and off the clock. Use the buttons below or the arrow keys to turn it, and Enter to flip a side.">
+    <main class="stage" aria-roledescription="resume cube" aria-label="A cube with six sides: introduction, Squarespace, Priceline, Indeed, toolkit and timeline. Drag it, use the buttons below or the arrow keys to turn it, and press Enter or tap to move on.">
       <div class="scene">
         <div class="shadow" aria-hidden="true"></div>
         <div class="cube">
-          <!-- acrylic shell -->
+          <!-- outer shell -->
           <div class="glass" style="--t: rotateY(0deg)" aria-hidden="true"></div>
           <div class="glass" style="--t: rotateY(90deg)" aria-hidden="true"></div>
           <div class="glass" style="--t: rotateY(180deg)" aria-hidden="true"></div>
@@ -50,12 +62,12 @@
           <div class="glass" style="--t: rotateX(-90deg)" aria-hidden="true"></div>
 
           <!-- 01 front: intro -->
-          <section class="face" style="--t: rotateY(0deg)" data-name="Hello" data-sub="Drag the cube to turn it · tap a side to flip it.">
+          <section class="face" style="--t: rotateY(0deg)" data-name="Hello" data-sub="Drag to turn the cube, or tap to move on.">
             <div class="layer layer--text layer--hello" data-label="">
               <a class="eyebrow" href="https://www.tagalog.com/dictionary/also_spelled.php?translation_entry_id=2289&e=54a77b" target="_blank" rel="noopener">Kamusta! ↗</a>
               <h1 class="hello__name">Charles David Olivar</h1>
-              <p class="hello__role">Software Engineer<br /><span>React · TypeScript · Node</span></p>
-              <p class="hello__meta">Charlottesville, VA · goes by David</p>
+              <p class="hello__role">Software Engineer<br /><span>React, TypeScript, Node</span></p>
+              <p class="hello__meta">Charlottesville, VA. Goes by David.</p>
             </div>
             <div class="layer" data-label="1997">
               <img src="/photos/kamusta-1997.webp" alt="Baby David crawling on a yellow mat, with a film date stamp from 1997" draggable="false" />
@@ -66,19 +78,13 @@
           </section>
 
           <!-- 02 right: Squarespace -->
-          <section class="face" style="--t: rotateY(90deg)" data-name="Squarespace" data-sub="Software Engineer → Senior · Remote · Sep 2024 – Nov 2026">
+          <section class="face" style="--t: rotateY(90deg)" data-name="Squarespace">
             <div class="layer layer--text" data-label="Senior Software Engineer">
-              <p class="eyebrow">Squarespace · Scheduling</p>
-              <p class="metric"><b>+9.7%</b></p>
-              <p class="metric__label">8-day trial-to-subscription from re-architecting the Scheduling navigation as one route-based React/TypeScript component</p>
-              <p class="metric__foot">$934K/yr modeled · A/B test</p>
-              <span class="stamp"><i>'</i>24-<i>'</i>26</span>
-            </div>
-            <div class="layer layer--text" data-label="Highlights">
+              <p class="eyebrow">Squarespace, Scheduling</p>
               <ul class="stats">
-                <li><b>+20%</b><span>landing-to-subscription · Scheduling homepage redesign (35K daily visits)</span></li>
-                <li><b>+18%</b><span>trial-to-subscription · workspace switcher component</span></li>
-                <li><b>87%</b><span>of a 21.4s signup load traced to one auth step · RFC shipped, now used by 3 product lines</span></li>
+                <li><b>+9.7%</b><span>more trials became subscriptions after I rebuilt the Scheduling navigation. Modeled at $934K a year.</span></li>
+                <li><b>+20%</b><span>more visitors subscribed from the new Scheduling homepage, which gets 35K visits a day.</span></li>
+                <li><b>87%</b><span>of a 21.4 second signup was one auth step. I wrote the proposal, another team built it, and 3 products use it now.</span></li>
               </ul>
             </div>
             <span class="flip-badge" aria-hidden="true"></span>
@@ -87,42 +93,42 @@
           </section>
 
           <!-- 03 back: Priceline -->
-          <section class="face" style="--t: rotateY(180deg)" data-name="Priceline" data-sub="New York, NY (Hybrid) · May 2022 – Sep 2024">
+          <section class="face" style="--t: rotateY(180deg)" data-name="Priceline">
             <div class="layer layer--text" data-label="Software Engineer">
-              <p class="eyebrow">Priceline · Email</p>
-              <p class="metric"><b>+123%</b></p>
-              <p class="metric__label">bookings from the VIP Monthly Recap email redesign, one of 5 A/B-tested experiments</p>
-              <p class="metric__foot">+106% net value per send</p>
-              <span class="stamp"><i>'</i>22-<i>'</i>24</span>
-            </div>
-            <div class="layer layer--text" data-label="Highlights">
+              <p class="eyebrow">Priceline, Email</p>
               <ul class="stats">
-                <li><b>97K</b><span>daily email receipts · React/TypeScript + Node service built to meet a 30-second delivery SLA</span></li>
-                <li><b>5/5</b><span>A/B-tested email experiments lifted bookings and net value per send</span></li>
-                <li><b>+7.7%</b><span>bookings per 1M sends · cross-sell deal cards with Express and Puppeteer</span></li>
+                <li><b>+123%</b><span>more bookings from the VIP Monthly Recap email redesign. Net value per send was up 106%.</span></li>
+                <li><b>97K</b><span>email receipts a day, sent by a service I built. Each one had to go out within 30 seconds.</span></li>
+                <li><b>+7.7%</b><span>more bookings per million sends from cross-sell deal cards.</span></li>
               </ul>
             </div>
+            <figure class="layer layer--text layer--figure" data-label="Office">
+              <img src="/photos/office-couch.jpg" alt="Two coworkers on a gray couch in an office lounge, one leaning back and flashing a peace sign, the other taking the selfie" draggable="false" loading="lazy" />
+              <figcaption><span>fig. 01</span>Chilling with a coworker at one of the office couches</figcaption>
+            </figure>
             <span class="flip-badge" aria-hidden="true"></span>
             <div class="flash"></div>
             <div class="shade"></div>
           </section>
 
           <!-- 04 left: Indeed -->
-          <section class="face" style="--t: rotateY(-90deg)" data-name="Indeed" data-sub="Associate UX Developer → UX Developer · San Francisco · Jun 2019 – May 2022">
+          <section class="face" style="--t: rotateY(-90deg)" data-name="Indeed">
             <div class="layer layer--text" data-label="UX Developer">
-              <p class="eyebrow">Indeed · Job search</p>
-              <p class="metric"><b>+11.5%</b></p>
-              <p class="metric__label">mobile apply starts from an internationalized tabbed recent-search feature</p>
-              <p class="metric__foot">+5.2% positive outcomes · +1.7% resume creations</p>
-              <span class="stamp"><i>'</i>19-<i>'</i>22</span>
-            </div>
-            <div class="layer layer--text" data-label="Highlights">
+              <p class="eyebrow">Indeed, Job search</p>
               <ul class="stats">
-                <li><b>+7%</b><span>apply starts, +4.6% expected hires · led the homepage job feed from design doc to build</span></li>
-                <li><b>32</b><span>accessibility bugs resolved to meet WCAG 2.1 AA · verified with Axe, VoiceOver and TalkBack</span></li>
-                <li><b>−6K</b><span>lines · Redux → React Context and TypeScript, bundle 219KB smaller</span></li>
+                <li><b>+11.5%</b><span>more mobile apply starts from the recent-search tabs I built.</span></li>
+                <li><b>+7%</b><span>more apply starts, and 4.6% more expected hires, from the homepage job feed. I led it from design doc to launch.</span></li>
+                <li><b>32</b><span>accessibility bugs fixed to meet WCAG 2.1 AA. Tested with Axe, VoiceOver and TalkBack.</span></li>
               </ul>
             </div>
+            <figure class="layer layer--text layer--figure" data-label="Empire State Building">
+              <img src="/photos/indeed-empire-state.jpg" alt="A selfie of David and a coworker in front of a window with a hazy view of the Manhattan skyline" draggable="false" loading="lazy" />
+              <figcaption><span>fig. 02</span>Nice views from the Empire State Building office</figcaption>
+            </figure>
+            <figure class="layer layer--text layer--figure" data-label="Internship">
+              <img src="/photos/indeed-interns.jpg" alt="Eight interns sitting in a row on the floor in front of a painted Indeed San Francisco mural, smiling at the camera" draggable="false" loading="lazy" />
+              <figcaption><span>fig. 03</span>Last day with fellow interns</figcaption>
+            </figure>
             <span class="flip-badge" aria-hidden="true"></span>
             <div class="flash"></div>
             <div class="shade"></div>
@@ -136,43 +142,47 @@
                 <li>TypeScript</li><li>JavaScript</li><li>React</li><li>Node.js</li><li>Express</li><li>Redux</li><li>HTML</li><li>CSS</li><li>Tailwind</li><li>Styled Components</li><li>Sass</li><li>Jest</li><li>Testing Library</li><li>Cypress</li><li>Puppeteer</li><li>WCAG 2.1 AA</li><li>i18n</li><li>A/B testing</li><li>Statsig</li><li>LaunchDarkly</li><li>PagerDuty</li><li>Git</li><li>Claude Code</li>
               </ul>
             </div>
-            <div class="layer layer--text layer--edu" data-label="Education" data-sub="University of California, Berkeley · May 2019">
+            <div class="layer layer--text layer--edu" data-label="Education" data-sub="University of California, Berkeley. May 2019.">
               <p class="eyebrow">Education</p>
               <p class="edu__school">UC Berkeley</p>
               <p class="edu__degree">B.A. Computer Science</p>
               <p class="edu__degree">Certificate in Design Innovation</p>
-              <span class="stamp">5 <i>'</i>19</span>
             </div>
             <span class="flip-badge" aria-hidden="true"></span>
             <div class="flash"></div>
             <div class="shade"></div>
           </section>
 
-          <!-- 06 bottom: off the clock -->
-          <section class="face" style="--t: rotateX(-90deg)" data-name="Off the clock">
-            <div class="layer" data-label="Braves fan · then">
-              <img src="/photos/braves-then.webp" alt="Young David in an Atlanta Braves T-shirt sticking his tongue out, the Washington Monument behind him" draggable="false" />
-              <span class="stamp">9 2 <i>'</i>06</span>
+          <!-- 06 bottom: timeline -->
+          <section class="face" style="--t: rotateX(-90deg)" data-name="Timeline">
+            <div class="layer layer--text" data-label="Career" data-sub="Indeed, Priceline, Squarespace.">
+              <p class="eyebrow">Full-time</p>
+              <ol class="timeline">
+                <li><time>2026</time><b>Senior Software Engineer</b><span>Squarespace</span></li>
+                <li><time>2024</time><b>Software Engineer</b><span>Squarespace</span></li>
+                <li><time>2022</time><b>Software Engineer</b><span>Priceline</span></li>
+                <li><time>2021</time><b>UX Developer</b><span>Indeed</span></li>
+                <li><time>2019</time><b>Associate UX Developer</b><span>Indeed</span></li>
+              </ol>
             </div>
-            <div class="layer" data-label="Braves fan · now">
-              <img src="/photos/braves-now.webp" alt="David in a Braves jersey and cap, holding a baby in a Yankees onesie" draggable="false" />
-              <span class="stamp">4 9 <i>'</i>26</span>
+            <div class="layer layer--text" data-label="Before 2019" data-sub="Internships and teaching.">
+              <p class="eyebrow">Internships and teaching</p>
+              <ol class="timeline">
+                <li><time>2018</time><b>UX Design Intern</b><span>Indeed, San Francisco</span></li>
+                <li><time>2018</time><b>CS160 Reader</b><span>UC Berkeley, UI Development</span></li>
+                <li><time>2017</time><b>Software Engineering Intern</b><span>Walmart Global Tech</span></li>
+                <li><time>2017</time><b>CS61B Academic Intern</b><span>UC Berkeley, Data Structures</span></li>
+              </ol>
             </div>
-            <div class="layer" data-label="Switchfoot · outside">
-              <img src="/photos/switchfoot-marquee.webp" alt="Selfie of David, on the right, with a companion under a theater marquee announcing Switchfoot tonight" draggable="false" />
-              <span class="stamp">10 19 <i>'</i>23</span>
-            </div>
-            <div class="layer" data-label="Switchfoot · inside">
-              <img src="/photos/switchfoot-stage.webp" alt="Switchfoot playing on stage under blue light beams, phones raised in the crowd" draggable="false" />
-              <span class="stamp">10 19 <i>'</i>23</span>
-            </div>
-            <div class="layer" data-label="Behind the camera">
-              <img src="/photos/photography-bluffs.webp" alt="David taking a photo on sandstone bluffs on a clear day" draggable="false" />
-              <span class="stamp">10 20 <i>'</i>18</span>
-            </div>
-            <div class="layer" data-label="Shooting with friends">
-              <img src="/photos/photography-friends.webp" alt="David and a fellow photographer grinning with their cameras" draggable="false" />
-              <span class="stamp">8 24 <i>'</i>26</span>
+            <div class="layer layer--text" data-label="Off hours" data-sub="Ask me about any of these.">
+              <p class="eyebrow">Talk to me about</p>
+              <ul class="interests">
+                <li>Photography</li>
+                <li>Switchfoot</li>
+                <li>The Braves</li>
+                <li>C.S. Lewis</li>
+                <li>DC Comics</li>
+              </ul>
             </div>
             <span class="flip-badge" aria-hidden="true"></span>
             <div class="flash"></div>
@@ -183,9 +193,9 @@
     </main>
 
     <section class="caption" aria-live="polite">
-      <p class="caption__frame"><span data-cap="frame">01</span> / 06<span class="caption__label" data-cap="label"></span></p>
+      <p class="caption__frame">[<span data-cap="frame">01</span>/06]<span class="caption__label" data-cap="label"></span></p>
       <h2 class="caption__title" data-cap="title">Hello</h2>
-      <p class="caption__sub" data-cap="sub">Drag the cube to turn it · tap a side to flip it.</p>
+      <p class="caption__sub" data-cap="sub">Drag to turn the cube, or tap to move on.</p>
     </section>
 
     <nav class="strip" aria-label="Cube sides">
@@ -194,7 +204,7 @@
       <button type="button" data-goto="2"><span>03</span>Priceline</button>
       <button type="button" data-goto="3"><span>04</span>Indeed</button>
       <button type="button" data-goto="4"><span>05</span>Toolkit</button>
-      <button type="button" data-goto="5"><span>06</span>Off hours</button>
+      <button type="button" data-goto="5"><span>06</span>Timeline</button>
     </nav>
 
     <script type="module" src="/src/main.js"></script>
