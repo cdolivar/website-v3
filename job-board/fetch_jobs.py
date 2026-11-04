@@ -122,6 +122,10 @@ with cf.ThreadPoolExecutor(8) as ex:
             r=[j for j in r if j["rm"]]
             jobs+=r; print(n,len(r))
         except Exception as e: print("ERR",n,e)
+# drop listings older than 60 days
+import datetime
+today=datetime.date.today()
+jobs=[j for j in jobs if not j["p"] or (today-datetime.date.fromisoformat(j["p"])).days<=60]
 # collapse identical titles at one company (same role posted per location) into one row
 grp={}
 for j in jobs:

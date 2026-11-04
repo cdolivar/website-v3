@@ -139,7 +139,7 @@ ul.jobs{list-style:none;margin:0;padding:0;background:var(--surface);border:1px 
             <select id="sort" aria-label="Sort"><option value="match">Best resume match</option><option value="sal">Highest salary</option><option value="new">Newest first</option><option value="co">Company A to Z</option></select>
             <label class="slider" for="minmatch">Min match <input type="range" id="minmatch" min="0" max="100" step="5" value="0"><output id="minmatchv" for="minmatch">Any</output></label>
             <select id="minsal" aria-label="Minimum salary"><option value="0">Any salary</option><option value="120000">$120k+ top of band</option><option value="150000">$150k+ top of band</option><option value="180000">$180k+ top of band</option><option value="220000">$220k+ top of band</option></select>
-            <select id="maxage" aria-label="Posting age"><option value="0">Any age</option><option value="30">Posted last 30 days</option><option value="90">Posted last 90 days</option><option value="180">Posted last 6 months</option></select>
+            <select id="maxage" aria-label="Posting age"><option value="0">Any date (last 60 days)</option><option value="1">Last 24 hours</option><option value="7">Past week</option><option value="30">Past month</option></select>
             <select id="view" aria-label="Show"><option value="active">Active roles</option><option value="saved">Saved</option><option value="applied">Applied / interviewing</option><option value="hidden">Hidden</option></select>
           </div>
         </div>
@@ -159,7 +159,7 @@ ul.jobs{list-style:none;margin:0;padding:0;background:var(--surface);border:1px 
     </div>
   </section>
 
-  <p class="hint">Match % compares each posting with your resume: title fit (frontend, product, full-stack), seniority, and skills the posting names (React, TypeScript, accessibility, A/B testing). It is a guide, not a verdict. "Also mentions" lists tools in the posting that are not on your resume. Salary bands come from the posting or its description and can cover several locations; "No band listed" means none was found. Only remote roles are included, and identical titles posted in several locations are collapsed into one row. Posting dates come from each company's job board and old dates may be evergreen listings. Status, notes and role tracking stay in this browser only.</p>
+  <p class="hint">Match % compares each posting with your resume: title fit (frontend, product, full-stack), seniority, and skills the posting names (React, TypeScript, accessibility, A/B testing). It is a guide, not a verdict. "Also mentions" lists tools in the posting that are not on your resume. Salary bands come from the posting or its description and can cover several locations; "No band listed" means none was found. Only remote roles are included, and identical titles posted in several locations are collapsed into one row. Listings posted more than 60 days ago are left out. Posting dates are by day, so "Last 24 hours" means posted today or yesterday. Status, notes and role tracking stay in this browser only.</p>
 </div>
 
 <script>
