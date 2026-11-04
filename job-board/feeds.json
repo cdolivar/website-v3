@@ -103,254 +103,204 @@
   "ats": "ashby",
   "slug": "docker"
  },
- "OpenAI": {
-  "ats": "ashby",
-  "slug": "openai",
-  "remote_only": true
- },
  "Reddit": {
   "ats": "gh",
-  "slug": "reddit",
-  "remote_only": true
+  "slug": "reddit"
  },
  "Coinbase": {
   "ats": "gh",
-  "slug": "coinbase",
-  "remote_only": true
- },
- "ClickHouse": {
-  "ats": "ashby",
-  "slug": "clickhouse",
-  "remote_only": true
- },
- "Plaid": {
-  "ats": "ashby",
-  "slug": "plaid",
-  "remote_only": true
+  "slug": "coinbase"
  },
  "Pinterest": {
   "ats": "gh",
-  "slug": "pinterest",
-  "remote_only": true
+  "slug": "pinterest"
  },
  "Anthropic": {
   "ats": "gh",
-  "slug": "anthropic",
-  "remote_only": true
+  "slug": "anthropic"
  },
- "Temporal": {
+ "ClickHouse": {
   "ats": "ashby",
-  "slug": "temporal",
-  "remote_only": true
- },
- "Ramp": {
-  "ats": "ashby",
-  "slug": "ramp",
-  "remote_only": true
- },
- "Samsara": {
-  "ats": "gh",
-  "slug": "samsara",
-  "remote_only": true
+  "slug": "clickhouse"
  },
  "Toast": {
   "ats": "gh",
-  "slug": "toast",
-  "remote_only": true
+  "slug": "toast"
+ },
+ "Temporal": {
+  "ats": "ashby",
+  "slug": "temporal"
+ },
+ "Samsara": {
+  "ats": "gh",
+  "slug": "samsara"
  },
  "Render": {
   "ats": "ashby",
-  "slug": "render",
-  "remote_only": true
- },
- "Stripe": {
-  "ats": "gh",
-  "slug": "stripe",
-  "remote_only": true
+  "slug": "render"
  },
  "ElevenLabs": {
   "ats": "ashby",
-  "slug": "elevenlabs",
-  "remote_only": true
- },
- "Cohere": {
-  "ats": "ashby",
-  "slug": "cohere",
-  "remote_only": true
- },
- "Notion": {
-  "ats": "ashby",
-  "slug": "notion",
-  "remote_only": true
+  "slug": "elevenlabs"
  },
  "Mercury": {
   "ats": "gh",
-  "slug": "mercury",
-  "remote_only": true
- },
- "Sentry": {
-  "ats": "ashby",
-  "slug": "sentry",
-  "remote_only": true
+  "slug": "mercury"
  },
  "Vanta": {
   "ats": "ashby",
-  "slug": "vanta",
-  "remote_only": true
+  "slug": "vanta"
  },
- "Instacart": {
+ "Stripe": {
   "ats": "gh",
-  "slug": "instacart",
-  "remote_only": true
+  "slug": "stripe"
  },
- "Databricks": {
-  "ats": "gh",
-  "slug": "databricks",
-  "remote_only": true
- },
- "Replit": {
+ "Cohere": {
   "ats": "ashby",
-  "slug": "replit",
-  "remote_only": true
- },
- "Deepgram": {
-  "ats": "ashby",
-  "slug": "deepgram",
-  "remote_only": true
+  "slug": "cohere"
  },
  "Twilio": {
   "ats": "gh",
-  "slug": "twilio",
-  "remote_only": true
+  "slug": "twilio"
  },
- "Strava": {
+ "Instacart": {
+  "ats": "gh",
+  "slug": "instacart"
+ },
+ "OpenAI": {
   "ats": "ashby",
-  "slug": "strava",
-  "remote_only": true
+  "slug": "openai"
+ },
+ "Deepgram": {
+  "ats": "ashby",
+  "slug": "deepgram"
  },
  "Airbnb": {
   "ats": "gh",
-  "slug": "airbnb",
-  "remote_only": true
+  "slug": "airbnb"
  },
  "Zscaler": {
   "ats": "gh",
-  "slug": "zscaler",
-  "remote_only": true
+  "slug": "zscaler"
  },
  "DoorDash": {
   "ats": "gh",
-  "slug": "doordashusa",
-  "remote_only": true
- },
- "Hex": {
-  "ats": "ashby",
-  "slug": "hex",
-  "remote_only": true
- },
- "Mozilla": {
-  "ats": "gh",
-  "slug": "mozilla",
-  "remote_only": true
- },
- "Spotify": {
-  "ats": "lever",
-  "slug": "spotify",
-  "remote_only": true
+  "slug": "doordashusa"
  },
  "Tailscale": {
   "ats": "gh",
-  "slug": "tailscale",
-  "remote_only": true
+  "slug": "tailscale"
  },
- "Benchling": {
-  "ats": "ashby",
-  "slug": "benchling",
-  "remote_only": true
- },
- "Cursor": {
-  "ats": "ashby",
-  "slug": "cursor",
-  "remote_only": true
+ "Spotify": {
+  "ats": "lever",
+  "slug": "spotify"
  },
  "Gemini": {
   "ats": "gh",
-  "slug": "gemini",
-  "remote_only": true
+  "slug": "gemini"
  },
  "Quora": {
   "ats": "ashby",
-  "slug": "quora",
-  "remote_only": true
+  "slug": "quora"
  },
  "Zocdoc": {
   "ats": "gh",
-  "slug": "zocdoc",
-  "remote_only": true
+  "slug": "zocdoc"
  },
- "Perplexity": {
-  "ats": "ashby",
-  "slug": "perplexity",
-  "remote_only": true
+ "Mozilla": {
+  "ats": "gh",
+  "slug": "mozilla"
  },
  "Discord": {
   "ats": "gh",
-  "slug": "discord",
-  "remote_only": true
- },
- "Amplitude": {
-  "ats": "ashby",
-  "slug": "amplitude",
-  "remote_only": true
+  "slug": "discord"
  },
  "LaunchDarkly": {
   "ats": "gh",
-  "slug": "launchdarkly",
-  "remote_only": true
+  "slug": "launchdarkly"
  },
- "Fivetran": {
-  "ats": "gh",
-  "slug": "fivetran",
-  "remote_only": true
- },
- "Sanity": {
+ "Cursor": {
   "ats": "ashby",
-  "slug": "sanity",
-  "remote_only": true
+  "slug": "cursor"
  },
  "Thumbtack": {
   "ats": "ashby",
-  "slug": "thumbtack",
-  "remote_only": true
+  "slug": "thumbtack"
+ },
+ "Sanity": {
+  "ats": "ashby",
+  "slug": "sanity"
  },
  "Honeycomb": {
   "ats": "gh",
-  "slug": "honeycomb",
-  "remote_only": true
+  "slug": "honeycomb"
  },
  "Nerdwallet": {
   "ats": "ashby",
-  "slug": "nerdwallet",
-  "remote_only": true
+  "slug": "nerdwallet"
+ },
+ "Databricks": {
+  "ats": "gh",
+  "slug": "databricks"
  },
  "Webflow": {
   "ats": "ashby",
-  "slug": "webflow",
-  "remote_only": true
+  "slug": "webflow"
  },
- "Glean": {
-  "ats": "gh",
-  "slug": "gleanwork",
-  "remote_only": true
+ "Hex": {
+  "ats": "ashby",
+  "slug": "hex"
  },
  "Datadog": {
   "ats": "gh",
-  "slug": "datadog",
-  "remote_only": true
+  "slug": "datadog"
  },
  "Gusto": {
   "ats": "gh",
-  "slug": "gusto",
-  "remote_only": true
+  "slug": "gusto"
+ },
+ "Glean": {
+  "ats": "gh",
+  "slug": "gleanwork"
+ },
+ "Calendly": {
+  "ats": "gh",
+  "slug": "calendly"
+ },
+ "Gong": {
+  "ats": "gh",
+  "slug": "gongio"
+ },
+ "Nextdoor": {
+  "ats": "gh",
+  "slug": "nextdoor"
+ },
+ "Flexport": {
+  "ats": "gh",
+  "slug": "flexport"
+ },
+ "PlanetScale": {
+  "ats": "gh",
+  "slug": "planetscale"
+ },
+ "Plaid": {
+  "ats": "ashby",
+  "slug": "plaid"
+ },
+ "Fivetran": {
+  "ats": "gh",
+  "slug": "fivetran"
+ },
+ "Squarespace": {
+  "ats": "gh",
+  "slug": "squarespace"
+ },
+ "Lyft": {
+  "ats": "gh",
+  "slug": "lyft"
+ },
+ "Amplitude": {
+  "ats": "ashby",
+  "slug": "amplitude"
  }
 }

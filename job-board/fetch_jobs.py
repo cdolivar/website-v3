@@ -32,6 +32,7 @@ def salary_from_text(t):
     best=None
     for m in SAL.finditer(t):
         a,b=num(m.group(1)),num(m.group(2))
+        if a<1000<=b: a*=1000
         if 40000<=a<=700000 and a<=b<=900000:
             best=(int(a),int(b)); 
             if re.search(r"united states|\bus\b|usd|base|salary",t[max(0,m.start()-250):m.start()],re.I): return best
@@ -63,7 +64,7 @@ def score(title,dept,desc):
     return max(0,min(100,round(pts*100/80))), list(dict.fromkeys(why))[:5], gaps
 def finish(c,title,loc,dept,url,posted,remote,desc,sal,country="",extra=""):
     ltxt=loc+" "+country+" "+extra
-    rem=remote or bool(re.search(r"remote|home.?based|work from home|anywhere",loc,re.I)) or (c in FULLY_REMOTE and not ONSITE.search(loc))
+    rem=(remote or bool(re.search(r"remote|home.?based|work from home|anywhere",loc,re.I)) or (c in FULLY_REMOTE and not ONSITE.search(loc))) and not re.search(r"\((hybrid|on-site)\)",loc)
     us=2 if US.search(ltxt) else 1 if ANY.search(ltxt) else 3 if re.fullmatch(r"\W*(remote|home.?based|remote.?first)?\W*",loc,re.I) else 0
     if not sal: sal=salary_from_text(desc)
     m,w,g=score(title,dept,desc)
@@ -90,7 +91,9 @@ def ab(n,s):
         loc=j.get("location") or ""
         sec=" ".join(x if isinstance(x,str) else x.get("location","") for x in (j.get("secondaryLocations") or []))
         country=((j.get("address") or {}).get("postalAddress") or {}).get("addressCountry","") or ""
-        remote=bool(j.get("isRemote")) or str(j.get("workplaceType","")).lower()=="remote"
+        wt=str(j.get("workplaceType") or "").lower()
+        remote=wt=="remote" or (not wt and bool(re.search(r"remote",loc,re.I)))  # isRemote is true for hybrid roles too; ignore it
+        if wt in("hybrid","onsite"): loc=loc+(" (Hybrid)" if wt=="hybrid" else " (On-site)")
         out.append(finish(n,j["title"],loc,j.get("department") or j.get("team") or "",j["jobUrl"],(j.get("publishedAt") or "")[:10],remote,j.get("descriptionPlain") or strip(j.get("descriptionHtml")),sal,country,sec))
     return out
 def lv(n,s):
@@ -116,9 +119,20 @@ with cf.ThreadPoolExecutor(8) as ex:
     for f,(n,v) in fs.items():
         try:
             r=f.result()
-            if v.get("remote_only"): r=[j for j in r if j["rm"]]
+            r=[j for j in r if j["rm"]]
             jobs+=r; print(n,len(r))
         except Exception as e: print("ERR",n,e)
+# collapse identical titles at one company (same role posted per location) into one row
+grp={}
+for j in jobs:
+    k=(j["c"],j["t"].strip().lower())
+    if k not in grp: grp[k]=[j]
+    else: grp[k].append(j)
+jobs=[]
+for g in grp.values():
+    best=sorted(g,key=lambda j:(-(j["us"]==2),-(j["us"]==1),j["p"]))[0]
+    best["n"]=len(g); jobs.append(best)
+print("after dedupe:",len(jobs))
 json.dump(jobs,open(OUT_FILE,"w"),separators=(",",":"),ensure_ascii=False)
 print(len(jobs),"jobs;",sum(1 for j in jobs if j["sal"]),"with salary;",sum(1 for j in jobs if j["rm"]),"remote;",sum(1 for j in jobs if j["us"]),"US/any/unclear")
 if len(jobs)<500:  # a broken feed must never overwrite a good page

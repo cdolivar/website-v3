@@ -88,6 +88,11 @@ ul.jobs{list-style:none;margin:0;padding:0;background:var(--surface);border:1px 
 .st-Offer{border-color:var(--new)}
 .st-Passed{opacity:.6}
 .foot a.visit{font-weight:600}
+.tag.n{background:var(--accent-soft);color:var(--accent)}
+.slider{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.slider input{width:140px;accent-color:var(--accent)}
+.slider output{font:500 12px var(--mono);min-width:3.2em;color:var(--fg)}
+.rs{width:100%;margin-bottom:8px;padding:6px 8px;flex:none}
 .railtoggle{display:none}
 .exp{margin-top:16px;display:flex;flex-direction:column;gap:8px}
 .exp textarea{width:100%;min-height:120px;font:12px var(--mono);padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
@@ -120,6 +125,7 @@ ul.jobs{list-style:none;margin:0;padding:0;background:var(--surface);border:1px 
     <div class="layout">
       <aside class="rail" id="rail">
         <h2>Company</h2>
+        <input class="search rs" id="cq" type="search" placeholder="Find a company" aria-label="Find a company">
         <ul class="clist" id="clist"></ul>
       </aside>
       <div>
@@ -131,7 +137,7 @@ ul.jobs{list-style:none;margin:0;padding:0;background:var(--surface);border:1px 
           <div class="row" id="chips"></div>
           <div class="row">
             <select id="sort" aria-label="Sort"><option value="match">Best resume match</option><option value="sal">Highest salary</option><option value="new">Newest first</option><option value="co">Company A to Z</option></select>
-            <select id="minmatch" aria-label="Minimum match"><option value="0">Any match</option><option value="50">50%+ match</option><option value="70">70%+ match</option></select>
+            <label class="slider" for="minmatch">Min match <input type="range" id="minmatch" min="0" max="100" step="5" value="0"><output id="minmatchv" for="minmatch">Any</output></label>
             <select id="minsal" aria-label="Minimum salary"><option value="0">Any salary</option><option value="120000">$120k+ top of band</option><option value="150000">$150k+ top of band</option><option value="180000">$180k+ top of band</option><option value="220000">$220k+ top of band</option></select>
             <select id="maxage" aria-label="Posting age"><option value="0">Any age</option><option value="30">Posted last 30 days</option><option value="90">Posted last 90 days</option><option value="180">Posted last 6 months</option></select>
             <select id="view" aria-label="Show"><option value="active">Active roles</option><option value="saved">Saved</option><option value="applied">Applied / interviewing</option><option value="hidden">Hidden</option></select>
@@ -145,7 +151,7 @@ ul.jobs{list-style:none;margin:0;padding:0;background:var(--surface);border:1px 
   </section>
 
   <section id="view-cos" hidden>
-    <div class="tools"><div class="row" id="grpchips"></div><div class="row" id="stchips"></div></div>
+    <div class="tools"><div class="row" id="stchips"></div></div>
     <div class="cards" id="cards"></div>
     <div class="exp">
       <div class="row"><button class="chip" id="csvbtn">Copy my tracker as CSV</button><span class="sub" id="csvmsg"></span></div>
@@ -153,7 +159,7 @@ ul.jobs{list-style:none;margin:0;padding:0;background:var(--surface);border:1px 
     </div>
   </section>
 
-  <p class="hint">Match % compares each posting with your resume: title fit (frontend, product, full-stack), seniority, and skills the posting names (React, TypeScript, accessibility, A/B testing). It is a guide, not a verdict. "Also mentions" lists tools in the posting that are not on your resume. Salary bands come from the posting or its description and can cover several locations; "No band listed" means none was found. Added companies are the top 50 by remote US engineering roles among about 100 well-known tech employers with a public job feed, so they show remote roles only. Posting dates come from each company's job board and old dates may be evergreen listings. Status, notes and role tracking stay in this browser only.</p>
+  <p class="hint">Match % compares each posting with your resume: title fit (frontend, product, full-stack), seniority, and skills the posting names (React, TypeScript, accessibility, A/B testing). It is a guide, not a verdict. "Also mentions" lists tools in the posting that are not on your resume. Salary bands come from the posting or its description and can cover several locations; "No band listed" means none was found. Only remote roles are included, and identical titles posted in several locations are collapsed into one row. Posting dates come from each company's job board and old dates may be evergreen listings. Status, notes and role tracking stay in this browser only.</p>
 </div>
 
 <script>
@@ -164,7 +170,7 @@ const NOW=Date.now();
 const STATUSES=["Not started","Researching","Applied","Interviewing","Offer","Passed"];
 const JSTAT={saved:"Saved",applied:"Applied",interviewing:"Interviewing",hidden:"Hide"};
 const ENG=/engineer|developer|\bsre\b|devops|architect|security|data scien|machine learning|\bml\b|software|backend|back-end|frontend|front-end|full.?stack|infrastructure|platform|reliability|\bqa\b|technical lead|tech lead|research scientist|\bandroid\b|\bios\b/i;
-const NOTENG=/sales|solutions? engineer|support engineer|customer|success|recruit|marketing|account|partner|finance|legal|people|sourcer|counsel|manager, (sales|support)/i;
+const NOTENG=/sales|solutions? (engineer|architect)|support engineer|customer|success|recruit|marketing|account|partner|finance|legal|people|sourcer|counsel|product manager|program manager|project manager|director|\bhead of\b|\bvp\b|analyst|designer|manager, (sales|support)/i;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const DAY=864e5;
@@ -184,8 +190,7 @@ for(const j of JOBS){
 }
 try{localStorage.setItem("jobboard.seen",JSON.stringify(JOBS.map(j=>j.h)))}catch(e){}
 
-const GRPS=[["all","All companies"],["orig","Original list"],["added","Added: top remote hirers"]];
-const st={grp:"all",q:"",eng:true,remote:true,usa:true,sal:false,cos:new Set(),sort:"match",view:"active",minmatch:0,minsal:0,maxage:0,limit:60,fresh:false};
+const st={q:"",eng:true,remote:true,usa:true,sal:false,cos:new Set(),sort:"match",view:"active",minmatch:0,minsal:0,maxage:0,limit:60,fresh:false};
 const jstat=j=>(store.jobs[j.id]||{}).s||"";
 const isApplied=s=>s==="applied"||s==="interviewing";
 
@@ -200,7 +205,6 @@ function filtered(ignoreCo){
     if(st.view==="hidden"&&s!=="hidden")return false;
     if(st.eng&&!j.eng)return false;
     if(st.fresh&&!j.fresh)return false;
-    if(st.remote&&!j.rm)return false;
     if(st.usa&&!j.us)return false;
     if(st.sal&&!j.sal)return false;
     if(st.minsal&&!(j.sal&&j.sal[1]>=st.minsal))return false;
@@ -223,13 +227,14 @@ function renderStats(){
   $("stats").innerHTML=items.map(([n,l])=>`<div class="stat"><b>${n}</b><span>${l}</span></div>`).join("");
 }
 function renderChips(){
-  const defs=[["remote","Remote only",st.remote],["usa","USA only",st.usa],["eng","Engineering only",st.eng],["sal","Salary band listed",st.sal]];
+  const defs=[["usa","USA only",st.usa],["eng","Engineering only",st.eng],["sal","Salary band listed",st.sal]];
   if(JOBS.some(j=>j.fresh))defs.push(["fresh","New since last visit",st.fresh]);
   $("chips").innerHTML=defs.map(([k,l,on])=>`<button class="chip" data-k="${k}" aria-pressed="${on}">${l}</button>`).join("");
 }
 function renderRail(){
   const base=filtered(true),cnt={};for(const j of base)cnt[j.c]=(cnt[j.c]||0)+1;
-  const li=COS.slice().sort((a,b)=>(cnt[b.n]||0)-(cnt[a.n]||0)||a.n.localeCompare(b.n)).map(c=>{
+  const cq=($("cq")||{value:""}).value.trim().toLowerCase();
+  const li=COS.filter(c=>!cq||c.n.toLowerCase().includes(cq)).sort((a,b)=>(cnt[b.n]||0)-(cnt[a.n]||0)||a.n.localeCompare(b.n)).map(c=>{
     const n=cnt[c.n]||0;
     return `<li><button data-c="${esc(c.n)}" aria-pressed="${st.cos.has(c.n)}"><span class="${n?"":"zero"}">${esc(c.n)}</span><span class="n">${c.feed?n:"–"}</span></button></li>`}).join("");
   $("clist").innerHTML=(st.cos.size?'<li><button data-c="">Clear company filter</button></li>':"")+li;
@@ -250,7 +255,7 @@ function renderJobs(){
     const pill=j.fresh?'<span class="pill">New for you</span>':j.age<=7?'<span class="pill">New</span>':"";
     const opts=[["","Track…"],...Object.entries(JSTAT)].map(([k,l])=>`<option value="${k}"${k===cur?" selected":""}>${l}</option>`).join("");
     return `<li class="job${isApplied(cur)?" applied":""}"><div><a class="t" href="${esc(j.u)}" target="_blank" rel="noopener">${esc(j.t)}</a>${pill}${fu}</div>
-    <div class="meta"><span class="co">${esc(j.c)}</span><span>${esc((j.l||"Location not listed").slice(0,60))}</span>${tag}${j.d?`<span>${esc(j.d)}</span>`:""}<span class="date${j.age>180?" stale":""}" title="${j.p||""}">${ago(j)}</span></div>
+    <div class="meta"><span class="co">${esc(j.c)}</span><span>${esc((j.l||"Location not listed").slice(0,60))}</span>${tag}${j.n>1?`<span class="tag n" title="The same role is posted in ${j.n} locations. Showing the most US-friendly one.">${j.n} postings</span>`:""}${j.d?`<span>${esc(j.d)}</span>`:""}<span class="date${j.age>180?" stale":""}" title="${j.p||""}">${ago(j)}</span></div>
     ${j.w.length&&j.m>=30?`<div class="why">Matches: ${esc(j.w.join(" · "))}</div>`:""}
     ${j.g&&j.g.length?`<div class="gap">Also mentions: ${esc(j.g.join(" · "))}</div>`:""}
     <div class="sidecol"><span class="match ${tier}" title="Fit with your resume: title, seniority and skills named in the posting"><i><b style="width:${j.m}%"></b></i>${j.m}%</span>${sal}<select data-j="${esc(j.id)}" aria-label="Track ${esc(j.t)}">${opts}</select></div></li>`}).join("")
@@ -262,11 +267,10 @@ function renderCards(){
   const cnt={},eng={};for(const j of JOBS){cnt[j.c]=(cnt[j.c]||0)+1;if(j.eng&&j.rm&&j.us)eng[j.c]=(eng[j.c]||0)+1}
   const f=st.stf||"All";
   $("stchips").innerHTML=["All",...STATUSES].map(s=>`<button class="chip" data-st="${s}" aria-pressed="${f===s}">${s}</button>`).join("");
-  $("grpchips").innerHTML=GRPS.map(([k,l])=>`<button class="chip" data-grp="${k}" aria-pressed="${st.grp===k}">${l} (${COS.filter(c=>k==="all"||c.grp===k).length})</button>`).join("");
-  const list=COS.filter(c=>(st.grp==="all"||c.grp===st.grp)&&(f==="All"||((store.tracker[c.n]||{}).status||"Not started")===f));
+    const list=COS.filter(c=>f==="All"||((store.tracker[c.n]||{}).status||"Not started")===f);
   $("cards").innerHTML=list.map(c=>{
     const t=store.tracker[c.n]||{},status=t.status||"Not started";
-    const roles=c.feed?`<span class="roles ${eng[c.n]?"":"none"}" title="Remote, US-eligible engineering roles out of all open roles">${eng[c.n]||0} fit · ${cnt[c.n]} ${c.grp==="added"?"remote":"open"}</span>`:'<span class="roles none">no live feed</span>';
+    const roles=c.feed?`<span class="roles ${eng[c.n]?"":"none"}" title="US-eligible engineering roles out of all remote roles">${eng[c.n]||0} fit · ${cnt[c.n]} remote</span>`:'<span class="roles none">no live feed</span>';
     return `<div class="card st-${status.replace(" ","")}"><h3><span>${esc(c.n)}</span>${roles}</h3>
     <div class="cat">${esc(c.cat)} · ${esc(c.model)}</div>
     <p>${esc(c.stack)}</p><p class="notes">${esc(c.notes)}</p>
@@ -293,19 +297,21 @@ function tab(name){
 $("tab-jobs").onclick=()=>tab("jobs");$("tab-cos").onclick=()=>tab("cos");
 let tm;$("q").oninput=e=>{clearTimeout(tm);tm=setTimeout(()=>{st.q=e.target.value;st.limit=60;jobsAll()},120)};
 document.addEventListener("keydown",e=>{if(e.key==="/"&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){e.preventDefault();tab("jobs");$("q").focus()}});
-for(const [id,key,num] of [["sort","sort",0],["minmatch","minmatch",1],["minsal","minsal",1],["maxage","maxage",1],["view","view",0]])
+for(const [id,key,num] of [["sort","sort",0],["minsal","minsal",1],["maxage","maxage",1],["view","view",0]])
   $(id).onchange=e=>{st[key]=num?+e.target.value:e.target.value;st.limit=60;jobsAll()};
+$("minmatch").oninput=e=>{const v=+e.target.value;st.minmatch=v;$("minmatchv").textContent=v?v+"%+":"Any";st.limit=60;renderJobs()};
+$("minmatch").onchange=()=>renderRail();
 $("more").onclick=()=>{st.limit+=60;renderJobs()};
 $("railtoggle").onclick=e=>{const o=$("rail").classList.toggle("open");e.currentTarget.setAttribute("aria-pressed",o)};
 $("chips").onclick=e=>{const b=e.target.closest("button");if(!b)return;
   if(b.dataset.k){st[b.dataset.k]=!st[b.dataset.k]}
   st.limit=60;jobsAll()};
+$("cq").oninput=()=>renderRail();
 $("clist").onclick=e=>{const b=e.target.closest("button");if(!b)return;const c=b.dataset.c;
   if(!c)st.cos.clear();else st.cos.has(c)?st.cos.delete(c):st.cos.add(c);st.limit=60;jobsAll()};
 $("jobs").onchange=e=>{const id=e.target.dataset.j;if(!id)return;const v=e.target.value;
   if(!v)delete store.jobs[id];else store.jobs[id]={s:v,t:(store.jobs[id]&&store.jobs[id].s===v)?store.jobs[id].t:Date.now()};
   persist();renderRail();renderJobs()};
-$("grpchips").onclick=e=>{const b=e.target.closest("button");if(!b)return;st.grp=b.dataset.grp;renderCards()};
 $("stchips").onclick=e=>{const b=e.target.closest("button");if(!b)return;st.stf=b.dataset.st;renderCards()};
 $("cards").onchange=e=>{const n=e.target.dataset.status;if(!n)return;(store.tracker[n]=store.tracker[n]||{}).status=e.target.value;persist();renderCards()};
 $("cards").oninput=e=>{const n=e.target.dataset.note;if(!n)return;(store.tracker[n]=store.tracker[n]||{}).notes=e.target.value;persist()};
