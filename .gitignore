@@ -1,2 +1,5 @@
 node_modules/
 build/
+job-board/jobs.json
+job-board/index.html
+__pycache__/
