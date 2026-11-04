@@ -428,8 +428,6 @@ const themeColor = document.querySelector('meta[name="theme-color"]');
 
 function renderTheme() {
   const dark = document.documentElement.dataset.theme !== "light";
-  // the button names what a click will switch to
-  toggle.textContent = dark ? "Light" : "Dark";
   toggle.setAttribute("aria-label", `Switch to ${dark ? "light" : "dark"} theme`);
   themeColor.content = dark ? "#000000" : "#ffffff";
 }

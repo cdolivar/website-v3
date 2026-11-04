@@ -201,6 +201,28 @@ button {
   cursor: pointer;
   transition: border-color 0.3s, background 0.3s, color 0.3s;
 }
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+}
+.theme-toggle svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* the icon shows what a click will switch to */
+:root[data-theme="dark"] .icon-moon,
+:root[data-theme="light"] .icon-sun {
+  display: none;
+}
+
 .top__contact a:hover,
 .theme-toggle:hover {
   border-color: var(--paper);
@@ -709,8 +731,7 @@ a.eyebrow:hover {
   .top__time {
     display: none;
   }
-  .top__contact a,
-  .theme-toggle {
+  .top__contact a {
     padding: 6px 12px;
   }
   .strip {
