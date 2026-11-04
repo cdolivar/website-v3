@@ -13,7 +13,7 @@ TITLE_NEG=[(r"\bios\b|android|mobile",-22),(r"devops|\bsre\b|reliability|infrast
            (r"data (scien|eng|analy)|machine learning|\bml\b|\bai research|research",-20),(r"embedded|kernel|firmware|(?<!design )systems|database|\bdba\b|compiler",-25),
            (r"back.?end",-10),(r"\brust\b|\bgolang\b|\bgo\b|c\+\+|\bjava\b|\.net|\bphp\b|\bruby\b|python|elixir|scala|kotlin|swift",-12),
            (r"sales|solutions|\bsupport\b|customer|success|recruit|marketing|finance|legal|people|\baccount|partner|counsel|\bprogram\b|product manager|designer|writer",-60)]
-SENIOR=[(r"\bsenior\b|\bsr\.?\b",10,"Senior level"),(r"\bstaff\b",5,"Staff level"),(r"principal|distinguished",-4,None),(r"intern|junior|\bjr\b|associate|graduate|entry",-18,None),(r"manager|director|\bhead\b|\bvp\b|chief",-25,None)]
+SENIOR=[(r"\bsenior\b|\bsr\.?\b",10,"Senior level"),(r"\bstaff\b",-25,None),(r"principal|distinguished",-4,None),(r"intern|junior|\bjr\b|associate|graduate|entry",-18,None),(r"manager|director|\bhead\b|\bvp\b|chief",-25,None)]
 GAPS=[("Python",r"\bpython\b"),("Ruby",r"\bruby\b"),("Rust",r"\brust\b"),("Java",r"\bjava\b"),("Go",r"\bgolang\b"),("Kubernetes",r"kubernetes"),("AWS",r"\baws\b"),("SQL/Postgres",r"postgres|\bsql\b"),("Elixir",r"elixir"),("GraphQL",r"graphql")]
 KW=[("React",r"\bReact(\.js|js)?\b|\breactjs\b|\breact\.js\b",8),("TypeScript",r"typescript",8),("JavaScript",r"javascript",3),("Next.js",r"next\.?js",3),("Node",r"node(\.js|js)?\b",2),
     ("Tailwind",r"tailwind",2),("Accessibility",r"web accessibility|accessible (ui|web|interface|component|product)|\bwcag\b|\ba11y\b|aria\b",5),("A/B testing",r"a/b test|split test|experimentation (platform|framework)|feature flag",5),
