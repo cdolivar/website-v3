@@ -133,7 +133,7 @@ ul.jobs{list-style:none;margin:0;padding:0;background:var(--surface);border:1px 
             <select id="sort" aria-label="Sort"><option value="match">Best resume match</option><option value="sal">Highest salary</option><option value="new">Newest first</option><option value="co">Company A to Z</option></select>
             <select id="minmatch" aria-label="Minimum match"><option value="0">Any match</option><option value="50">50%+ match</option><option value="70">70%+ match</option></select>
             <select id="minsal" aria-label="Minimum salary"><option value="0">Any salary</option><option value="120000">$120k+ top of band</option><option value="150000">$150k+ top of band</option><option value="180000">$180k+ top of band</option><option value="220000">$220k+ top of band</option></select>
-            <select id="maxage" aria-label="Posting age"><option value="0">Any age</option><option value="30">Posted last 30 days</option><option value="90">Posted last 90 days</option><option value="180">Posted last 6 months</option></select>
+            <select id="maxage" aria-label="Posting age"><option value="0">Any age</option><option value="30">Posted last 30 days</option><option value="90">Posted last 90 days</option><option value="180" selected>Posted last 6 months</option></select>
             <select id="view" aria-label="Show"><option value="active">Active roles</option><option value="saved">Saved</option><option value="applied">Applied / interviewing</option><option value="hidden">Hidden</option></select>
           </div>
         </div>
@@ -184,7 +184,7 @@ for(const j of JOBS){
 }
 try{localStorage.setItem("jobboard.seen",JSON.stringify(JOBS.map(j=>j.h)))}catch(e){}
 
-const st={q:"",eng:true,remote:true,usa:true,sal:false,cos:new Set(),sort:"match",view:"active",minmatch:0,minsal:0,maxage:0,limit:60,fresh:false};
+const st={q:"",eng:true,remote:true,usa:true,sal:false,cos:new Set(),sort:"match",view:"active",minmatch:0,minsal:0,maxage:180,limit:60,fresh:false};
 const jstat=j=>(store.jobs[j.id]||{}).s||"";
 const isApplied=s=>s==="applied"||s==="interviewing";
 
