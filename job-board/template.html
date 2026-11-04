@@ -136,7 +136,7 @@ ul.jobs{list-style:none;margin:0;padding:0;background:var(--surface);border:1px 
           </div>
           <div class="row" id="chips"></div>
           <div class="row">
-            <select id="sort" aria-label="Sort"><option value="match">Best resume match</option><option value="sal">Highest salary</option><option value="new">Newest first</option><option value="co">Company A to Z</option></select>
+            <select id="sort" aria-label="Sort"><option value="new">Newest first</option><option value="match">Best resume match</option><option value="sal">Highest salary</option><option value="co">Company A to Z</option></select>
             <label class="slider" for="minmatch">Min match <input type="range" id="minmatch" min="0" max="100" step="5" value="0"><output id="minmatchv" for="minmatch">Any</output></label>
             <select id="minsal" aria-label="Minimum salary"><option value="0">Any salary</option><option value="120000">$120k+ top of band</option><option value="150000">$150k+ top of band</option><option value="180000">$180k+ top of band</option><option value="220000">$220k+ top of band</option></select>
             <select id="maxage" aria-label="Posting age"><option value="0">Any date (last 60 days)</option><option value="1">Last 24 hours</option><option value="7">Past week</option><option value="30">Past month</option></select>
@@ -190,7 +190,7 @@ for(const j of JOBS){
 }
 try{localStorage.setItem("jobboard.seen",JSON.stringify(JOBS.map(j=>j.h)))}catch(e){}
 
-const st={q:"",eng:true,remote:true,usa:true,sal:false,cos:new Set(),sort:"match",view:"active",minmatch:0,minsal:0,maxage:0,limit:60,fresh:false};
+const st={q:"",eng:true,remote:true,usa:true,sal:false,cos:new Set(),sort:"new",view:"active",minmatch:0,minsal:0,maxage:0,limit:60,fresh:false};
 const jstat=j=>(store.jobs[j.id]||{}).s||"";
 const isApplied=s=>s==="applied"||s==="interviewing";
 
@@ -243,7 +243,7 @@ const kfmt=n=>"$"+Math.round(n/1000)+"k";
 function renderJobs(){
   const list=filtered(false);
   const s=st.sort,top=j=>j.sal?j.sal[1]:0;
-  list.sort((a,b)=>s==="match"?b.m-a.m||a.age-b.age:s==="sal"?top(b)-top(a)||b.m-a.m:s==="new"?a.age-b.age||a.c.localeCompare(b.c):a.c.localeCompare(b.c)||b.m-a.m);
+  list.sort((a,b)=>s==="match"?b.m-a.m||a.age-b.age:s==="sal"?top(b)-top(a)||b.m-a.m:s==="new"?a.age-b.age||b.m-a.m:a.c.localeCompare(b.c)||b.m-a.m);
   $("count").textContent=list.length+" role"+(list.length===1?"":"s")+" shown";
   const page=list.slice(0,st.limit);
   $("jobs").innerHTML=page.length?page.map(j=>{
