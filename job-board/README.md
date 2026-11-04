@@ -20,3 +20,7 @@ python3 discover.py rows.json discovered.json
 - remoteintech/remote-jobs (ISC licensed): `src/companies/*.md` front matter (`title`, `slug`, `website`, `careers_url`).
 
 Add the results to `feeds.json` and `companies.csv` (the `Size` column holds tiny, small, medium, large or enterprise).
+
+## Supported job-board systems
+
+`fetch_jobs.py` reads Greenhouse, Ashby, Lever, Workable, Gem, Recruitee, Breezy, SmartRecruiters and BambooHR (`ats` in `feeds.json`: `gh`, `ashby`, `lever`, `workable`, `gem`, `recruitee`, `breezy`, `smartrecruiters`, `bamboohr`). Workday, iCIMS, Taleo, SuccessFactors and custom careers sites are not supported. `discover.py` only finds Greenhouse, Ashby and Lever boards; other systems were added by scanning careers pages for their board names.

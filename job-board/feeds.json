@@ -698,5 +698,25 @@
  "Eloquent AI": {
   "ats": "ashby",
   "slug": "eloquentai"
+ },
+ "Hugging Face": {
+  "ats": "workable",
+  "slug": "huggingface"
+ },
+ "Seeq": {
+  "ats": "workable",
+  "slug": "seeq"
+ },
+ "Weekday": {
+  "ats": "workable",
+  "slug": "weekday-1"
+ },
+ "Ocient": {
+  "ats": "gem",
+  "slug": "ocient-inc-"
+ },
+ "Sourcegraph": {
+  "ats": "gh",
+  "slug": "sourcegraph91"
  }
 }

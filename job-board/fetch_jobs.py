@@ -116,7 +116,66 @@ def lv(n,s):
             import datetime; posted=datetime.datetime.utcfromtimestamp(j["createdAt"]/1000).strftime("%Y-%m-%d")
         out.append(finish(n,j["text"],loc,cat.get("team") or cat.get("department") or "",j["hostedUrl"],posted,str(j.get("workplaceType","")).lower()=="remote",desc,sal))
     return out
-FETCH={"gh":gh,"ashby":ab,"lever":lv}
+def _loc(*parts): return ", ".join(p for p in parts if p)
+def wk(n,s):
+    out=[]
+    for j in get(f"https://apply.workable.com/api/v1/widget/accounts/{s}?details=true").get("jobs") or []:
+        tele=bool(j.get("telecommuting"))
+        loc=_loc("Remote" if tele else "",j.get("city"),j.get("state"),j.get("country"))
+        desc=strip(j.get("description"))
+        out.append(finish(n,j["title"],loc,j.get("department") or "",j.get("url") or j.get("shortlink"),(j.get("published_on") or j.get("created_at") or "")[:10],tele,desc,None))
+    return out
+def rc(n,s):
+    out=[]
+    for j in get(f"https://{s}.recruitee.com/api/offers/").get("offers") or []:
+        if j.get("status") and j["status"]!="published": continue
+        rem=bool(j.get("remote")) and not j.get("hybrid")
+        loc=_loc("Remote" if rem else "",j.get("location") or _loc(j.get("city"),j.get("country")))
+        sal=None
+        sa=j.get("salary") or {}
+        if isinstance(sa,dict) and sa.get("min") and sa.get("max") and str(sa.get("currency","USD")).upper()=="USD" and "year" in str(sa.get("period","year")).lower(): sal=(int(float(sa["min"])),int(float(sa["max"])))
+        out.append(finish(n,j["title"],loc,j.get("department") or "",j["careers_url"],(j.get("published_at") or j.get("created_at") or "")[:10],rem,strip(j.get("description"))+" "+strip(j.get("requirements")),sal))
+    return out
+def gm(n,s):
+    out=[]
+    for j in get(f"https://api.gem.com/job_board/v0/{s}/job_posts/") or []:
+        lt=str(j.get("location_type") or "").lower()
+        ln=(j.get("location") or {}).get("name") or ""
+        rem=lt=="remote"
+        loc=_loc("Remote" if rem and "remote" not in ln.lower() else "",ln)
+        dept=", ".join(d.get("name","") for d in (j.get("departments") or []))
+        out.append(finish(n,j["title"],loc,dept,j["absolute_url"],(j.get("first_published_at") or j.get("created_at") or "")[:10],rem,j.get("content_plain") or strip(j.get("content")),None))
+    return out
+def bz(n,s):
+    out=[]
+    for j in get(f"https://{s}.breezy.hr/json") or []:
+        l=j.get("location") or {}
+        rem=bool(l.get("is_remote"))
+        loc=_loc("Remote" if rem else "",l.get("city"),l.get("name") if l.get("name") and l.get("name")!=l.get("city") else "",(l.get("state") or {}).get("name") if isinstance(l.get("state"),dict) else "",(l.get("country") or {}).get("name") if isinstance(l.get("country"),dict) else "")
+        out.append(finish(n,j["name"],loc,j.get("department") or "",j["url"],(j.get("published_date") or "")[:10],rem,"",None))
+    return out
+def sr(n,s):
+    out=[]
+    for j in get(f"https://api.smartrecruiters.com/v1/companies/{s}/postings?limit=100").get("content") or []:
+        l=j.get("location") or {}
+        rem=bool(l.get("remote"))
+        loc=_loc("Remote" if rem else "",l.get("city"),(l.get("region") or "").upper(),(l.get("country") or "").upper())
+        out.append(finish(n,j["name"],loc,(j.get("department") or {}).get("label") or "",f"https://jobs.smartrecruiters.com/{s}/{j['id']}",(j.get("releasedDate") or "")[:10],rem,"",None))
+    return out
+def bh(n,s):
+    out=[]
+    for j in (get(f"https://{s}.bamboohr.com/careers/list").get("result") or []):
+        rem=str(j.get("locationType"))=="1" or bool(j.get("isRemote"))
+        l=j.get("location") or {}
+        loc=_loc("Remote" if rem else "",l.get("city"),l.get("state"))
+        posted="";desc=""
+        try:
+            d=get(f"https://{s}.bamboohr.com/careers/{j['id']}/detail")["result"]["jobOpening"]
+            posted=(d.get("datePosted") or "")[:10]; desc=strip(d.get("description"))
+        except Exception: pass
+        out.append(finish(n,j["jobOpeningName"],loc,j.get("departmentLabel") or "",f"https://{s}.bamboohr.com/careers/{j['id']}",posted,rem,desc,None))
+    return out
+FETCH={"gh":gh,"ashby":ab,"lever":lv,"workable":wk,"recruitee":rc,"gem":gm,"breezy":bz,"smartrecruiters":sr,"bamboohr":bh}
 jobs=[]
 with cf.ThreadPoolExecutor(8) as ex:
     fs={ex.submit(FETCH[v["ats"]],n,v["slug"]):(n,v) for n,v in FEEDS.items()}
