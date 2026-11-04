@@ -1,9 +1,10 @@
 # Fetches open roles from public Greenhouse/Ashby boards, extracts salary bands,
 # remote/US eligibility and a resume-match score. Writes jobs.json.
 import sys, json, re, html, urllib.request, concurrent.futures as cf
-GH={"GitLab":"gitlab","Grafana Labs":"grafanalabs","Dropbox":"dropbox","Customer.io":"customerio","Huntress":"huntress","Bitwarden":"bitwarden","Brave Software":"brave","Affirm":"affirm","Canonical":"canonical","Vercel":"vercel","Nearform":"nearform"}
-AB={"Zapier":"zapier","Supabase":"supabase","PostHog":"posthog","RevenueCat":"revenuecat","Kit (formerly ConvertKit)":"kit","Ashby":"ashby","Camunda":"camunda","Circle (circle.so)":"circle","Close":"close","Tremendous":"tremendous","Deel":"deel","Buffer":"buffer","1Password":"1password","Linear":"linear","Docker":"docker"}
-
+ARGS=[x for x in sys.argv[1:] if not x.startswith("--")]
+FEEDS_FILE=ARGS[0] if ARGS else "feeds.json"
+OUT_FILE=ARGS[1] if len(ARGS)>1 else "jobs.json"
+FEEDS=json.load(open(FEEDS_FILE))  # {company: {"ats": "gh"|"ashby"|"lever", "slug": str, "remote_only": bool}}
 # ---- Resume profile (Charles Olivar): React/TypeScript product frontend, growth experiments, a11y, ~7 yrs ----
 TITLE_PTS=[(r"front.?end|\bui\b|web (engineer|developer)|react|javascript|typescript|design engineer",42),
            (r"full.?stack|product engineer|growth|experimentation|web platform",34),
@@ -92,14 +93,33 @@ def ab(n,s):
         remote=bool(j.get("isRemote")) or str(j.get("workplaceType","")).lower()=="remote"
         out.append(finish(n,j["title"],loc,j.get("department") or j.get("team") or "",j["jobUrl"],(j.get("publishedAt") or "")[:10],remote,j.get("descriptionPlain") or strip(j.get("descriptionHtml")),sal,country,sec))
     return out
+def lv(n,s):
+    out=[]
+    for j in get(f"https://api.lever.co/v0/postings/{s}?mode=json"):
+        cat=j.get("categories") or {}
+        locs=cat.get("allLocations") or [cat.get("location") or ""]
+        loc="; ".join(x for x in locs if x)
+        sal=None
+        r=j.get("salaryRange") or {}
+        if r.get("min") and r.get("max") and r.get("currency","USD")=="USD" and "year" in str(r.get("interval","per-year-salary")).lower():
+            sal=(int(r["min"]),int(r["max"]))
+        desc=(j.get("descriptionPlain") or "")+" "+" ".join((x.get("text","")+" "+strip(x.get("content",""))) for x in (j.get("lists") or []))+" "+(j.get("additionalPlain") or "")
+        posted=""
+        if j.get("createdAt"):
+            import datetime; posted=datetime.datetime.utcfromtimestamp(j["createdAt"]/1000).strftime("%Y-%m-%d")
+        out.append(finish(n,j["text"],loc,cat.get("team") or cat.get("department") or "",j["hostedUrl"],posted,str(j.get("workplaceType","")).lower()=="remote",desc,sal))
+    return out
+FETCH={"gh":gh,"ashby":ab,"lever":lv}
 jobs=[]
 with cf.ThreadPoolExecutor(8) as ex:
-    fs={ex.submit(gh,n,s):n for n,s in GH.items()}; fs.update({ex.submit(ab,n,s):n for n,s in AB.items()})
-    for f,n in fs.items():
-        try: r=f.result(); jobs+=r; print(n,len(r))
+    fs={ex.submit(FETCH[v["ats"]],n,v["slug"]):(n,v) for n,v in FEEDS.items()}
+    for f,(n,v) in fs.items():
+        try:
+            r=f.result()
+            if v.get("remote_only"): r=[j for j in r if j["rm"]]
+            jobs+=r; print(n,len(r))
         except Exception as e: print("ERR",n,e)
-if len(jobs)>=500: json.dump(jobs,open("jobs.json","w"),separators=(",",":"),ensure_ascii=False)
+json.dump(jobs,open(OUT_FILE,"w"),separators=(",",":"),ensure_ascii=False)
 print(len(jobs),"jobs;",sum(1 for j in jobs if j["sal"]),"with salary;",sum(1 for j in jobs if j["rm"]),"remote;",sum(1 for j in jobs if j["us"]),"US/any/unclear")
-
 if len(jobs)<500:  # a broken feed must never overwrite a good page
     sys.exit("Only %d jobs fetched; refusing to publish"%len(jobs))

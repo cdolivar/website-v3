@@ -7,7 +7,7 @@ have={j["c"] for j in jobs}
 for r in rows[1:]:
     if not r or not r[0].strip(): continue
     d=dict(zip(hdr,r))
-    cos.append(dict(n=d["Company"],cat=d["Category"],model=d["Remote model"],site=d["Career site"],stack=d["What they build / stack"],notes=d["Hiring regions & notes"],feed=d["Company"] in have))
+    cos.append(dict(n=d["Company"],cat=d["Category"],model=d["Remote model"],site=d["Career site"],stack=d["What they build / stack"],notes=d["Hiring regions & notes"],feed=d["Company"] in have,grp="added" if d["Source"].startswith("Public job feed") else "orig"))
 html=open("template.html",encoding="utf-8").read()
 html=html.replace("/*JOBS*/[]",json.dumps(jobs,separators=(",",":"),ensure_ascii=True).replace("</","<\\/"))
 html=html.replace("/*COMPANIES*/[]",json.dumps(cos,separators=(",",":"),ensure_ascii=True).replace("</","<\\/"))

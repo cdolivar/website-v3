@@ -107,7 +107,7 @@ ul.jobs{list-style:none;margin:0;padding:0;background:var(--surface);border:1px 
   <header class="top">
     <div>
       <h1>Remote Job Board</h1>
-      <p class="sub">Remote, US-eligible roles at 30 companies, ranked against your resume. Snapshot from <span id="date">__DATE__</span>.</p>
+      <p class="sub">Remote, US-eligible roles at <span id="nco">30</span> companies, ranked against your resume. Snapshot from <span id="date">__DATE__</span>.</p>
     </div>
     <div class="stats" id="stats"></div>
   </header>
@@ -145,7 +145,7 @@ ul.jobs{list-style:none;margin:0;padding:0;background:var(--surface);border:1px 
   </section>
 
   <section id="view-cos" hidden>
-    <div class="tools"><div class="row" id="stchips"></div></div>
+    <div class="tools"><div class="row" id="grpchips"></div><div class="row" id="stchips"></div></div>
     <div class="cards" id="cards"></div>
     <div class="exp">
       <div class="row"><button class="chip" id="csvbtn">Copy my tracker as CSV</button><span class="sub" id="csvmsg"></span></div>
@@ -153,7 +153,7 @@ ul.jobs{list-style:none;margin:0;padding:0;background:var(--surface);border:1px 
     </div>
   </section>
 
-  <p class="hint">Match % compares each posting with your resume: title fit (frontend, product, full-stack), seniority, and skills the posting names (React, TypeScript, accessibility, A/B testing). It is a guide, not a verdict. "Also mentions" lists tools in the posting that are not on your resume. Salary bands come from the posting or its description and can cover several locations; "No band listed" means none was found. Posting dates come from each company's job board and old dates may be evergreen listings. Status, notes and role tracking stay in this browser only.</p>
+  <p class="hint">Match % compares each posting with your resume: title fit (frontend, product, full-stack), seniority, and skills the posting names (React, TypeScript, accessibility, A/B testing). It is a guide, not a verdict. "Also mentions" lists tools in the posting that are not on your resume. Salary bands come from the posting or its description and can cover several locations; "No band listed" means none was found. Added companies are the top 50 by remote US engineering roles among about 100 well-known tech employers with a public job feed, so they show remote roles only. Posting dates come from each company's job board and old dates may be evergreen listings. Status, notes and role tracking stay in this browser only.</p>
 </div>
 
 <script>
@@ -184,7 +184,8 @@ for(const j of JOBS){
 }
 try{localStorage.setItem("jobboard.seen",JSON.stringify(JOBS.map(j=>j.h)))}catch(e){}
 
-const st={q:"",eng:true,remote:true,usa:true,sal:false,cos:new Set(),sort:"match",view:"active",minmatch:0,minsal:0,maxage:0,limit:60,fresh:false};
+const GRPS=[["all","All companies"],["orig","Original list"],["added","Added: top remote hirers"]];
+const st={grp:"all",q:"",eng:true,remote:true,usa:true,sal:false,cos:new Set(),sort:"match",view:"active",minmatch:0,minsal:0,maxage:0,limit:60,fresh:false};
 const jstat=j=>(store.jobs[j.id]||{}).s||"";
 const isApplied=s=>s==="applied"||s==="interviewing";
 
@@ -261,10 +262,11 @@ function renderCards(){
   const cnt={},eng={};for(const j of JOBS){cnt[j.c]=(cnt[j.c]||0)+1;if(j.eng&&j.rm&&j.us)eng[j.c]=(eng[j.c]||0)+1}
   const f=st.stf||"All";
   $("stchips").innerHTML=["All",...STATUSES].map(s=>`<button class="chip" data-st="${s}" aria-pressed="${f===s}">${s}</button>`).join("");
-  const list=COS.filter(c=>f==="All"||((store.tracker[c.n]||{}).status||"Not started")===f);
+  $("grpchips").innerHTML=GRPS.map(([k,l])=>`<button class="chip" data-grp="${k}" aria-pressed="${st.grp===k}">${l} (${COS.filter(c=>k==="all"||c.grp===k).length})</button>`).join("");
+  const list=COS.filter(c=>(st.grp==="all"||c.grp===st.grp)&&(f==="All"||((store.tracker[c.n]||{}).status||"Not started")===f));
   $("cards").innerHTML=list.map(c=>{
     const t=store.tracker[c.n]||{},status=t.status||"Not started";
-    const roles=c.feed?`<span class="roles ${eng[c.n]?"":"none"}" title="Remote, US-eligible engineering roles out of all open roles">${eng[c.n]||0} fit · ${cnt[c.n]} open</span>`:'<span class="roles none">no live feed</span>';
+    const roles=c.feed?`<span class="roles ${eng[c.n]?"":"none"}" title="Remote, US-eligible engineering roles out of all open roles">${eng[c.n]||0} fit · ${cnt[c.n]} ${c.grp==="added"?"remote":"open"}</span>`:'<span class="roles none">no live feed</span>';
     return `<div class="card st-${status.replace(" ","")}"><h3><span>${esc(c.n)}</span>${roles}</h3>
     <div class="cat">${esc(c.cat)} · ${esc(c.model)}</div>
     <p>${esc(c.stack)}</p><p class="notes">${esc(c.notes)}</p>
@@ -303,6 +305,7 @@ $("clist").onclick=e=>{const b=e.target.closest("button");if(!b)return;const c=b
 $("jobs").onchange=e=>{const id=e.target.dataset.j;if(!id)return;const v=e.target.value;
   if(!v)delete store.jobs[id];else store.jobs[id]={s:v,t:(store.jobs[id]&&store.jobs[id].s===v)?store.jobs[id].t:Date.now()};
   persist();renderRail();renderJobs()};
+$("grpchips").onclick=e=>{const b=e.target.closest("button");if(!b)return;st.grp=b.dataset.grp;renderCards()};
 $("stchips").onclick=e=>{const b=e.target.closest("button");if(!b)return;st.stf=b.dataset.st;renderCards()};
 $("cards").onchange=e=>{const n=e.target.dataset.status;if(!n)return;(store.tracker[n]=store.tracker[n]||{}).status=e.target.value;persist();renderCards()};
 $("cards").oninput=e=>{const n=e.target.dataset.note;if(!n)return;(store.tracker[n]=store.tracker[n]||{}).notes=e.target.value;persist()};
@@ -312,6 +315,7 @@ $("csvbtn").onclick=async()=>{
   let ok=false;try{await navigator.clipboard.writeText(t);ok=true}catch(e){}
   $("csvmsg").textContent=ok?"Copied. Paste into a spreadsheet.":"Select the text below and copy it.";
 };
+$("nco").textContent=COS.length;
 renderStats();jobsAll();
 if(location.hash==="#companies")tab("cos");
 </script>

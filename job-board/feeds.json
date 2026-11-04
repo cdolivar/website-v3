@@ -1,0 +1,356 @@
+{
+ "GitLab": {
+  "ats": "gh",
+  "slug": "gitlab"
+ },
+ "Grafana Labs": {
+  "ats": "gh",
+  "slug": "grafanalabs"
+ },
+ "Dropbox": {
+  "ats": "gh",
+  "slug": "dropbox"
+ },
+ "Customer.io": {
+  "ats": "gh",
+  "slug": "customerio"
+ },
+ "Huntress": {
+  "ats": "gh",
+  "slug": "huntress"
+ },
+ "Bitwarden": {
+  "ats": "gh",
+  "slug": "bitwarden"
+ },
+ "Brave Software": {
+  "ats": "gh",
+  "slug": "brave"
+ },
+ "Affirm": {
+  "ats": "gh",
+  "slug": "affirm"
+ },
+ "Canonical": {
+  "ats": "gh",
+  "slug": "canonical"
+ },
+ "Vercel": {
+  "ats": "gh",
+  "slug": "vercel"
+ },
+ "Nearform": {
+  "ats": "gh",
+  "slug": "nearform"
+ },
+ "Zapier": {
+  "ats": "ashby",
+  "slug": "zapier"
+ },
+ "Supabase": {
+  "ats": "ashby",
+  "slug": "supabase"
+ },
+ "PostHog": {
+  "ats": "ashby",
+  "slug": "posthog"
+ },
+ "RevenueCat": {
+  "ats": "ashby",
+  "slug": "revenuecat"
+ },
+ "Kit (formerly ConvertKit)": {
+  "ats": "ashby",
+  "slug": "kit"
+ },
+ "Ashby": {
+  "ats": "ashby",
+  "slug": "ashby"
+ },
+ "Camunda": {
+  "ats": "ashby",
+  "slug": "camunda"
+ },
+ "Circle (circle.so)": {
+  "ats": "ashby",
+  "slug": "circle"
+ },
+ "Close": {
+  "ats": "ashby",
+  "slug": "close"
+ },
+ "Tremendous": {
+  "ats": "ashby",
+  "slug": "tremendous"
+ },
+ "Deel": {
+  "ats": "ashby",
+  "slug": "deel"
+ },
+ "Buffer": {
+  "ats": "ashby",
+  "slug": "buffer"
+ },
+ "1Password": {
+  "ats": "ashby",
+  "slug": "1password"
+ },
+ "Linear": {
+  "ats": "ashby",
+  "slug": "linear"
+ },
+ "Docker": {
+  "ats": "ashby",
+  "slug": "docker"
+ },
+ "OpenAI": {
+  "ats": "ashby",
+  "slug": "openai",
+  "remote_only": true
+ },
+ "Reddit": {
+  "ats": "gh",
+  "slug": "reddit",
+  "remote_only": true
+ },
+ "Coinbase": {
+  "ats": "gh",
+  "slug": "coinbase",
+  "remote_only": true
+ },
+ "ClickHouse": {
+  "ats": "ashby",
+  "slug": "clickhouse",
+  "remote_only": true
+ },
+ "Plaid": {
+  "ats": "ashby",
+  "slug": "plaid",
+  "remote_only": true
+ },
+ "Pinterest": {
+  "ats": "gh",
+  "slug": "pinterest",
+  "remote_only": true
+ },
+ "Anthropic": {
+  "ats": "gh",
+  "slug": "anthropic",
+  "remote_only": true
+ },
+ "Temporal": {
+  "ats": "ashby",
+  "slug": "temporal",
+  "remote_only": true
+ },
+ "Ramp": {
+  "ats": "ashby",
+  "slug": "ramp",
+  "remote_only": true
+ },
+ "Samsara": {
+  "ats": "gh",
+  "slug": "samsara",
+  "remote_only": true
+ },
+ "Toast": {
+  "ats": "gh",
+  "slug": "toast",
+  "remote_only": true
+ },
+ "Render": {
+  "ats": "ashby",
+  "slug": "render",
+  "remote_only": true
+ },
+ "Stripe": {
+  "ats": "gh",
+  "slug": "stripe",
+  "remote_only": true
+ },
+ "ElevenLabs": {
+  "ats": "ashby",
+  "slug": "elevenlabs",
+  "remote_only": true
+ },
+ "Cohere": {
+  "ats": "ashby",
+  "slug": "cohere",
+  "remote_only": true
+ },
+ "Notion": {
+  "ats": "ashby",
+  "slug": "notion",
+  "remote_only": true
+ },
+ "Mercury": {
+  "ats": "gh",
+  "slug": "mercury",
+  "remote_only": true
+ },
+ "Sentry": {
+  "ats": "ashby",
+  "slug": "sentry",
+  "remote_only": true
+ },
+ "Vanta": {
+  "ats": "ashby",
+  "slug": "vanta",
+  "remote_only": true
+ },
+ "Instacart": {
+  "ats": "gh",
+  "slug": "instacart",
+  "remote_only": true
+ },
+ "Databricks": {
+  "ats": "gh",
+  "slug": "databricks",
+  "remote_only": true
+ },
+ "Replit": {
+  "ats": "ashby",
+  "slug": "replit",
+  "remote_only": true
+ },
+ "Deepgram": {
+  "ats": "ashby",
+  "slug": "deepgram",
+  "remote_only": true
+ },
+ "Twilio": {
+  "ats": "gh",
+  "slug": "twilio",
+  "remote_only": true
+ },
+ "Strava": {
+  "ats": "ashby",
+  "slug": "strava",
+  "remote_only": true
+ },
+ "Airbnb": {
+  "ats": "gh",
+  "slug": "airbnb",
+  "remote_only": true
+ },
+ "Zscaler": {
+  "ats": "gh",
+  "slug": "zscaler",
+  "remote_only": true
+ },
+ "DoorDash": {
+  "ats": "gh",
+  "slug": "doordashusa",
+  "remote_only": true
+ },
+ "Hex": {
+  "ats": "ashby",
+  "slug": "hex",
+  "remote_only": true
+ },
+ "Mozilla": {
+  "ats": "gh",
+  "slug": "mozilla",
+  "remote_only": true
+ },
+ "Spotify": {
+  "ats": "lever",
+  "slug": "spotify",
+  "remote_only": true
+ },
+ "Tailscale": {
+  "ats": "gh",
+  "slug": "tailscale",
+  "remote_only": true
+ },
+ "Benchling": {
+  "ats": "ashby",
+  "slug": "benchling",
+  "remote_only": true
+ },
+ "Cursor": {
+  "ats": "ashby",
+  "slug": "cursor",
+  "remote_only": true
+ },
+ "Gemini": {
+  "ats": "gh",
+  "slug": "gemini",
+  "remote_only": true
+ },
+ "Quora": {
+  "ats": "ashby",
+  "slug": "quora",
+  "remote_only": true
+ },
+ "Zocdoc": {
+  "ats": "gh",
+  "slug": "zocdoc",
+  "remote_only": true
+ },
+ "Perplexity": {
+  "ats": "ashby",
+  "slug": "perplexity",
+  "remote_only": true
+ },
+ "Discord": {
+  "ats": "gh",
+  "slug": "discord",
+  "remote_only": true
+ },
+ "Amplitude": {
+  "ats": "ashby",
+  "slug": "amplitude",
+  "remote_only": true
+ },
+ "LaunchDarkly": {
+  "ats": "gh",
+  "slug": "launchdarkly",
+  "remote_only": true
+ },
+ "Fivetran": {
+  "ats": "gh",
+  "slug": "fivetran",
+  "remote_only": true
+ },
+ "Sanity": {
+  "ats": "ashby",
+  "slug": "sanity",
+  "remote_only": true
+ },
+ "Thumbtack": {
+  "ats": "ashby",
+  "slug": "thumbtack",
+  "remote_only": true
+ },
+ "Honeycomb": {
+  "ats": "gh",
+  "slug": "honeycomb",
+  "remote_only": true
+ },
+ "Nerdwallet": {
+  "ats": "ashby",
+  "slug": "nerdwallet",
+  "remote_only": true
+ },
+ "Webflow": {
+  "ats": "ashby",
+  "slug": "webflow",
+  "remote_only": true
+ },
+ "Glean": {
+  "ats": "gh",
+  "slug": "gleanwork",
+  "remote_only": true
+ },
+ "Datadog": {
+  "ats": "gh",
+  "slug": "datadog",
+  "remote_only": true
+ },
+ "Gusto": {
+  "ats": "gh",
+  "slug": "gusto",
+  "remote_only": true
+ }
+}
