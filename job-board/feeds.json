@@ -302,5 +302,401 @@
  "Amplitude": {
   "ats": "ashby",
   "slug": "amplitude"
+ },
+ "15Five": {
+  "ats": "lever",
+  "slug": "15five"
+ },
+ "Alan": {
+  "ats": "ashby",
+  "slug": "alan"
+ },
+ "Axios": {
+  "ats": "gh",
+  "slug": "axios"
+ },
+ "Bounteous": {
+  "ats": "lever",
+  "slug": "bounteous"
+ },
+ "CareMessage": {
+  "ats": "ashby",
+  "slug": "caremessage"
+ },
+ "Chainguard": {
+  "ats": "gh",
+  "slug": "chainguard"
+ },
+ "CircleCI": {
+  "ats": "gh",
+  "slug": "circleci"
+ },
+ "ClickUp": {
+  "ats": "ashby",
+  "slug": "clickup"
+ },
+ "ConsenSys Inc": {
+  "ats": "ashby",
+  "slug": "consensys"
+ },
+ "Dave": {
+  "ats": "ashby",
+  "slug": "dave"
+ },
+ "Doximity": {
+  "ats": "gh",
+  "slug": "doximity"
+ },
+ "Fingerprint": {
+  "ats": "gh",
+  "slug": "fingerprint"
+ },
+ "fleetio": {
+  "ats": "gh",
+  "slug": "fleetio"
+ },
+ "Headway": {
+  "ats": "ashby",
+  "slug": "headway"
+ },
+ "Hopper": {
+  "ats": "ashby",
+  "slug": "hopper"
+ },
+ "iFit": {
+  "ats": "gh",
+  "slug": "ifit"
+ },
+ "InfluxData": {
+  "ats": "ashby",
+  "slug": "influxdata"
+ },
+ "Karat": {
+  "ats": "gh",
+  "slug": "karat"
+ },
+ "Khan Academy": {
+  "ats": "gh",
+  "slug": "khanacademy"
+ },
+ "Kraken": {
+  "ats": "ashby",
+  "slug": "kraken.com"
+ },
+ "Launch Potato": {
+  "ats": "gh",
+  "slug": "launchpotato"
+ },
+ "Luxor Technology": {
+  "ats": "ashby",
+  "slug": "luxor"
+ },
+ "MariaDB": {
+  "ats": "gh",
+  "slug": "mariadbplc"
+ },
+ "Medium": {
+  "ats": "gh",
+  "slug": "medium"
+ },
+ "MeridianLink": {
+  "ats": "ashby",
+  "slug": "meridianlink"
+ },
+ "Muck Rack": {
+  "ats": "gh",
+  "slug": "muckrack"
+ },
+ "Mux": {
+  "ats": "ashby",
+  "slug": "mux"
+ },
+ "Netlify": {
+  "ats": "gh",
+  "slug": "netlify"
+ },
+ "Oddball": {
+  "ats": "gh",
+  "slug": "oddball"
+ },
+ "OpenRouter": {
+  "ats": "ashby",
+  "slug": "openrouter"
+ },
+ "PagerDuty": {
+  "ats": "gh",
+  "slug": "pagerduty"
+ },
+ "Raft": {
+  "ats": "gh",
+  "slug": "raft"
+ },
+ "Redox": {
+  "ats": "lever",
+  "slug": "redoxengine"
+ },
+ "Resend": {
+  "ats": "ashby",
+  "slug": "resend"
+ },
+ "Scribd": {
+  "ats": "ashby",
+  "slug": "ScribdInc"
+ },
+ "SeatGeek": {
+  "ats": "gh",
+  "slug": "seatgeek"
+ },
+ "SecurityScorecard": {
+  "ats": "gh",
+  "slug": "securityscorecard"
+ },
+ "Spreedly": {
+  "ats": "lever",
+  "slug": "spreedly"
+ },
+ "Stitch Fix": {
+  "ats": "gh",
+  "slug": "stitchfix"
+ },
+ "TeamSnap": {
+  "ats": "lever",
+  "slug": "teamsnap"
+ },
+ "Tenable": {
+  "ats": "gh",
+  "slug": "tenableinc"
+ },
+ "Thrive Market": {
+  "ats": "gh",
+  "slug": "thrivemarket"
+ },
+ "Truelogic": {
+  "ats": "ashby",
+  "slug": "truelogic"
+ },
+ "Turing": {
+  "ats": "gh",
+  "slug": "turing"
+ },
+ "Udacity": {
+  "ats": "gh",
+  "slug": "udacity"
+ },
+ "Valimail": {
+  "ats": "gh",
+  "slug": "valimail"
+ },
+ "Veeva Systems": {
+  "ats": "lever",
+  "slug": "veeva"
+ },
+ "VGS": {
+  "ats": "lever",
+  "slug": "verygoodsecurity"
+ },
+ "Virta Health": {
+  "ats": "ashby",
+  "slug": "virtahealth"
+ },
+ "WorkOS": {
+  "ats": "ashby",
+  "slug": "workos"
+ },
+ "CircuitHub": {
+  "ats": "ashby",
+  "slug": "circuithub"
+ },
+ "Rescale": {
+  "ats": "ashby",
+  "slug": "rescale"
+ },
+ "RADAR": {
+  "ats": "ashby",
+  "slug": "radar"
+ },
+ "Qventus": {
+  "ats": "gh",
+  "slug": "qventus"
+ },
+ "Eight Sleep": {
+  "ats": "ashby",
+  "slug": "eightsleep"
+ },
+ "Human Interest": {
+  "ats": "gh",
+  "slug": "humaninterest"
+ },
+ "Lattice": {
+  "ats": "gh",
+  "slug": "lattice"
+ },
+ "Netomi": {
+  "ats": "lever",
+  "slug": "netomi"
+ },
+ "Apollo.io": {
+  "ats": "gh",
+  "slug": "apolloio"
+ },
+ "Legalist": {
+  "ats": "gh",
+  "slug": "legalist"
+ },
+ "Prelim": {
+  "ats": "ashby",
+  "slug": "prelim"
+ },
+ "May Mobility": {
+  "ats": "gh",
+  "slug": "maymobility"
+ },
+ "BioRender": {
+  "ats": "ashby",
+  "slug": "biorender-inc"
+ },
+ "CaptivateIQ": {
+  "ats": "lever",
+  "slug": "captivateiq"
+ },
+ "Canary Technologies": {
+  "ats": "lever",
+  "slug": "canarytechnologies"
+ },
+ "Alpaca": {
+  "ats": "gh",
+  "slug": "alpaca"
+ },
+ "TRM Labs": {
+  "ats": "ashby",
+  "slug": "trm-labs"
+ },
+ "Freshpaint": {
+  "ats": "ashby",
+  "slug": "freshpaint"
+ },
+ "Curri": {
+  "ats": "ashby",
+  "slug": "curri"
+ },
+ "Wonderly": {
+  "ats": "ashby",
+  "slug": "wonderly"
+ },
+ "Junction": {
+  "ats": "ashby",
+  "slug": "junction"
+ },
+ "PostEra": {
+  "ats": "lever",
+  "slug": "postera"
+ },
+ "Zip": {
+  "ats": "ashby",
+  "slug": "zip"
+ },
+ "Roboflow": {
+  "ats": "ashby",
+  "slug": "roboflow"
+ },
+ "Datafold": {
+  "ats": "ashby",
+  "slug": "datafold"
+ },
+ "Atomic": {
+  "ats": "ashby",
+  "slug": "atomic"
+ },
+ "Arketa": {
+  "ats": "ashby",
+  "slug": "arketa"
+ },
+ "Ready": {
+  "ats": "ashby",
+  "slug": "ready"
+ },
+ "Fieldguide": {
+  "ats": "ashby",
+  "slug": "fieldguide"
+ },
+ "authzed": {
+  "ats": "ashby",
+  "slug": "authzed"
+ },
+ "Nourish": {
+  "ats": "gh",
+  "slug": "usenourish"
+ },
+ "SpruceID": {
+  "ats": "ashby",
+  "slug": "spruceid"
+ },
+ "Great Question": {
+  "ats": "ashby",
+  "slug": "greatquestion"
+ },
+ "Quicknode": {
+  "ats": "ashby",
+  "slug": "quicknode"
+ },
+ "Serif Health": {
+  "ats": "ashby",
+  "slug": "serifhealth"
+ },
+ "Tavus": {
+  "ats": "ashby",
+  "slug": "tavus"
+ },
+ "Kodex": {
+  "ats": "ashby",
+  "slug": "kodex"
+ },
+ "Aleph": {
+  "ats": "ashby",
+  "slug": "aleph"
+ },
+ "Nash": {
+  "ats": "ashby",
+  "slug": "Nash"
+ },
+ "Attain": {
+  "ats": "gh",
+  "slug": "attain"
+ },
+ "Infisical": {
+  "ats": "ashby",
+  "slug": "infisical"
+ },
+ "Latent": {
+  "ats": "ashby",
+  "slug": "latent"
+ },
+ "Nango": {
+  "ats": "ashby",
+  "slug": "Nango"
+ },
+ "Numeral": {
+  "ats": "ashby",
+  "slug": "numeral"
+ },
+ "Conduit": {
+  "ats": "ashby",
+  "slug": "conduit"
+ },
+ "LiteLLM": {
+  "ats": "ashby",
+  "slug": "litellm"
+ },
+ "Flex": {
+  "ats": "gh",
+  "slug": "flex"
+ },
+ "Mesh": {
+  "ats": "gh",
+  "slug": "mesh"
+ },
+ "Eloquent AI": {
+  "ats": "ashby",
+  "slug": "eloquentai"
  }
 }
