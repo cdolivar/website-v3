@@ -1,0 +1,306 @@
+{
+ "GitLab": {
+  "ats": "gh",
+  "slug": "gitlab"
+ },
+ "Grafana Labs": {
+  "ats": "gh",
+  "slug": "grafanalabs"
+ },
+ "Dropbox": {
+  "ats": "gh",
+  "slug": "dropbox"
+ },
+ "Customer.io": {
+  "ats": "gh",
+  "slug": "customerio"
+ },
+ "Huntress": {
+  "ats": "gh",
+  "slug": "huntress"
+ },
+ "Bitwarden": {
+  "ats": "gh",
+  "slug": "bitwarden"
+ },
+ "Brave Software": {
+  "ats": "gh",
+  "slug": "brave"
+ },
+ "Affirm": {
+  "ats": "gh",
+  "slug": "affirm"
+ },
+ "Canonical": {
+  "ats": "gh",
+  "slug": "canonical"
+ },
+ "Vercel": {
+  "ats": "gh",
+  "slug": "vercel"
+ },
+ "Nearform": {
+  "ats": "gh",
+  "slug": "nearform"
+ },
+ "Zapier": {
+  "ats": "ashby",
+  "slug": "zapier"
+ },
+ "Supabase": {
+  "ats": "ashby",
+  "slug": "supabase"
+ },
+ "PostHog": {
+  "ats": "ashby",
+  "slug": "posthog"
+ },
+ "RevenueCat": {
+  "ats": "ashby",
+  "slug": "revenuecat"
+ },
+ "Kit (formerly ConvertKit)": {
+  "ats": "ashby",
+  "slug": "kit"
+ },
+ "Ashby": {
+  "ats": "ashby",
+  "slug": "ashby"
+ },
+ "Camunda": {
+  "ats": "ashby",
+  "slug": "camunda"
+ },
+ "Circle (circle.so)": {
+  "ats": "ashby",
+  "slug": "circle"
+ },
+ "Close": {
+  "ats": "ashby",
+  "slug": "close"
+ },
+ "Tremendous": {
+  "ats": "ashby",
+  "slug": "tremendous"
+ },
+ "Deel": {
+  "ats": "ashby",
+  "slug": "deel"
+ },
+ "Buffer": {
+  "ats": "ashby",
+  "slug": "buffer"
+ },
+ "1Password": {
+  "ats": "ashby",
+  "slug": "1password"
+ },
+ "Linear": {
+  "ats": "ashby",
+  "slug": "linear"
+ },
+ "Docker": {
+  "ats": "ashby",
+  "slug": "docker"
+ },
+ "Reddit": {
+  "ats": "gh",
+  "slug": "reddit"
+ },
+ "Coinbase": {
+  "ats": "gh",
+  "slug": "coinbase"
+ },
+ "Pinterest": {
+  "ats": "gh",
+  "slug": "pinterest"
+ },
+ "Anthropic": {
+  "ats": "gh",
+  "slug": "anthropic"
+ },
+ "ClickHouse": {
+  "ats": "ashby",
+  "slug": "clickhouse"
+ },
+ "Toast": {
+  "ats": "gh",
+  "slug": "toast"
+ },
+ "Temporal": {
+  "ats": "ashby",
+  "slug": "temporal"
+ },
+ "Samsara": {
+  "ats": "gh",
+  "slug": "samsara"
+ },
+ "Render": {
+  "ats": "ashby",
+  "slug": "render"
+ },
+ "ElevenLabs": {
+  "ats": "ashby",
+  "slug": "elevenlabs"
+ },
+ "Mercury": {
+  "ats": "gh",
+  "slug": "mercury"
+ },
+ "Vanta": {
+  "ats": "ashby",
+  "slug": "vanta"
+ },
+ "Stripe": {
+  "ats": "gh",
+  "slug": "stripe"
+ },
+ "Cohere": {
+  "ats": "ashby",
+  "slug": "cohere"
+ },
+ "Twilio": {
+  "ats": "gh",
+  "slug": "twilio"
+ },
+ "Instacart": {
+  "ats": "gh",
+  "slug": "instacart"
+ },
+ "OpenAI": {
+  "ats": "ashby",
+  "slug": "openai"
+ },
+ "Deepgram": {
+  "ats": "ashby",
+  "slug": "deepgram"
+ },
+ "Airbnb": {
+  "ats": "gh",
+  "slug": "airbnb"
+ },
+ "Zscaler": {
+  "ats": "gh",
+  "slug": "zscaler"
+ },
+ "DoorDash": {
+  "ats": "gh",
+  "slug": "doordashusa"
+ },
+ "Tailscale": {
+  "ats": "gh",
+  "slug": "tailscale"
+ },
+ "Spotify": {
+  "ats": "lever",
+  "slug": "spotify"
+ },
+ "Gemini": {
+  "ats": "gh",
+  "slug": "gemini"
+ },
+ "Quora": {
+  "ats": "ashby",
+  "slug": "quora"
+ },
+ "Zocdoc": {
+  "ats": "gh",
+  "slug": "zocdoc"
+ },
+ "Mozilla": {
+  "ats": "gh",
+  "slug": "mozilla"
+ },
+ "Discord": {
+  "ats": "gh",
+  "slug": "discord"
+ },
+ "LaunchDarkly": {
+  "ats": "gh",
+  "slug": "launchdarkly"
+ },
+ "Cursor": {
+  "ats": "ashby",
+  "slug": "cursor"
+ },
+ "Thumbtack": {
+  "ats": "ashby",
+  "slug": "thumbtack"
+ },
+ "Sanity": {
+  "ats": "ashby",
+  "slug": "sanity"
+ },
+ "Honeycomb": {
+  "ats": "gh",
+  "slug": "honeycomb"
+ },
+ "Nerdwallet": {
+  "ats": "ashby",
+  "slug": "nerdwallet"
+ },
+ "Databricks": {
+  "ats": "gh",
+  "slug": "databricks"
+ },
+ "Webflow": {
+  "ats": "ashby",
+  "slug": "webflow"
+ },
+ "Hex": {
+  "ats": "ashby",
+  "slug": "hex"
+ },
+ "Datadog": {
+  "ats": "gh",
+  "slug": "datadog"
+ },
+ "Gusto": {
+  "ats": "gh",
+  "slug": "gusto"
+ },
+ "Glean": {
+  "ats": "gh",
+  "slug": "gleanwork"
+ },
+ "Calendly": {
+  "ats": "gh",
+  "slug": "calendly"
+ },
+ "Gong": {
+  "ats": "gh",
+  "slug": "gongio"
+ },
+ "Nextdoor": {
+  "ats": "gh",
+  "slug": "nextdoor"
+ },
+ "Flexport": {
+  "ats": "gh",
+  "slug": "flexport"
+ },
+ "PlanetScale": {
+  "ats": "gh",
+  "slug": "planetscale"
+ },
+ "Plaid": {
+  "ats": "ashby",
+  "slug": "plaid"
+ },
+ "Fivetran": {
+  "ats": "gh",
+  "slug": "fivetran"
+ },
+ "Squarespace": {
+  "ats": "gh",
+  "slug": "squarespace"
+ },
+ "Lyft": {
+  "ats": "gh",
+  "slug": "lyft"
+ },
+ "Amplitude": {
+  "ats": "ashby",
+  "slug": "amplitude"
+ }
+}

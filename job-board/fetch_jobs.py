@@ -1,9 +1,10 @@
 # Fetches open roles from public Greenhouse/Ashby boards, extracts salary bands,
 # remote/US eligibility and a resume-match score. Writes jobs.json.
 import sys, json, re, html, urllib.request, concurrent.futures as cf
-GH={"GitLab":"gitlab","Grafana Labs":"grafanalabs","Dropbox":"dropbox","Customer.io":"customerio","Huntress":"huntress","Bitwarden":"bitwarden","Brave Software":"brave","Affirm":"affirm","Canonical":"canonical","Vercel":"vercel","Nearform":"nearform"}
-AB={"Zapier":"zapier","Supabase":"supabase","PostHog":"posthog","RevenueCat":"revenuecat","Kit (formerly ConvertKit)":"kit","Ashby":"ashby","Camunda":"camunda","Circle (circle.so)":"circle","Close":"close","Tremendous":"tremendous","Deel":"deel","Buffer":"buffer","1Password":"1password","Linear":"linear","Docker":"docker"}
-
+ARGS=[x for x in sys.argv[1:] if not x.startswith("--")]
+FEEDS_FILE=ARGS[0] if ARGS else "feeds.json"
+OUT_FILE=ARGS[1] if len(ARGS)>1 else "jobs.json"
+FEEDS=json.load(open(FEEDS_FILE))  # {company: {"ats": "gh"|"ashby"|"lever", "slug": str, "remote_only": bool}}
 # ---- Resume profile (Charles Olivar): React/TypeScript product frontend, growth experiments, a11y, ~7 yrs ----
 TITLE_PTS=[(r"front.?end|\bui\b|web (engineer|developer)|react|javascript|typescript|design engineer",42),
            (r"full.?stack|product engineer|growth|experimentation|web platform",34),
@@ -31,6 +32,7 @@ def salary_from_text(t):
     best=None
     for m in SAL.finditer(t):
         a,b=num(m.group(1)),num(m.group(2))
+        if a<1000<=b: a*=1000
         if 40000<=a<=700000 and a<=b<=900000:
             best=(int(a),int(b)); 
             if re.search(r"united states|\bus\b|usd|base|salary",t[max(0,m.start()-250):m.start()],re.I): return best
@@ -65,7 +67,7 @@ def score(title,dept,desc):
     return max(0,min(100,round(pts*100/80))), list(dict.fromkeys(why))[:5], gaps
 def finish(c,title,loc,dept,url,posted,remote,desc,sal,country="",extra="",disp=None):
     ltxt=loc+" "+country+" "+extra
-    rem=remote or bool(re.search(r"remote|home.?based|work from home|anywhere",loc,re.I)) or (c in FULLY_REMOTE and not ONSITE.search(loc))
+    rem=(remote or bool(re.search(r"remote|home.?based|work from home|anywhere",loc,re.I)) or (c in FULLY_REMOTE and not ONSITE.search(loc))) and not re.search(r"\((hybrid|on-site)\)",loc)
     us=2 if US.search(ltxt) else 1 if ANY.search(ltxt) else 3 if re.fullmatch(r"\W*(remote|home.?based|remote.?first)?\W*",loc,re.I) else 0
     if not sal: sal=salary_from_text(desc)
     m,w,g=score(title,dept,desc)
@@ -92,17 +94,54 @@ def ab(n,s):
         loc=j.get("location") or ""
         sec=" ".join(x if isinstance(x,str) else x.get("location","") for x in (j.get("secondaryLocations") or []))
         country=((j.get("address") or {}).get("postalAddress") or {}).get("addressCountry","") or ""
-        remote=bool(j.get("isRemote")) or str(j.get("workplaceType","")).lower()=="remote"
-        out.append(finish(n,j["title"],loc,j.get("department") or j.get("team") or "",j["jobUrl"],(j.get("publishedAt") or "")[:10],remote,j.get("descriptionPlain") or strip(j.get("descriptionHtml")),sal,country,sec,"; ".join(x for x in [loc]+[(x if isinstance(x,str) else x.get("location","")) for x in (j.get("secondaryLocations") or [])] if x)))
+        wt=str(j.get("workplaceType") or "").lower()
+        remote=wt=="remote" or (not wt and bool(re.search(r"remote",loc,re.I)))  # isRemote is true for hybrid roles too; ignore it
+        if wt in("hybrid","onsite"): loc=loc+(" (Hybrid)" if wt=="hybrid" else " (On-site)")
+        alllocs="; ".join(x for x in [loc]+[(x if isinstance(x,str) else x.get("location","")) for x in (j.get("secondaryLocations") or [])] if x)
+        out.append(finish(n,j["title"],loc,j.get("department") or j.get("team") or "",j["jobUrl"],(j.get("publishedAt") or "")[:10],remote,j.get("descriptionPlain") or strip(j.get("descriptionHtml")),sal,country,sec,alllocs))
     return out
+def lv(n,s):
+    out=[]
+    for j in get(f"https://api.lever.co/v0/postings/{s}?mode=json"):
+        cat=j.get("categories") or {}
+        locs=cat.get("allLocations") or [cat.get("location") or ""]
+        loc="; ".join(x for x in locs if x)
+        sal=None
+        r=j.get("salaryRange") or {}
+        if r.get("min") and r.get("max") and r.get("currency","USD")=="USD" and "year" in str(r.get("interval","per-year-salary")).lower():
+            sal=(int(r["min"]),int(r["max"]))
+        desc=(j.get("descriptionPlain") or "")+" "+" ".join((x.get("text","")+" "+strip(x.get("content",""))) for x in (j.get("lists") or []))+" "+(j.get("additionalPlain") or "")
+        posted=""
+        if j.get("createdAt"):
+            import datetime; posted=datetime.datetime.utcfromtimestamp(j["createdAt"]/1000).strftime("%Y-%m-%d")
+        out.append(finish(n,j["text"],loc,cat.get("team") or cat.get("department") or "",j["hostedUrl"],posted,str(j.get("workplaceType","")).lower()=="remote",desc,sal))
+    return out
+FETCH={"gh":gh,"ashby":ab,"lever":lv}
 jobs=[]
 with cf.ThreadPoolExecutor(8) as ex:
-    fs={ex.submit(gh,n,s):n for n,s in GH.items()}; fs.update({ex.submit(ab,n,s):n for n,s in AB.items()})
-    for f,n in fs.items():
-        try: r=f.result(); jobs+=r; print(n,len(r))
+    fs={ex.submit(FETCH[v["ats"]],n,v["slug"]):(n,v) for n,v in FEEDS.items()}
+    for f,(n,v) in fs.items():
+        try:
+            r=f.result()
+            r=[j for j in r if j["rm"]]
+            jobs+=r; print(n,len(r))
         except Exception as e: print("ERR",n,e)
-if len(jobs)>=500: json.dump(jobs,open("jobs.json","w"),separators=(",",":"),ensure_ascii=False)
+# drop listings older than 60 days
+import datetime
+today=datetime.date.today()
+jobs=[j for j in jobs if not j["p"] or (today-datetime.date.fromisoformat(j["p"])).days<=60]
+# collapse identical titles at one company (same role posted per location) into one row
+grp={}
+for j in jobs:
+    k=(j["c"],j["t"].strip().lower())
+    if k not in grp: grp[k]=[j]
+    else: grp[k].append(j)
+jobs=[]
+for g in grp.values():
+    best=sorted(g,key=lambda j:(-(j["us"]==2),-(j["us"]==1),j["p"]))[0]
+    best["n"]=len(g); jobs.append(best)
+print("after dedupe:",len(jobs))
+json.dump(jobs,open(OUT_FILE,"w"),separators=(",",":"),ensure_ascii=False)
 print(len(jobs),"jobs;",sum(1 for j in jobs if j["sal"]),"with salary;",sum(1 for j in jobs if j["rm"]),"remote;",sum(1 for j in jobs if j["us"]),"US/any/unclear")
-
 if len(jobs)<500:  # a broken feed must never overwrite a good page
     sys.exit("Only %d jobs fetched; refusing to publish"%len(jobs))
