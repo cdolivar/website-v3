@@ -1,7 +1,10 @@
 name: Refresh job board
 on:
   schedule:
-    - cron: "0 13 * * *"   # daily, 13:00 UTC
+    # Four runs per weekday, spread across the US posting day (about 8am, 12pm, 4pm, 8pm Eastern in winter).
+    # Odd minute on purpose: GitHub delays scheduled runs at the top of the hour. Weekends are skipped (about 2% of postings).
+    - cron: "17 13,17,21 * * 1-5"   # Mon-Fri 13:17, 17:17, 21:17 UTC
+    - cron: "17 1 * * 2-6"          # 01:17 UTC Tue-Sat = Mon-Fri evening in the US
   workflow_dispatch: {}
 permissions:
   contents: write
