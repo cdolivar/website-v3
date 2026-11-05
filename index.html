@@ -26,8 +26,8 @@
         document.querySelector('meta[name="theme-color"]').content = t === "light" ? "#ffffff" : "#000000";
       } catch (e) {}
     </script>
-    <script type="module" crossorigin src="/assets/index-DaTJ2H8e.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-C9CQz9Lg.css">
+    <script type="module" crossorigin src="/assets/index-BuHQEZqe.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BXz0Si-g.css">
   </head>
   <body>
     <div class="ambient" aria-hidden="true"><div class="ambient__layer"></div><div class="ambient__layer"></div></div>
@@ -86,14 +86,14 @@
           <section class="face" style="--t: rotateY(90deg)" data-name="Squarespace">
             <figure class="layer layer--text layer--figure" data-label="Office">
               <img src="/photos/squarespace-office-couch.jpg" alt="Two coworkers on a gray couch in an office lounge, one leaning back and flashing a peace sign, the other taking the selfie" draggable="false" />
-              <figcaption><span>fig. 01</span>Chilling with a coworker at one of the office couches</figcaption>
+              <figcaption>Chilling with Brian at one of the (massive) office couches</figcaption>
             </figure>
             <div class="layer layer--text" data-label="Senior Software Engineer">
               <p class="eyebrow">Squarespace, Scheduling</p>
               <ul class="stats">
-                <li><b>+9.7%</b><span>more trials became subscriptions after I rebuilt the Scheduling navigation. Modeled at $934K a year.</span></li>
-                <li><b>+20%</b><span>more visitors subscribed from the new Scheduling homepage, which gets 35K visits a day.</span></li>
-                <li><b>87%</b><span>of a 21.4 second signup was one auth step. I wrote the proposal, another team built it, and 3 products use it now.</span></li>
+                <li><b>+9.7%</b><span>more trials became subscriptions after I rebuilt the Scheduling navigation. Modeled at $934K a year.</span><small class="stats__src">Led implementation of the Scheduling navigation redesign, re-architecting it as a shared React/TypeScript component that replaced 10 menu-schema files and 8+ pieces of manual state with one route-based context, lifting 8-day trial-to-subscription 9.7% ($934K/yr modeled) in an A/B test.</small></li>
+                <li><b>+20%</b><span>more visitors subscribed from the new Scheduling homepage, which gets 35K visits a day.</span><small class="stats__src">Owned the technical planning and implementation of the Scheduling homepage redesign (35K daily visits) lifting landing-to-subscription 20%.</small></li>
+                <li><b>87%</b><span>of a 21.4 second signup was one auth step. I wrote the proposal, another team built it, and 3 products use it now.</span><small class="stats__src">Traced a 21.4s signup load across 5 services, isolating 18.7s (87%) to one auth step; wrote an RFC for synchronous provisioning that another team built and shipped, now used by 3 product lines.</small></li>
               </ul>
             </div>
             <span class="flip-badge" aria-hidden="true"></span>
@@ -105,14 +105,14 @@
           <section class="face" style="--t: rotateY(180deg)" data-name="Priceline">
             <figure class="layer layer--text layer--figure" data-label="Empire State Building">
               <img src="/photos/priceline-empire-state.jpg" alt="A selfie of David and a coworker in front of a window with a hazy view of the Manhattan skyline" draggable="false" />
-              <figcaption><span>fig. 02</span>Nice views from the Empire State Building office</figcaption>
+              <figcaption>Nice views from the Empire State Building office</figcaption>
             </figure>
             <div class="layer layer--text" data-label="Software Engineer">
               <p class="eyebrow">Priceline, Email</p>
               <ul class="stats">
-                <li><b>+123%</b><span>more bookings from the VIP Monthly Recap email redesign. Net value per send was up 106%.</span></li>
-                <li><b>97K</b><span>email receipts a day, sent by a service I built. Each one had to go out within 30 seconds.</span></li>
-                <li><b>+7.7%</b><span>more bookings per million sends from cross-sell deal cards.</span></li>
+                <li><b>+123%</b><span>more bookings from the VIP Monthly Recap email redesign. Net value per send was up 106%.</span><small class="stats__src">Built 5 A/B-tested email experiments in Handlebars and React across promotional and abandoned-search emails. All 5 lifted bookings and net value per send, with the top result VIP Monthly Recap redesign: +123% bookings, +106% net value per send.</small></li>
+                <li><b>97K</b><span>email receipts sent a day.</span><small class="stats__src">Built a React/TypeScript and Node service rendering 97K daily hotel, flight, rental car, and package email receipts, replacing Iterable to meet a 30-second delivery SLA.</small></li>
+                <li><b>+7.7%</b><span>more bookings per million sends from cross-sell deal cards.</span><small class="stats__src">Updated a deal card service using Express and Puppeteer for dynamic cross-sell email promos using new inventory APIs and updated designs, leading to +7.7% bookings per 1M sends.</small></li>
               </ul>
             </div>
             <span class="flip-badge" aria-hidden="true"></span>
@@ -124,14 +124,14 @@
           <section class="face" style="--t: rotateY(-90deg)" data-name="Indeed">
             <figure class="layer layer--text layer--figure" data-label="Internship">
               <img src="/photos/indeed-interns.jpg" alt="Eight interns sitting in a row on the floor in front of a painted Indeed San Francisco mural, smiling at the camera" draggable="false" />
-              <figcaption><span>fig. 03</span>Last day with fellow interns</figcaption>
+              <figcaption>Last day with fellow interns</figcaption>
             </figure>
             <div class="layer layer--text" data-label="UX Developer">
               <p class="eyebrow">Indeed, Job search</p>
               <ul class="stats">
-                <li><b>+11.5%</b><span>more mobile apply starts from the recent-search tabs I built.</span></li>
-                <li><b>+7%</b><span>more apply starts, and 4.6% more expected hires, from the homepage job feed. I led it from design doc to launch.</span></li>
-                <li><b>32</b><span>accessibility bugs fixed to meet WCAG 2.1 AA. Tested with Axe, VoiceOver and TalkBack.</span></li>
+                <li><b>+11.5%</b><span>more mobile apply starts from the recent-search tabs I built.</span><small class="stats__src">Boosted mobile apply starts 11.5%, positive outcomes 5.2%, and resume creations 1.7% by building an internationalized tabbed recent-search feature.</small></li>
+                <li><b>+7%</b><span>more apply starts, and 4.6% more expected hires, from the homepage job feed. I led it from design doc to launch.</span><small class="stats__src">Led creation of the homepage job feed, driving +7% apply starts, +4.6% expected hires, and +3% active sessions. Wrote the design doc, aligned partner teams on the plan, delegated tickets, and built key React/TypeScript UI.</small></li>
+                <li><b>32</b><span>accessibility bugs fixed to meet WCAG 2.1 AA. Tested with Axe, VoiceOver and TalkBack.</span><small class="stats__src">Resolved 32 accessibility (a11y) bugs, meeting WCAG 2.1 AA compliance to mitigate legal risk. Verified outcomes with Axe, VoiceOver, and TalkBack.</small></li>
               </ul>
             </div>
             <span class="flip-badge" aria-hidden="true"></span>
