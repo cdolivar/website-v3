@@ -455,6 +455,27 @@ a.eyebrow:hover {
   font-size: calc(var(--u) * 2.9);
   line-height: 1.4;
 }
+/* the resume bullet behind each number: swaps in while the pointer is over the row.
+   Toggled from main.js, because the browser can't hover-test the cube's faces. */
+.stats__src {
+  display: none;
+  grid-column: 1 / -1;
+  font-size: calc(var(--u) * 2.5);
+  line-height: 1.4;
+}
+.stats li.is-open b,
+.stats li.is-open span {
+  display: none;
+}
+.stats li.is-open .stats__src {
+  display: block;
+  animation: src-in 0.2s ease;
+}
+@keyframes src-in {
+  from {
+    opacity: 0;
+  }
+}
 
 /* a photo with a caption under it, like a figure in a paper */
 .layer--figure {

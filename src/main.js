@@ -278,6 +278,28 @@ function overActiveFace(x, y) {
   return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
 }
 
+// Show the resume bullet behind whichever stat the pointer is over
+const statRows = [...document.querySelectorAll(".stats li")];
+function updateStatHover(e) {
+  const x = e.clientX;
+  const y = e.clientY;
+  const over =
+    !pointer.dragging &&
+    overActiveFace(x, y) &&
+    statRows.find((li) => {
+      if (!faces[active].contains(li)) return false;
+      const r = li.getBoundingClientRect();
+      return r.width > 0 && x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+    });
+  statRows.forEach((li) => {
+    // hold the row's height so the swap doesn't shift the rows around under the pointer
+    if (li === over && !li.classList.contains("is-open")) li.style.minHeight = `${li.offsetHeight}px`;
+    li.classList.toggle("is-open", li === over);
+  });
+}
+window.addEventListener("pointermove", updateStatHover);
+document.addEventListener("pointerleave", () => statRows.forEach((li) => li.classList.remove("is-open")));
+
 stage.addEventListener("click", (e) => {
   if (e.target.closest("a, button")) return;
   if (overActiveFace(e.clientX, e.clientY)) advance(active);
