@@ -13,7 +13,7 @@ TITLE_NEG=[(r"\bios\b|android|mobile",-22),(r"devops|\bsre\b|reliability|infrast
            (r"data (scien|eng|analy)|machine learning|\bml\b|\bai research|research",-20),(r"embedded|kernel|firmware|(?<!design )systems|database|\bdba\b|compiler",-25),
            (r"back.?end",-10),(r"\brust\b|\bgolang\b|\bgo\b|c\+\+|\bjava\b|\.net|\bphp\b|\bruby\b|python|elixir|scala|kotlin|swift",-12),
            (r"sales|solutions|\bsupport\b|customer|success|recruit|marketing|finance|legal|people|\baccount|partner|counsel|\bprogram\b|product manager|designer|writer",-60)]
-SENIOR=[(r"\bsenior\b|\bsr\.?\b",10,"Senior level"),(r"\bstaff\b",-25,None),(r"principal|distinguished",-4,None),(r"intern|junior|\bjr\b|associate|graduate|entry",-18,None),(r"manager|director|\bhead\b|\bvp\b|chief",-25,None)]
+SENIOR=[(r"\bsenior\b|\bsr\.?\b",10,"Senior level"),(r"\bstaff\b",-25,None),(r"principal|distinguished",-4,None),(r"intern|junior|\bjr\b|associate|graduate|entry",-18,None),(r"manager|director|\bhead\b|\bvp\b|chief|\bmgr\b",-45,None)]
 GAPS=[("Python",r"\bpython\b"),("Ruby",r"\bruby\b"),("Rust",r"\brust\b"),("Java",r"\bjava\b"),("Go",r"\bgolang\b"),("Kubernetes",r"kubernetes"),("AWS",r"\baws\b"),("SQL/Postgres",r"postgres|\bsql\b"),("Elixir",r"elixir"),("GraphQL",r"graphql")]
 KW=[("React",r"\bReact(\.js|js)?\b|\breactjs\b|\breact\.js\b",8),("TypeScript",r"typescript",8),("JavaScript",r"javascript",3),("Next.js",r"next\.?js",3),("Node",r"node(\.js|js)?\b",2),
     ("Tailwind",r"tailwind",2),("Accessibility",r"web accessibility|accessible (ui|web|interface|component|product)|\bwcag\b|\ba11y\b|aria\b",5),("A/B testing",r"a/b test|split test|experimentation (platform|framework)|feature flag",5),
@@ -65,8 +65,17 @@ def score(title,dept,desc):
     gaps=[n for n,r in GAPS if re.search(r,d)][:4]
     pts-=2*len(gaps)  # skills you lack lower the fit a little
     return max(0,min(100,round(pts*100/80))), list(dict.fromkeys(why))[:5], gaps
+REM_TXT=re.compile(r"(?:held|based|work(?:ed)?|performed|done|located)\b[^.]{0,60}\bremotely\b[^.]{0,50}(?:united states|u\.s\.|\bus\b)|\bremote(?:ly)?\s+(?:anywhere\s+)?(?:in|within)\s+the\s+(?:united states|u\.s\.)|fully[- ]remote\s+(?:team|company|role|position)|\b(?:this|the)\s+(?:role|position)\s+is\s+(?:fully\s+)?remote",re.I)
+REM_NO=re.compile(r"hybrid|per year|a year|weeks? (?:per|a|each)|days? (?:per|a|each) week|in[- ]office|on[- ]site|onsite|some roles|many of our|may be",re.I)
+def text_remote(desc):
+    """True if one sentence of the description clearly says the role can be done remotely (US), ignoring perk/hybrid wording."""
+    for sent in re.split(r"(?<=[.!?])\s+|\n",desc or ""):
+        if REM_TXT.search(sent) and not REM_NO.search(sent): return True
+    return False
 def finish(c,title,loc,dept,url,posted,remote,desc,sal,country="",extra="",disp=None):
     ltxt=loc+" "+country+" "+extra
+    if not remote and not re.search(r"\((hybrid|on-site)\)|hybrid|on-?site",loc,re.I) and text_remote(BOILER.split(desc or "",1)[0]):
+        remote=True
     rem=(remote or bool(re.search(r"remote|home.?based|work from home|anywhere",loc,re.I)) or (c in FULLY_REMOTE and not ONSITE.search(loc))) and not re.search(r"\((hybrid|on-site)\)",loc)
     us=2 if US.search(ltxt) else 1 if ANY.search(ltxt) else 3 if re.fullmatch(r"\W*(remote|home.?based|remote.?first)?\W*",loc,re.I) else 0
     if not sal: sal=salary_from_text(desc)
