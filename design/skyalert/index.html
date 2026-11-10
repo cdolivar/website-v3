@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>SkyAlert case study — Charles David Olivar</title>
+    <meta name="description" content="Redesigning the onboarding for SkyAlert, an earthquake early warning app, with a Berkeley design team." />
+    <meta name="theme-color" content="#000000" />
+    <link rel="canonical" href="https://charlesdavidolivar.com/design/skyalert/" />
+    <link rel="icon" href="/logo/logo.ico" />
+    <link rel="icon" type="image/svg+xml" href="/logo/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo/logo.png" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://charlesdavidolivar.com/design/skyalert/" />
+    <meta property="og:title" content="SkyAlert case study — Charles David Olivar" />
+    <meta property="og:description" content="Redesigning onboarding for an earthquake early warning app." />
+    <meta property="og:image" content="https://charlesdavidolivar.com/design/skyalert/banner.webp" />
+    <script>
+      // Set the theme before first paint so there is no flash.
+      try {
+        var t = localStorage.getItem("theme");
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.dataset.theme = t;
+        document.querySelector('meta[name="theme-color"]').content = t === "light" ? "#ffffff" : "#000000";
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#overview">Skip to the story</a>
+    <div class="progress" aria-hidden="true"></div>
+
+    <header class="top">
+      <a class="top__logo" href="/" aria-label="Charles David Olivar — back to the cube">
+        <svg viewBox="0 0 187.31 187.29" aria-hidden="true">
+          <path d="M85,169.84A71.45,71.45,0,0,1,85,30.16V7.58a93.65,93.65,0,0,0,0,184.85Z" transform="translate(-6.47 -6.36)" />
+          <path d="M100.14,6.36H100v22.2h.14a71.45,71.45,0,0,1,0,142.9H100v22.2h.14a93.64,93.64,0,0,0,0-187.29Z" transform="translate(-6.47 -6.36)" />
+          <rect x="104.33" y="10.61" width="19.37" height="165.1" />
+        </svg>
+        <span>Charles David Olivar</span>
+      </a>
+      <p class="top__crumb"><a href="/design/">Design</a> / SkyAlert</p>
+      <div class="top__actions">
+        <nav class="top__contact" aria-label="Site">
+          <a class="keep" href="/design/">All work</a>
+          <a href="mailto:CharlesDavidOlivar@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/charles-david-olivar" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" /><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" /></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z" /></svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="cs-hero">
+        <p class="eyebrow">Case study 02</p>
+        <h1>SkyAlert</h1>
+        <p class="cs-hero__tag">The first seismic prevention app. We designed the onboarding that explains what it does and what the paid plans are for.</p>
+
+        <dl class="facts">
+          <div><dt>Role</dt><dd>Designer</dd></div>
+          <div><dt>Client</dt><dd>SkyAlert, via Berkeley Innovation</dd></div>
+          <div><dt>Worked with</dt><dd>Three other designers: Monica, Warren and Bhushan</dd></div>
+          <div><dt>Tools</dt><dd>Figma, Trello, InVision, UserTesting.com, Google Forms</dd></div>
+        </dl>
+
+        <figure class="cs-banner">
+          <img src="/design/skyalert/banner.webp" width="1442" height="805" alt="Three iPhone mockups of the SkyAlert app on an orange background: an earthquake alert with a walkthrough prompt, a Protection Plans screen, and an Intensity scale" />
+        </figure>
+      </section>
+
+      <div class="layout">
+        <nav class="toc" aria-label="Contents">
+          <p>Contents</p>
+          <ol>
+            <li><a href="#problem">Problem</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#synthesis">Synthesis and insights</a></li>
+            <li><a href="#ideation">Ideation</a></li>
+            <li><a href="#midfi">Mid-fi</a></li>
+            <li><a href="#testing">User testing</a></li>
+            <li><a href="#hifi">Hi-fi</a></li>
+            <li><a href="#takeaways">Takeaways</a></li>
+          </ol>
+        </nav>
+
+        <article class="story">
+          <aside class="glance" aria-labelledby="glance-h">
+            <h2 id="glance-h">// At a glance</h2>
+            <dl>
+              <dt>Goal</dt>
+              <dd>Design an onboarding flow for SkyAlert’s existing app, covering its features, how the tech works and the subscription options.</dd>
+              <dt>What we found</dt>
+              <dd>Half the people we asked had never watched the onboarding video, so the app’s purpose may not reach new users.</dd>
+              <dt>What I did</dt>
+              <dd>Surveyed 5,501 users, interviewed 6 students, mapped the data, sketched flows, made mid-fi screens in Figma and tested them with 12 people.</dd>
+              <dt>How it went</dt>
+              <dd>A benefits carousel, walkthroughs for the feed and profile, and a subscriptions page we redesigned on our own initiative.</dd>
+            </dl>
+          </aside>
+
+          <section id="problem">
+            <h2><span>01</span>Problem</h2>
+            <p>
+              <a href="http://skyalertusa.com/" target="_blank" rel="noopener">SkyAlert</a> is an early earthquake warning system that tells you about an earthquake before you feel it. Four of us on the design team
+              (<a href="https://www.behance.net/monicatang" target="_blank" rel="noopener">Monica</a>,
+              <a href="https://www.linkedin.com/in/warren-lai-655293163/" target="_blank" rel="noopener">Warren</a>,
+              <a href="https://bbalagar.myportfolio.com/berkeley-business-society" target="_blank" rel="noopener">Bhushan</a> and me)
+              were asked to make an onboarding flow that explains the existing mobile app, its features, its technology and its subscription options.
+            </p>
+            <div class="callout">
+              <p><b>Audience:</b> SkyAlert started in Mexico City and has a Spanish-speaking user base in Mexico. They wanted to grow in California, where earthquakes are a worry too.</p>
+            </div>
+          </section>
+
+          <section id="research">
+            <h2><span>02</span>Research</h2>
+            <figure class="fig fig--tall">
+              <img src="/design/skyalert/research-plan.webp" width="1600" height="2133" alt="A whiteboard with research objectives in green, research assumptions in blue on the right, and a list of methods in red below: user interviews, secondary research and competitor analysis" loading="lazy" />
+              <figcaption>Our research plan: what we wanted to learn, what we assumed, and how we’d find out.</figcaption>
+            </figure>
+
+            <h3>Survey</h3>
+            <p>
+              We sent a survey out through SkyAlert’s Twitter and got 5,501 responses in one day. Most of their users are in Mexico, so we translated it into Spanish. A few of the questions in the Google form:
+            </p>
+            <ul>
+              <li>Why do you have this application?</li>
+              <li>How often do you open this app?</li>
+              <li>In your own words, what is the purpose of SkyAlert?</li>
+              <li>Have you watched the tutorial video on the app? Why or why not?</li>
+              <li>Do you know how SkyAlert’s earthquake detection technology works?</li>
+              <li>On a scale from 1 to 5 (1 easiest, 5 hardest), how hard is the app to use?</li>
+            </ul>
+            <p>Here is the age breakdown of the responses, in years.</p>
+            <figure class="fig fig--small">
+              <img src="/design/skyalert/distribution.webp" width="965" height="423" alt="A pie chart of survey respondents by age: 31% are 30 to 40, 24.5% are 20 to 30, 23% are 40 to 50, 9.6% are 50 to 60, 7.9% are 10 to 20, and small slices for 60 plus and 0 to 10" loading="lazy" />
+              <figcaption>Most respondents were between 20 and 50.</figcaption>
+            </figure>
+
+            <h3>User interviews</h3>
+            <p>
+              We also interviewed 6 college students in California. Our
+              <a href="https://docs.google.com/document/d/1OOuImnVGHLHSD2wdmhI2ki3Y7TPXocdg5jqL9eFZ9vg/edit" target="_blank" rel="noopener">discussion guide</a>
+              asked what they knew about earthquakes and early warning systems, and how they feel about onboarding in mobile apps.
+            </p>
+
+            <h3>User testing the current app</h3>
+            <p>
+              We tested the latest version of the app with two Spanish-speaking users, since it was still only in Spanish. Here is our
+              <a href="https://docs.google.com/document/d/1SPubY0ASkO7Ekfnd9oXMY8q439IClhhG8xiYTWTYBIk/edit?usp=sharing" target="_blank" rel="noopener">testing guide</a>.
+              We wanted to:
+            </p>
+            <ul>
+              <li>See how well the current onboarding works</li>
+              <li>See how people move through the app</li>
+              <li>Find the existing pain points</li>
+            </ul>
+          </section>
+
+          <section id="synthesis">
+            <h2><span>03</span>Synthesis and insights</h2>
+            <p>We put everything we learned into Trello and affinity mapped it.</p>
+            <figure class="fig">
+              <img src="/design/skyalert/affinity.webp" width="973" height="863" alt="A Trello board with lists of research notes, including Purpose of the App, Current Onboarding, Knowledge of Subscription Services, Tech Understanding, Navigation, Confusing Features and Favorite Features" loading="lazy" />
+              <figcaption>Our affinity map in Trello.</figcaption>
+            </figure>
+            <p>A few things stood out.</p>
+            <h3>Purpose</h3>
+            <ul>
+              <li>Users described the app as prevention, preparation and education, and said they had it for security.</li>
+              <li>From our contextual inquiry, the purpose may not come across to new users, especially if they skip onboarding.</li>
+            </ul>
+            <h3>Onboarding</h3>
+            <div class="stat">
+              <b>50%</b>
+              <span>of people hadn’t seen the onboarding video.</span>
+            </div>
+            <ul>
+              <li>They didn’t have time</li>
+              <li>They preferred written tutorials</li>
+              <li>It wasn’t hands-on</li>
+              <li>They didn’t think it was necessary</li>
+            </ul>
+            <h3>Subscriptions</h3>
+            <ul>
+              <li>40% of users knew about SmartAlert, one of the plans.</li>
+              <li>The insurance subscription didn’t feel credible: “I wouldn’t trust insurance from an app.”</li>
+              <li>Many people didn’t know the subscription options existed.</li>
+            </ul>
+            <h3>Earthquake knowledge</h3>
+            <ul>
+              <li>Users didn’t understand the difference between magnitude and intensity.</li>
+            </ul>
+
+            <h3>Personas</h3>
+            <p>With that data we made 3 personas to focus our ideas.</p>
+            <figure class="fig fig--small">
+              <img src="/design/skyalert/personas.webp" width="799" height="576" alt="Three personas on a dark background: Jason, a 20-year-old college freshman from Colorado; Linda, 62, about to retire; and Michael, 40, a software engineer with a young son, each with their motivations" loading="lazy" />
+              <figcaption>Jason, Linda and Michael.</figcaption>
+            </figure>
+          </section>
+
+          <section id="ideation">
+            <h2><span>04</span>Ideation</h2>
+            <p>With the research in mind, we sketched ideas for the onboarding.</p>
+            <figure class="fig fig--tall">
+              <img src="/design/skyalert/ideation.webp" width="801" height="1071" alt="Pages of notebook sketches of onboarding screens: a benefits carousel, tutorial prompts over the feed, and notes on goals like explaining how it works and subscription options" loading="lazy" />
+              <figcaption>Our onboarding sketches.</figcaption>
+            </figure>
+            <p>We also went outside our scope and redesigned the subscription plan pages, to make the options easier to understand and compare.</p>
+            <figure class="fig">
+              <img src="/design/skyalert/subscriptions.webp" width="1269" height="886" alt="A hand-drawn plan screen for the Plus plan with a checklist of features, and handwritten notes: add a free section to show what it is lacking, and make upgrading a more visible call to action" loading="lazy" />
+              <figcaption>Our idea for the plans page: a clear checklist of what each plan has, and an obvious way to upgrade.</figcaption>
+            </figure>
+            <p>Then we pulled it together into first wireframes. They had:</p>
+            <ul>
+              <li>Walkthroughs for the feed and the profile</li>
+              <li>A carousel about the app’s benefits</li>
+            </ul>
+            <figure class="fig fig--tall">
+              <img src="/design/skyalert/flow.webp" width="739" height="1254" alt="A whiteboard flow: a welcome screen and login, three benefit screens, a four-step feed walkthrough, and a profile walkthrough ending at the plans screen, with a to-do list for drills and a tech tutorial" loading="lazy" />
+              <figcaption>The first flow on the whiteboard.</figcaption>
+            </figure>
+          </section>
+
+          <section id="midfi">
+            <h2><span>05</span>Mid-fi</h2>
+            <p>We took the low-fi wireframes and redrew them in Figma.</p>
+            <h3>Benefits carousel</h3>
+            <figure class="fig">
+              <img src="/design/skyalert/midfi-carousel.webp" width="801" height="468" alt="Three carousel screens: a hand holding a phone with an alert, a house with a family, and a volcano, each with a short line of text and skip or next" loading="lazy" />
+              <figcaption>The graphics are stock for now.</figcaption>
+            </figure>
+            <h3>Feed walkthrough</h3>
+            <figure class="fig">
+              <img src="/design/skyalert/midfi-feed.webp" width="801" height="925" alt="Five grayscale screens of the earthquake feed with pop-ups explaining the feed, the map, depth and magnitude" loading="lazy" />
+              <figcaption>Pop-ups that explain the feed, the map, depth and magnitude as you go.</figcaption>
+            </figure>
+            <h3>Profile, intensity and drills</h3>
+            <figure class="fig">
+              <img src="/design/skyalert/midfi-misc.webp" width="801" height="472" alt="Three grayscale screens: a profile with protection plans, an intensity scale from weak to violent, and a pop-up about scheduling drills" loading="lazy" />
+              <figcaption>The profile, the intensity scale, and a prompt for scheduling drills.</figcaption>
+            </figure>
+          </section>
+
+          <section id="testing">
+            <h2><span>06</span>User testing</h2>
+            <p>
+              We used our mid-fi mockups, <a href="https://www.usertesting.com/" target="_blank" rel="noopener">UserTesting.com</a> and <a href="https://www.invisionapp.com/" target="_blank" rel="noopener">InVision</a> to test with 12 people. UserTesting.com let us choose age groups, so we picked three: 18 to 30, 30 to 50 and 50 and up. This was our prompt.
+            </p>
+            <figure class="fig fig--small">
+              <img src="/design/skyalert/prompt.webp" width="983" height="404" alt="The test prompt: imagine a friend recommended this early warning earthquake app. One task, to describe what you can do on each screen, then four questions about the protection plans, what they would improve, what they liked and what frustrated them" loading="lazy" />
+              <figcaption>The prompt we gave testers.</figcaption>
+            </figure>
+            <p>And some of the feedback we worked into the designs:</p>
+            <figure class="fig">
+              <img src="/design/skyalert/feedback.webp" width="1385" height="653" alt="A Trello board of user testing feedback sorted by screen: benefits carousel, feed walkthrough, notifications, profile, protection plans and intensity scale, with color labels for good feedback, to do, finished and do later" loading="lazy" />
+              <figcaption>Feedback sorted by screen. Green was good news, red was something to fix.</figcaption>
+            </figure>
+          </section>
+
+          <section id="hifi">
+            <h2><span>07</span>Hi-fi</h2>
+            <p>We made changes from there and put together the final screens.</p>
+            <figure class="fig fig--tall">
+              <img src="/design/skyalert/hifi.webp" width="801" height="1894" alt="Final screens: three benefit carousel screens, the feed with a depth explainer and an alert walkthrough, the intensity scale, drills, the map prompt, the Protection Plans screen, a profile with plan checkmarks and a magnitude scale" loading="lazy" />
+              <figcaption>The final onboarding and the redesigned plans page.</figcaption>
+            </figure>
+          </section>
+
+          <section id="takeaways">
+            <h2><span>08</span>Takeaways</h2>
+            <h3>If you see a place to improve, speak up</h3>
+            <p>
+              Our scope was an onboarding flow, but we thought the subscriptions page could be better too. We had the time, so we asked if we could redo it. It ended up being my favorite part of the project.
+            </p>
+            <h3>Get feedback often</h3>
+            <p>
+              Our client didn’t know much about design, so we leaned on Berkeley Innovation’s own people for critique. That meant showing officers and other project teams our decisions, answering their questions and listening to what they said.
+            </p>
+          </section>
+
+          <div class="next">
+            <span>More case studies are on the way</span>
+            <a href="/design/">All design work →</a>
+          </div>
+        </article>
+      </div>
+
+      <footer class="foot">
+        <nav aria-label="Elsewhere">
+          <a href="/">← Back to the cube</a>
+          <a href="mailto:CharlesDavidOlivar@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/charles-david-olivar" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </nav>
+        <span>Thanks for reading</span>
+      </footer>
+    </main>
+
+    <script type="module" src="/src/design.js"></script>
+  </body>
+</html>
