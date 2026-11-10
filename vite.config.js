@@ -10,6 +10,7 @@ export default defineConfig({
         main: resolve(import.meta.dirname, "index.html"),
         design: resolve(import.meta.dirname, "design/index.html"),
         indeed: resolve(import.meta.dirname, "design/indeed/index.html"),
+        socratic: resolve(import.meta.dirname, "design/socratic/index.html"),
       },
     },
   },
