@@ -11,6 +11,7 @@ export default defineConfig({
         design: resolve(import.meta.dirname, "design/index.html"),
         indeed: resolve(import.meta.dirname, "design/indeed/index.html"),
         skyalert: resolve(import.meta.dirname, "design/skyalert/index.html"),
+        aether: resolve(import.meta.dirname, "design/aether/index.html"),
         socratic: resolve(import.meta.dirname, "design/socratic/index.html"),
       },
     },
