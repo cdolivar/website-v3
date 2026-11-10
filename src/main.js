@@ -89,7 +89,13 @@ const shown = faces.map(() => 0);
 faces.forEach((f, i) => {
   f.classList.toggle("has-flip", layers[i].length > 1);
   updateBadge(i);
+  syncInert(i);
 });
+
+// Layers that haven't been developed yet are invisible, so keep their links out of the tab order.
+function syncInert(i) {
+  layers[i].forEach((layer, n) => (layer.inert = n > shown[i]));
+}
 
 function updateBadge(i) {
   const badge = faces[i].querySelector(".flip-badge");
@@ -179,6 +185,7 @@ function resetFace(i) {
   shown[i] = 0;
   layers[i].forEach((layer) => layer.classList.remove("is-shown"));
   updateBadge(i);
+  syncInert(i);
 }
 
 function flip(i) {
@@ -186,6 +193,7 @@ function flip(i) {
   if (stack.length < 2) return;
   shown[i] = (shown[i] + 1) % stack.length;
   stack.forEach((layer, n) => layer.classList.toggle("is-shown", n > 0 && n <= shown[i]));
+  syncInert(i);
   const flash = faces[i].querySelector(".flash");
   flash.classList.remove("is-on");
   void flash.offsetWidth; // restart the animation
@@ -300,9 +308,22 @@ function updateStatHover(e) {
 window.addEventListener("pointermove", updateStatHover);
 document.addEventListener("pointerleave", () => statRows.forEach((li) => li.classList.remove("is-open")));
 
+// Links on the side faces never receive the browser's own hit test (see overActiveFace),
+// so find one under the pointer in the face's top layer and follow it ourselves.
+function linkUnder(x, y) {
+  return [...layers[active][shown[active]].querySelectorAll("a[href]")].find((a) => {
+    const r = a.getBoundingClientRect();
+    return r.width > 0 && x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+  });
+}
+
 stage.addEventListener("click", (e) => {
   if (e.target.closest("a, button")) return;
-  if (overActiveFace(e.clientX, e.clientY)) advance(active);
+  if (!overActiveFace(e.clientX, e.clientY)) return;
+  const link = linkUnder(e.clientX, e.clientY);
+  if (!link) return advance(active);
+  if (link.target === "_blank" || e.metaKey || e.ctrlKey || e.shiftKey) window.open(link.href, "_blank", "noopener");
+  else location.assign(link.href);
 });
 
 document.querySelectorAll("[data-goto]").forEach((el) => {

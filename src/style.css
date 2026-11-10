@@ -582,6 +582,35 @@ a.eyebrow:hover {
   color: var(--muted);
 }
 
+.design-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: calc(var(--u) * 4);
+}
+.design-links a {
+  display: grid;
+  gap: calc(var(--u) * 1);
+  padding-bottom: calc(var(--u) * 3);
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  transition: border-color 0.3s;
+}
+.design-links a:hover {
+  border-color: var(--paper);
+}
+.design-links b {
+  font-weight: 700;
+  font-size: calc(var(--u) * 6);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+.design-links span {
+  font-size: calc(var(--u) * 2.8);
+  color: var(--muted);
+}
+
 .interests {
   list-style: none;
   margin: 0;

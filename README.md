@@ -7,6 +7,11 @@ My site: a cube you can turn, with my resume on its sides. Built with Vite, CSS 
 - `src/quat.js` — small quaternion helpers for the cube's orientation
 - `src/style.css` — all styles
 - `public/photos/` — the one photo (front face, 1997)
+- `design/index.html` — the design work index (`/design/`)
+- `design/<name>/index.html` — one case study per folder (`/design/indeed/`)
+- `public/design/<name>/` — that case study's images (webp) and clips (mp4)
+- `src/design.css`, `src/design.js` — shared look and behavior for the design pages
+- `vite.config.js` — lists every page; add new case studies to `build.rollupOptions.input`
 
 ```bash
 npm install
