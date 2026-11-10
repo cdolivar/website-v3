@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Indeed case study — Charles David Olivar</title>
+    <meta name="description" content="A summer as a UX design intern at Indeed: designing, prototyping and testing onboarding screens that learn what job seekers want." />
+    <meta name="theme-color" content="#000000" />
+    <link rel="canonical" href="https://charlesdavidolivar.com/design/indeed/" />
+    <link rel="icon" href="/logo/logo.ico" />
+    <link rel="icon" type="image/svg+xml" href="/logo/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo/logo.png" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://charlesdavidolivar.com/design/indeed/" />
+    <meta property="og:title" content="Indeed case study — Charles David Olivar" />
+    <meta property="og:description" content="Designing and testing onboarding screens for Indeed's mobile app." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:image" content="https://charlesdavidolivar.com/design/indeed/banner.webp" />
+    <script>
+      // Set the theme before first paint so there is no flash.
+      try {
+        var t = localStorage.getItem("theme");
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.dataset.theme = t;
+        document.querySelector('meta[name="theme-color"]').content = t === "light" ? "#ffffff" : "#000000";
+      } catch (e) {}
+    </script>
+    <script type="module" crossorigin src="/assets/modulepreload-polyfill-P2Xu9kJm.js"></script>
+    <script type="module" crossorigin src="/assets/design-Hbk-u9Uv.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/design-CI4SHw-f.css">
+  </head>
+  <body>
+    <a class="skip" href="#overview">Skip to the story</a>
+    <div class="progress" aria-hidden="true"></div>
+
+    <header class="top">
+      <a class="top__logo" href="/" aria-label="Charles David Olivar — back to the cube">
+        <svg viewBox="0 0 187.31 187.29" aria-hidden="true">
+          <path d="M85,169.84A71.45,71.45,0,0,1,85,30.16V7.58a93.65,93.65,0,0,0,0,184.85Z" transform="translate(-6.47 -6.36)" />
+          <path d="M100.14,6.36H100v22.2h.14a71.45,71.45,0,0,1,0,142.9H100v22.2h.14a93.64,93.64,0,0,0,0-187.29Z" transform="translate(-6.47 -6.36)" />
+          <rect x="104.33" y="10.61" width="19.37" height="165.1" />
+        </svg>
+        <span>Charles David Olivar</span>
+      </a>
+      <p class="top__crumb"><a href="/design/">Design</a> / Indeed</p>
+      <div class="top__actions">
+        <nav class="top__contact" aria-label="Site">
+          <a class="keep" href="/design/">All work</a>
+          <a href="mailto:CharlesDavidOlivar@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/charles-david-olivar" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" /><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" /></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z" /></svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="cs-hero">
+        <p class="eyebrow">Case study 01</p>
+        <h1>Indeed</h1>
+        <p class="cs-hero__tag">Onboarding screens that ask job seekers what they want, so Indeed can show them better jobs.</p>
+
+        <dl class="facts">
+          <div><dt>Role</dt><dd>UX design intern</dd></div>
+          <div><dt>When</dt><dd>Summer 2018, San Francisco</dd></div>
+          <div><dt>Worked with</dt><dd>A design mentor, a product manager, a UX researcher and a content strategist</dd></div>
+          <div><dt>Tools</dt><dd>Whimsical, Framer, Mapbox, UserTesting</dd></div>
+        </dl>
+
+        <figure class="cs-banner">
+          <img src="/design/indeed/banner.webp" width="1442" height="805" alt="Three iPhone mockups of Indeed onboarding screens: a map for how far you want to commute, a grid of job types, and a skills search" />
+        </figure>
+      </section>
+
+      <div class="layout">
+        <nav class="toc" aria-label="Contents">
+          <p>Contents</p>
+          <ol>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#ideation">Ideation</a></li>
+            <li><a href="#testing">Prototype and testing</a></li>
+            <li><a href="#next">Moving forward</a></li>
+            <li><a href="#takeaways">Takeaways</a></li>
+          </ol>
+        </nav>
+
+        <article class="story">
+          <aside class="glance" aria-labelledby="glance-h">
+            <h2 id="glance-h">// At a glance</h2>
+            <dl>
+              <dt>Goal</dt>
+              <dd>More “applies” on Indeed’s mobile app.</dd>
+              <dt>Idea</dt>
+              <dd>Ask job seekers what they want up front, and use it to match them with jobs.</dd>
+              <dt>What I did</dt>
+              <dd>Research, sketches, mockups, a Framer prototype, and testing with 8 job seekers on their own phones.</dd>
+              <dt>How it went</dt>
+              <dd>Most testers got that it was the first step toward better matches. They also showed me what to fix, so I revised the designs. Nobody had decided where the screens would live in the app by the time my internship ended.</dd>
+            </dl>
+          </aside>
+
+          <section id="overview">
+            <h2><span>01</span>Overview</h2>
+            <p>
+              I interned at Indeed as a UX design intern. I worked with my mentor
+              <a href="https://www.linkedin.com/in/michaelbswingler/" target="_blank" rel="noopener">Michael Swingler</a>
+              on designing user input screens for Indeed’s mobile app, and I got to watch Indeed’s design system grow over the summer.
+            </p>
+            <div class="callout">
+              <p><b>Goal:</b> increase the number of “applies” (when someone taps Apply) on mobile.</p>
+            </div>
+            <p>The bet behind my project had two parts:</p>
+            <ul>
+              <li><b>Hypothesis:</b> more data about what a job seeker wants leads to more relevant jobs, and more relevant jobs lead to more applies.</li>
+              <li><b>Idea:</b> a short series of screens that collect that data and help Indeed match job seekers to jobs they will be interested in.</li>
+            </ul>
+            <p>Exploring that idea was my project for the summer.</p>
+          </section>
+
+          <section id="research">
+            <h2><span>02</span>Research</h2>
+            <figure class="fig">
+              <img src="/design/indeed/meeting.webp" width="1600" height="1011" alt="A whiteboard of handwritten notes listing goals, success measures, opportunities and a six-week timeline with usability tests" loading="lazy" />
+              <figcaption>Planning on the whiteboard with my mentor and PM: goals, what success looks like, and a week-by-week plan with testing in it.</figcaption>
+            </figure>
+            <p>
+              I started by learning Indeed’s products, talking with my mentor and PM, and reading existing research, including Indeed’s personas. I can’t share Indeed’s personas or research here, but with them in mind I focused on three cases:
+            </p>
+            <ul>
+              <li>New users</li>
+              <li>Currently active users</li>
+              <li>Users coming back after a while away</li>
+            </ul>
+
+            <h3>Competitive analysis</h3>
+            <figure class="fig fig--small">
+              <img src="/design/indeed/jobs.webp" width="976" height="832" alt="A phone folder holding seven job search apps: Monster, Snag, Glassdoor, LinkedIn Jobs, Job Search, Indeed Jobs and Job Spotter" loading="lazy" />
+              <figcaption>The job search apps I compared.</figcaption>
+            </figure>
+            <p>
+              I went through related job search apps and paid attention to the questions and inputs they used across the job seeker’s journey. I no longer have the write-up of that research, since it stayed with Indeed after my internship.
+            </p>
+
+            <h3>Synthesis</h3>
+            <p>From Indeed’s data and personas plus what competitors do, these looked like the right topics to ask job seekers about during onboarding:</p>
+            <ul>
+              <li>Job type (full time, part time and so on)</li>
+              <li>Salary</li>
+              <li>Location</li>
+              <li>Company</li>
+              <li>Experience level</li>
+              <li>Where they are in their job search</li>
+              <li>Urgency</li>
+              <li>Lifestyle preferences</li>
+            </ul>
+            <p>
+              Some of these were already just query filters on Indeed’s products. The new idea was to store them on a job seeker’s profile to improve future results and suggestions.
+            </p>
+          </section>
+
+          <section id="ideation">
+            <h2><span>03</span>Ideation</h2>
+            <p>With those topics in mind, I sketched screens for each kind of input.</p>
+            <figure class="fig fig--tall">
+              <img src="/design/indeed/sketches.webp" width="801" height="1999" alt="Pages of pencil sketches of onboarding flows: account creation, job title, location and distance questions, and a recommendations list, with margin notes and crossed-out ideas" loading="lazy" />
+              <figcaption>My sketches, crossed-out ideas and notes to self included.</figcaption>
+            </figure>
+
+            <h3>Initial mockups</h3>
+            <p>I digitized the sketches and met regularly with my mentor and PM to get feedback on the screens.</p>
+            <figure class="fig fig--tall">
+              <img src="/design/indeed/midfi.webp" width="801" height="1686" alt="Grayscale mid-fidelity mockups: a recommendations screen with categories to unlock, and question screens for skills, ranking what matters in a job, location, commute time, job categories and job titles" loading="lazy" />
+              <figcaption>Mid-fi mockups. The recommendations screen unlocks more categories as you answer more questions.</figcaption>
+            </figure>
+
+            <h3>User flow</h3>
+            <p>
+              I used <a href="https://whimsical.co/" target="_blank" rel="noopener">Whimsical</a> to map the paths a job seeker could take through the onboarding screens to a page of relevant job recommendations. You can look at the
+              <a href="https://whimsical.co/8Ude3vPuSWrmUjKgGuE4Vv" target="_blank" rel="noopener">flow in Whimsical</a>.
+            </p>
+            <figure class="fig">
+              <img src="/design/indeed/userflow.webp" width="883" height="589" alt="A large flowchart of onboarding screens branching by location, culture fit, room to grow and fit for the job, all ending at recommendations" loading="lazy" />
+              <figcaption>The flow. Lots of ways in, and they all end at recommendations.</figcaption>
+            </figure>
+
+            <h3>Interaction prototypes</h3>
+            <p>I also explored the interactions for a couple of the screens.</p>
+            <div class="pair">
+              <figure class="fig">
+                <video data-loop autoplay loop muted playsinline preload="metadata" poster="/design/indeed/drag_and_drop.poster.webp" width="268" height="480" aria-label="A screen recording of the What do you want in a job screen, where qualities such as Work Life Balance and Flexible Hours are chosen from a list">
+                  <source src="/design/indeed/drag_and_drop.mp4" type="video/mp4" />
+                </video>
+                <figcaption>Choosing what matters in a job.</figcaption>
+              </figure>
+              <figure class="fig">
+                <video data-loop autoplay loop muted playsinline preload="metadata" poster="/design/indeed/input_selection.poster.webp" width="372" height="664" aria-label="A screen recording of the What is important for you in a job screen, which asks you to select up to five choices">
+                  <source src="/design/indeed/input_selection.mp4" type="video/mp4" />
+                </video>
+                <figcaption>Selecting up to five choices.</figcaption>
+              </figure>
+            </div>
+
+            <h3>Upping the fidelity</h3>
+            <p>Then I added color and visual design to the mockups, and we narrowed the set to the screens we wanted to prototype and test.</p>
+            <figure class="fig fig--tall">
+              <img src="/design/indeed/hifi.webp" width="801" height="2051" alt="High-fidelity mockups with color and icons: where you would like to work on a map, sliders for what matters most at work, skills, job titles and job types, each with a Save button" loading="lazy" />
+              <figcaption>Hi-fi screens, cut down to the ones we’d test.</figcaption>
+            </figure>
+          </section>
+
+          <section id="testing">
+            <h2><span>04</span>Prototype and testing</h2>
+            <h3>The Framer prototype</h3>
+            <p>
+              I learned Framer for this project and it became my favorite prototyping tool: more interactive than InVision, more flexible and scalable than Principle, and faster than building it in HTML, CSS and JavaScript.
+            </p>
+            <figure class="fig">
+              <img src="/design/indeed/framer.webp" width="1141" height="993" alt="The Framer editor showing prototype code that uses Mapbox, next to a phone preview with Skills, Lifestyle, Job Type, Location and Titles tiles" loading="lazy" />
+              <figcaption>The prototype in Framer. The home screen is just a placeholder so testers could get to each screen.</figcaption>
+            </figure>
+            <p>
+              The location screen was the most fun to build. I used the
+              <a href="https://docs.mapbox.com/mapbox-gl-js/api/" target="_blank" rel="noopener">Mapbox</a> API for an interactive map and added autocomplete to the input, so testers used a real interaction instead of a fixed answer.
+            </p>
+            <p>
+              You can try the <a href="https://framer.cloud/pHTJp" target="_blank" rel="noopener">prototype I tested ↗</a> (it was built in 2018 and may no longer load).
+            </p>
+
+            <h3>User testing</h3>
+            <p>
+              I worked with UX researcher
+              <a href="https://www.linkedin.com/in/georgiagallavin/" target="_blank" rel="noopener">Georgia Gallavin</a>
+              to test the prototype through UserTesting.com with 8 people on their own phones.
+            </p>
+            <p><b>What we wanted to learn</b></p>
+            <ul>
+              <li>Do job seekers see the value of the onboarding, and is it clear how it helps their search?</li>
+              <li>Are the categories relevant and desirable? What is missing or confusing?</li>
+              <li>Can job seekers finish the exercises easily? Where does it hurt?</li>
+            </ul>
+            <div class="stat">
+              <b>7 of 8</b>
+              <span>testers overlooked the control for reviewing their selected job titles.</span>
+            </div>
+            <p><b>Top takeaways</b></p>
+            <ul>
+              <li>Overall, job seekers understood the exercises as the first step in matching them with relevant jobs.</li>
+              <li>They expected to enter salary and experience level during onboarding.</li>
+              <li>Creating a skill from scratch, instead of picking from the list, was unclear. Most did not notice the show/hide control for their selected job titles.</li>
+            </ul>
+            <p><b>More detail</b></p>
+            <ul>
+              <li>One tester preferred to search for jobs first instead of entering preferences before seeing recommendations.</li>
+              <li>Lifestyle criteria felt novel, but testers struggled to see how they would map to relevant jobs.</li>
+              <li>Testers treated Skills as a place to pick from an existing list using the search box.</li>
+              <li>They added a location several ways: typing a zip code, using the autosuggest dropdown, or choosing their current location.</li>
+              <li>They often looked for a way to cover a broader area on the map, to show how far they would travel.</li>
+              <li>Most typed an industry or job title straight into the search box instead of browsing categories.</li>
+            </ul>
+          </section>
+
+          <section id="next">
+            <h2><span>05</span>Moving forward</h2>
+            <h3>Iterate</h3>
+            <p>
+              I took the feedback from testing into the final designs, and worked with content strategist
+              <a href="https://www.linkedin.com/in/michaellawrencephd/" target="_blank" rel="noopener">Michael Lawrence</a>
+              on the copy for each screen.
+            </p>
+            <figure class="fig fig--tall">
+              <img src="/design/indeed/final.webp" width="801" height="2496" alt="Eight final screens: job types, commute time on a map, location, skills, skill search with the keyboard, and job titles with Show selected and Browse jobs toggles" loading="lazy" />
+              <figcaption>Final designs after testing and copy edits.</figcaption>
+            </figure>
+
+            <h3>Next steps</h3>
+            <p>
+              The user flow for the whole mobile app was still being worked out by my mentor’s team, so it was not certain where my screens would end up. Indeed was moving toward a native version of the app, and I hoped some of these ideas would show up in it.
+            </p>
+            <p>
+              One idea I had: let a call to action for each screen float among the job feed, so job seekers can fill in their information when they have a minute instead of all in one sitting.
+            </p>
+            <figure class="fig fig--tall">
+              <img src="/design/indeed/ctas.webp" width="801" height="1542" alt="Wireframes of a generic page and search results with onboarding prompt cards among gray job cards, such as Where do you want to work, with progress like 4/5 questions answered" loading="lazy" />
+              <figcaption>Prompt cards in the feed with a progress count, so people can answer one question at a time.</figcaption>
+            </figure>
+          </section>
+
+          <section id="takeaways">
+            <h2><span>06</span>Takeaways</h2>
+            <h3>Think ahead, then scale back</h3>
+            <p>
+              We created and tested ideas that might not be possible with Indeed’s current data and technology. That was deliberate: it let us explore, so Indeed could later apply the insights, while engineers took what was practical now.
+            </p>
+            <h3>Mentorship matters</h3>
+            <p>
+              My mentor has 20 years in industry, and his art background helped me, as a student whose main education was in computer science. He sat across from me every day and was glad to answer my questions, which made the internship a good one and pushed me to grow as a designer.
+            </p>
+            <figure class="fig">
+              <img src="/design/indeed/interns.webp" width="1600" height="1211" alt="Eight interns sitting in a row on the floor in front of a painted Indeed mural, smiling" loading="lazy" />
+              <figcaption>Interns at the Indeed San Francisco office.</figcaption>
+            </figure>
+          </section>
+
+          <div class="next">
+            <span>Want to read another?</span>
+            <a href="/design/">All design work →</a>
+          </div>
+        </article>
+      </div>
+
+      <footer class="foot">
+        <nav aria-label="Elsewhere">
+          <a href="/">← Back to the cube</a>
+          <a href="mailto:CharlesDavidOlivar@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/charles-david-olivar" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </nav>
+        <span>Thanks for reading</span>
+      </footer>
+    </main>
+
+  </body>
+</html>

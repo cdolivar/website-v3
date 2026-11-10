@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Socratic case study — Charles David Olivar</title>
+    <meta name="description" content="A UC Berkeley CS160 project: designing and testing a web app for discussing current events across disagreement." />
+    <meta name="theme-color" content="#000000" />
+    <link rel="canonical" href="https://charlesdavidolivar.com/design/socratic/" />
+    <link rel="icon" href="/logo/logo.ico" />
+    <link rel="icon" type="image/svg+xml" href="/logo/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo/logo.png" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://charlesdavidolivar.com/design/socratic/" />
+    <meta property="og:title" content="Socratic case study — Charles David Olivar" />
+    <meta property="og:description" content="Designing and testing a web app for talking across disagreement." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:image" content="https://charlesdavidolivar.com/design/socratic/banner.webp" />
+    <script>
+      // Set the theme before first paint so there is no flash.
+      try {
+        var t = localStorage.getItem("theme");
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.dataset.theme = t;
+        document.querySelector('meta[name="theme-color"]').content = t === "light" ? "#ffffff" : "#000000";
+      } catch (e) {}
+    </script>
+    <script type="module" crossorigin src="/assets/modulepreload-polyfill-P2Xu9kJm.js"></script>
+    <script type="module" crossorigin src="/assets/design-Hbk-u9Uv.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/design-CI4SHw-f.css">
+  </head>
+  <body>
+    <a class="skip" href="#overview">Skip to the story</a>
+    <div class="progress" aria-hidden="true"></div>
+
+    <header class="top">
+      <a class="top__logo" href="/" aria-label="Charles David Olivar — back to the cube">
+        <svg viewBox="0 0 187.31 187.29" aria-hidden="true">
+          <path d="M85,169.84A71.45,71.45,0,0,1,85,30.16V7.58a93.65,93.65,0,0,0,0,184.85Z" transform="translate(-6.47 -6.36)" />
+          <path d="M100.14,6.36H100v22.2h.14a71.45,71.45,0,0,1,0,142.9H100v22.2h.14a93.64,93.64,0,0,0,0-187.29Z" transform="translate(-6.47 -6.36)" />
+          <rect x="104.33" y="10.61" width="19.37" height="165.1" />
+        </svg>
+        <span>Charles David Olivar</span>
+      </a>
+      <p class="top__crumb"><a href="/design/">Design</a> / Socratic</p>
+      <div class="top__actions">
+        <nav class="top__contact" aria-label="Site">
+          <a class="keep" href="/design/">All work</a>
+          <a href="mailto:CharlesDavidOlivar@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/charles-david-olivar" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" /><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" /></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z" /></svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="cs-hero">
+        <p class="eyebrow">Case study 04</p>
+        <h1>Socratic</h1>
+        <p class="cs-hero__tag">“Got Discourse? Discuss!” An online place to talk about current events with people who see them differently.</p>
+
+        <dl class="facts">
+          <div><dt>Role</dt><dd>Designer and front-end developer</dd></div>
+          <div><dt>When</dt><dd>Fall 2017, UC Berkeley CS160</dd></div>
+          <div><dt>Worked with</dt><dd>Two developers and a designer</dd></div>
+          <div><dt>Tools</dt><dd>Meteor, Handlebars</dd></div>
+        </dl>
+
+        <figure class="cs-banner">
+          <img src="/design/socratic/banner.webp" width="1600" height="445" alt="Three screens of the Socratic web app on a blue background: the opinion of the day with three articles, support and opposition comment columns, and a reply box that says you can’t reply here since you agreed" />
+        </figure>
+      </section>
+
+      <div class="layout">
+        <nav class="toc" aria-label="Contents">
+          <p>Contents</p>
+          <ol>
+            <li><a href="#overview">Problem and team</a></li>
+            <li><a href="#needfinding">Needfinding</a></li>
+            <li><a href="#pov">POV + HMW</a></li>
+            <li><a href="#ideation">Ideation</a></li>
+            <li><a href="#prototype">Prototype</a></li>
+            <li><a href="#testing">User testing</a></li>
+            <li><a href="#iterate">Iterate</a></li>
+            <li><a href="#final">Final design and demo</a></li>
+            <li><a href="#takeaways">Takeaways</a></li>
+          </ol>
+        </nav>
+
+        <article class="story">
+          <aside class="glance" aria-labelledby="glance-h">
+            <h2 id="glance-h">// At a glance</h2>
+            <dl>
+              <dt>Goal</dt>
+              <dd>A place to talk about current events with people who disagree with you, without it turning into a fight.</dd>
+              <dt>Idea</dt>
+              <dd>One opinion a week, three articles from different sides, and comments where you can only upvote people who disagree with you.</dd>
+              <dt>What I did</dt>
+              <dd>Interviewed people at two events, designed the screens, built the front end of the prototype, and tested it with 5 people.</dd>
+              <dt>How it went</dt>
+              <dd>Testing showed the first version didn’t get people learning from each other, and trolls could spam it. We redid it as Socratic 2.0 and showed the class a hi-fi prototype and a demo video.</dd>
+            </dl>
+          </aside>
+
+          <section id="overview">
+            <h2><span>01</span>Problem and team</h2>
+            <p>
+              During Fall 2017 I took
+              <a href="https://www2.eecs.berkeley.edu/Courses/CS160/" target="_blank" rel="noopener">CS160 (User Interface Design and Development)</a>,
+              taught by <a href="https://www.microsoft.com/en-us/research/people/johntang/" target="_blank" rel="noopener">John Tang</a>. The theme was
+              <b>“Bursting Echo Chambers in Social Media”</b>, and we were asked to design a web app for it by following a human-centered process.
+            </p>
+            <div class="callout">
+              <p><b>The idea:</b> Socratic is a place to discuss current events with people of different opinions. It exposes you to other perspectives and promotes thoughtful, non-hostile conversation.</p>
+            </div>
+            <p>
+              Our team of four had two developers
+              (<a href="https://www.linkedin.com/in/genjinoguchi/" target="_blank" rel="noopener">Genji</a> and
+              <a href="https://www.linkedin.com/in/gemmaguo/" target="_blank" rel="noopener">Gemma</a>),
+              a designer (<a href="https://www.linkedin.com/in/takara-s-a0805bba/" target="_blank" rel="noopener">Takara</a>), and me, a bit of both. Takara and I led the design, from interviewing people to wireframes and visual style. For the code prototype, Genji and Gemma worked on the backend and I built the front-end components.
+            </p>
+          </section>
+
+          <section id="needfinding">
+            <h2><span>02</span>Needfinding</h2>
+            <p>We started our user research by attending two events where people expressed a diversity of opinions.</p>
+
+            <h3>Event 1: MENA Salon, “Free Speech and Exclusion on American Campuses”</h3>
+            <p>
+              The <a href="https://cmes.berkeley.edu/mena-salon/" target="_blank" rel="noopener">Center for Middle Eastern Studies</a> hosts an informal weekly coffee hour and guided discussion of current events in the Middle East and North Africa.
+            </p>
+            <figure class="fig">
+              <img src="/design/socratic/mena-salon.webp" width="1600" height="1177" alt="A pencil sketch of the salon: people seated around an oval table at the front, and more people in rows of chairs facing it, with one person raising a hand" loading="lazy" />
+              <figcaption>Sketch of the event.</figcaption>
+            </figure>
+            <p>After the event we interviewed a couple of people with this discussion guide.</p>
+            <figure class="fig">
+              <img src="/design/socratic/guide-1.webp" width="1343" height="1152" alt="The MENA Salon discussion guide: an intro and consent to record, then questions about where people express opinions on campus, whether they are open to ideas that differ from theirs, and who comes to the weekly coffee hour" loading="lazy" />
+              <figcaption>Discussion guide for the MENA Salon.</figcaption>
+            </figure>
+            <p>What we took away from watching the event and interviewing people:</p>
+            <ul>
+              <li>Conversation can be directed by a source of authority.</li>
+              <li>Conversation can be smooth and efficient when there is a set of rules people know about and follow.</li>
+              <li>Wording matters. Words that mark a statement as a subjective opinion let thoughts be challenged, or even supported.</li>
+              <li>Discussion is richer when people understand what is being said and share the same factual knowledge as the speakers.</li>
+              <li>People are more likely to talk and listen to people who are like-minded.</li>
+              <li>People are more likely to listen if you listen to them, even when your opinion differs from theirs.</li>
+              <li>It is hard to have or find open conversation with people who don’t share your perspective.</li>
+            </ul>
+
+            <h3>Event 2: “White Supremacy, Gender, and Speech in the wake of Charlottesville”</h3>
+            <p>A panel of four speakers on perspectives on white supremacy, gender and free speech.</p>
+            <figure class="fig fig--small">
+              <img src="/design/socratic/panel.webp" width="720" height="570" alt="A black and white sketch of a lecture hall: a screen with two photos at the front, a speaker at a podium between two tables, and rows of audience members seen from behind" loading="lazy" />
+              <figcaption>Sketch of the panel.</figcaption>
+            </figure>
+            <p>
+              We interviewed two law students who attended. These interviews were briefer, because people seemed to be on their way out.
+            </p>
+            <figure class="fig">
+              <img src="/design/socratic/guide-2.webp" width="1389" height="923" alt="The panel discussion guide: an intro and consent to record, then questions on how they felt about the ideas presented, why they come to talks like this, and how they would get a diverse audience to listen" loading="lazy" />
+              <figcaption>Discussion guide for the panel.</figcaption>
+            </figure>
+            <p>Takeaways from those interviews:</p>
+            <ul>
+              <li>Conversations about controversial topics need mutual trust and respect to be effective.</li>
+              <li>Relevant topics are a strong motivator for attending talks, even ones with opposing views.</li>
+              <li>People groups generally will not tolerate opinions that put down their humanity.</li>
+              <li>The viewpoints of these talks should be presented with honesty and transparency.</li>
+            </ul>
+          </section>
+
+          <section id="pov">
+            <h2><span>03</span>POV + HMW</h2>
+            <p>We did affinity mapping to group our insights, organize our data and narrow the design space.</p>
+            <figure class="fig">
+              <img src="/design/socratic/affinity.webp" width="1600" height="1200" alt="A whiteboard of yellow and green sticky notes grouped under the headings Diversity, Listening, Agreement and Learning" loading="lazy" />
+              <figcaption>Insights grouped into diversity, listening, agreement and learning.</figcaption>
+            </figure>
+            <p>
+              Then we wrote
+              <a href="https://www.interaction-design.org/literature/article/define-and-frame-your-design-challenge-by-creating-your-point-of-view-and-ask-how-might-we" target="_blank" rel="noopener">Point of View and How Might We</a>
+              statements to guide ideation.
+            </p>
+
+            <h3>Point of view</h3>
+            <ol class="steps">
+              <li>
+                <u>We met</u> a group of older men who regularly discuss current events involving the Middle East and North Africa. <u>We were amazed to learn</u> that they were willing to listen and converse with people whose perspectives differ from theirs, but that there wasn’t really anyone from a radically different background. <u>It would be game-changing</u> if we could get people from drastically different backgrounds and opinions to take part in their discussions.
+              </li>
+              <li>
+                <u>We met</u> two open-minded law students who are passionate about what they believe, but still attend talks they do not agree with. <u>We were amazed to learn</u> that their main reason for going was learning value, whether or not the information supported their existing belief. They did not expect their opinion to change, and learning from the other side does not mean arriving at its conclusion. <u>It would be game-changing</u> if we could focus on learning, rather than argument and persuasion.
+              </li>
+            </ol>
+
+            <h3>How might we</h3>
+            <ol class="steps">
+              <li><u>How might we</u> facilitate a space for learning rather than trying to persuade and conquer?</li>
+              <li><u>How might we</u> establish decorum and a baseline understanding of factual information to hold a constructive discussion?</li>
+            </ol>
+          </section>
+
+          <section id="ideation">
+            <h2><span>04</span>Ideation</h2>
+            <p>From the research we brainstormed five possible solutions and picked one to try:</p>
+            <ol class="steps">
+              <li>Chat rooms categorized by topic</li>
+              <li>Dedicated sites for college students to pick speakers</li>
+              <li>A microphone where people can only speak when they have it, and otherwise have to listen</li>
+              <li><b>An online board where people post opinions and respond to other people’s opinions</b> (the one we chose)</li>
+              <li>A feed that shows you posts that are the opposite of what you would want</li>
+            </ol>
+          </section>
+
+          <section id="prototype">
+            <h2><span>05</span>Prototype</h2>
+            <p>
+              We expanded on idea 4 and built a working prototype with
+              <a href="https://www.meteor.com/" target="_blank" rel="noopener">Meteor</a> and
+              <a href="https://handlebarsjs.com/" target="_blank" rel="noopener">Handlebars</a>, following this general user flow.
+            </p>
+            <figure class="fig fig--small">
+              <img src="/design/socratic/userflow.webp" width="1600" height="1200" alt="A whiteboard flow in red marker: a home screen with a list of opinions leads to an opinion screen with comments and a reply, and a create new button leads to a submission form with title and description" loading="lazy" />
+              <figcaption>The flow: home, an opinion with its comments, and a form to add one.</figcaption>
+            </figure>
+            <p>The first screen is a list of people’s submitted opinions, each with a short description.</p>
+            <figure class="fig">
+              <img src="/design/socratic/prototype-1.webp" width="1404" height="811" alt="The prototype home screen in a browser: a blue add new opinion card beside cards titled Conyers was right to step down, Banana Creme Pie is better than Apple Pie, and I think dogs are cuter than cats" loading="lazy" />
+              <figcaption>The list of opinions.</figcaption>
+            </figure>
+            <p>“Add new opinion” opens a page to enter a new post.</p>
+            <figure class="fig">
+              <img src="/design/socratic/prototype-2.webp" width="907" height="601" alt="A blue page headed What is your opinion, with prompts to give us a nickname, describe your opinion in one sentence, and give more details" loading="lazy" />
+              <figcaption>Adding an opinion.</figcaption>
+            </figure>
+            <p>Clicking an opinion card reveals a comment thread where you can discuss it with other users.</p>
+            <figure class="fig">
+              <img src="/design/socratic/prototype-3.webp" width="1370" height="809" alt="An opinion page with a large blue header reading Conyers was right to step down in light of the situation, and a list of comments from three users with a reply box below" loading="lazy" />
+              <figcaption>An opinion and its comment thread.</figcaption>
+            </figure>
+          </section>
+
+          <section id="testing">
+            <h2><span>06</span>User testing</h2>
+            <p>
+              We tested with 5 people, who talked out loud while doing this core task: take part in a conversation under someone else’s post and gain new knowledge from the exchange. (We simulated the other users’ replies on our end so the tester could reply.)
+            </p>
+            <figure class="fig">
+              <img src="/design/socratic/usertesting.webp" width="973" height="1067" alt="Five photos of testers using the prototype on laptops at home, at a desk, at a table and on a couch" loading="lazy" />
+              <figcaption>Testers working through the prototype.</figcaption>
+            </figure>
+            <p>
+              Afterward we asked each tester to fill out
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLScrV4NLZvh5nwLeU0pVxYGpF2gtliVgyWgkdwc-qN7fF9igWA/viewform" target="_blank" rel="noopener">this Google form</a>
+              with their feedback. We found many places to improve:
+            </p>
+            <ul>
+              <li>Navigation was difficult.</li>
+              <li>The core task, and what the site was meant for, was unclear.</li>
+              <li>The “Give us a nickname” prompt when adding an opinion was confusing.</li>
+              <li>The site might be easier to grasp with a name.</li>
+              <li>Opinions should show a username, otherwise people think they are just topics, not someone’s opinion.</li>
+              <li>It was unclear what the comments were, what people were trying to do in them, and what standpoints they came from.</li>
+              <li>An ongoing conversation was hard to follow.</li>
+              <li>The comment section didn’t look like a comment section.</li>
+            </ul>
+            <p>
+              Most of these problems came from not having time to build a fully fleshed-out app. That was okay, since we mainly wanted to test the concept, and the concept is where we got the most valuable feedback:
+            </p>
+            <div class="stat">
+              <b>The interface</b>
+              <span>didn’t encourage discussion with intent to learn from others.</span>
+            </div>
+            <ul>
+              <li>The open-endedness of “share an opinion” led to less thoughtful topics like “Pie is better than cake.”</li>
+              <li>The comments let trolls and negative comments spam the threads.</li>
+            </ul>
+          </section>
+
+          <section id="iterate">
+            <h2><span>07</span>Iterate</h2>
+            <p>With that feedback we set two goals:</p>
+            <ul>
+              <li>Engage users with more directed content, to focus the conversation.</li>
+              <li>Encourage discussion on important topics among people of different backgrounds.</li>
+            </ul>
+            <p>And two steps to get there: guide discussion with prompts and questions, and include articles on current events from different parts of the political spectrum.</p>
+
+            <h3>Socratic 2.0</h3>
+            <ul>
+              <li>
+                <b>One opinion, related to current events.</b> Only one at a time, so all traffic funnels into one discussion. It changes every week.
+              </li>
+              <li>
+                <b>Three articles about the event to read.</b> Each comes from a different part of the political spectrum, inspired by
+                <a href="https://www.allsides.com/unbiased-balanced-news" target="_blank" rel="noopener">AllSides</a>.
+              </li>
+              <li><b>Agree and disagree buttons</b> for the stated opinion.</li>
+              <li>
+                <b>Two comment threads</b>, one for those who agree and one for those who disagree. Replies are color-coded by position, and the comments stay hidden until you pick one.
+              </li>
+              <li>
+                <b>Comments with the most points rise to the top.</b> The catch: you can only upvote comments from people who disagree with you, and you can’t see the score of comments from people who agree with you.
+              </li>
+            </ul>
+            <p>We made a quick sketch before moving on to high-fidelity screens.</p>
+            <figure class="fig fig--small">
+              <img src="/design/socratic/sketch.webp" width="1600" height="1559" alt="A notebook sketch headed Socratic: an opinion with three articles from different political leanings, a daily opinion that might change every day or week, and two columns for agree and disagree comments with upvote and downvote arrows, color coding and a reply box" loading="lazy" />
+              <figcaption>The sketch for Socratic 2.0, with two comment columns and a note on color coding.</figcaption>
+            </figure>
+          </section>
+
+          <section id="final">
+            <h2><span>08</span>Final design and demo</h2>
+            <figure class="fig fig--tall">
+              <img src="/design/socratic/final.webp" width="973" height="2664" alt="The final Socratic screen: a blue header, the opinion of the day about digital piracy with three article cards, large I agree and I disagree buttons, then Support and Opposition comment columns with vote counts, and a reply box that says you can’t reply here since you agreed" loading="lazy" />
+              <figcaption>The final design. Pick a side and the comments open up. You can only vote on the other side’s comments.</figcaption>
+            </figure>
+            <p>
+              We built a hi-fi prototype and a demo video to present the project to the class.
+              <a href="https://www.youtube.com/watch?v=1wr91QPzaU4" target="_blank" rel="noopener">Watch the demo ↗</a>
+              or look through the
+              <a href="https://github.com/genjinoguchi/echoechoechoechoecho" target="_blank" rel="noopener">code on GitHub ↗</a>.
+            </p>
+
+            <h3>If we had more time</h3>
+            <ul>
+              <li>Add downvotes for people who share your view, so the other side can’t just upvote the views they most agree with.</li>
+              <li>Add a page to view previous discussions and opinions.</li>
+              <li>Make sure users read all three articles before they can click “agree” or “disagree.”</li>
+              <li>Add a “Neutral” option. Opinions aren’t so black and white!</li>
+              <li>Add optional user profiles, so users don’t have to commit to an account to take part.</li>
+            </ul>
+          </section>
+
+          <section id="takeaways">
+            <h2><span>09</span>Takeaways</h2>
+            <h3>User testing is super super super valuable</h3>
+            <p>
+              We found many ways to improve with just a few people going through our prototype. They ran into issues we would never have found ourselves.
+            </p>
+            <h3>Code takes time, keep that in mind</h3>
+            <p>
+              It takes much longer to build something that works with a JavaScript framework than to make something pretty in Sketch and Illustrator. It seems obvious, but being conscious of it helps you keep to the project timeline and spares you all-nighters fixing bugs.
+            </p>
+            <p><b>The final product can look very different from your first solution.</b></p>
+          </section>
+
+          <div class="next">
+            <span>Want to read another?</span>
+            <a href="/design/">All design work →</a>
+          </div>
+        </article>
+      </div>
+
+      <footer class="foot">
+        <nav aria-label="Elsewhere">
+          <a href="/">← Back to the cube</a>
+          <a href="mailto:CharlesDavidOlivar@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/charles-david-olivar" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </nav>
+        <span>Thanks for reading</span>
+      </footer>
+    </main>
+
+  </body>
+</html>

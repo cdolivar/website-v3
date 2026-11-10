@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Aether case study — Charles David Olivar</title>
+    <meta name="description" content="Designing a web app for process chemists at Aether, a company that pairs robotics and data modeling to speed up drug manufacturing." />
+    <meta name="theme-color" content="#000000" />
+    <link rel="canonical" href="https://charlesdavidolivar.com/design/aether/" />
+    <link rel="icon" href="/logo/logo.ico" />
+    <link rel="icon" type="image/svg+xml" href="/logo/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo/logo.png" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://charlesdavidolivar.com/design/aether/" />
+    <meta property="og:title" content="Aether case study — Charles David Olivar" />
+    <meta property="og:description" content="Designing a web app for process chemists." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:image" content="https://charlesdavidolivar.com/design/aether/banner.webp" />
+    <script>
+      // Set the theme before first paint so there is no flash.
+      try {
+        var t = localStorage.getItem("theme");
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.dataset.theme = t;
+        document.querySelector('meta[name="theme-color"]').content = t === "light" ? "#ffffff" : "#000000";
+      } catch (e) {}
+    </script>
+    <script type="module" crossorigin src="/assets/modulepreload-polyfill-P2Xu9kJm.js"></script>
+    <script type="module" crossorigin src="/assets/design-Hbk-u9Uv.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/design-CI4SHw-f.css">
+  </head>
+  <body>
+    <a class="skip" href="#problem">Skip to the story</a>
+    <div class="progress" aria-hidden="true"></div>
+
+    <header class="top">
+      <a class="top__logo" href="/" aria-label="Charles David Olivar — back to the cube">
+        <svg viewBox="0 0 187.31 187.29" aria-hidden="true">
+          <path d="M85,169.84A71.45,71.45,0,0,1,85,30.16V7.58a93.65,93.65,0,0,0,0,184.85Z" transform="translate(-6.47 -6.36)" />
+          <path d="M100.14,6.36H100v22.2h.14a71.45,71.45,0,0,1,0,142.9H100v22.2h.14a93.64,93.64,0,0,0,0-187.29Z" transform="translate(-6.47 -6.36)" />
+          <rect x="104.33" y="10.61" width="19.37" height="165.1" />
+        </svg>
+        <span>Charles David Olivar</span>
+      </a>
+      <p class="top__crumb"><a href="/design/">Design</a> / Aether</p>
+      <div class="top__actions">
+        <nav class="top__contact" aria-label="Site">
+          <a class="keep" href="/design/">All work</a>
+          <a href="mailto:CharlesDavidOlivar@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/charles-david-olivar" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" /><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" /></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z" /></svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="cs-hero">
+        <p class="eyebrow">Case study 03</p>
+        <h1>Aether</h1>
+        <p class="cs-hero__tag">Robotics and data modeling for chemists. We designed the web app, without knowing any chemistry.</p>
+
+        <dl class="facts">
+          <div><dt>Role</dt><dd>Designer</dd></div>
+          <div><dt>Client</dt><dd>Aether, via Berkeley Innovation</dd></div>
+          <div><dt>When</dt><dd>Fall 2017</dd></div>
+          <div><dt>Worked with</dt><dd>Three other designers, and Aether’s CEO</dd></div>
+          <div><dt>Tools</dt><dd>Figma, InVision</dd></div>
+        </dl>
+
+        <figure class="cs-banner">
+          <img src="/design/aether/banner.webp" width="1600" height="445" alt="Three screens of the Aether web app on a blue background: a grid of projects, an optimization page with a molecule diagram, a yield graph and a results table, and a project page with workspaces" />
+        </figure>
+      </section>
+
+      <div class="layout">
+        <nav class="toc" aria-label="Contents">
+          <p>Contents</p>
+          <ol>
+            <li><a href="#problem">Problem</a></li>
+            <li><a href="#research">User research</a></li>
+            <li><a href="#insights">Insights</a></li>
+            <li><a href="#ideation">Ideation</a></li>
+            <li><a href="#midfi">Mid-fidelity</a></li>
+            <li><a href="#final">Final screens</a></li>
+            <li><a href="#next">Next steps</a></li>
+            <li><a href="#takeaways">Takeaways</a></li>
+          </ol>
+        </nav>
+
+        <article class="story">
+          <aside class="glance" aria-labelledby="glance-h">
+            <h2 id="glance-h">// At a glance</h2>
+            <dl>
+              <dt>Goal</dt>
+              <dd>Design the interface for Aether’s web app, which process chemists use to find enzymes that shorten how long it takes to make a molecule.</dd>
+              <dt>Catch</dt>
+              <dd>None of us knew chemistry, and the client had no users for us to talk to.</dd>
+              <dt>What I did</dt>
+              <dd>Learned the tech from the client, found 300+ chemists’ emails on LinkedIn and asked for interviews, talked to several, then sketched, wireframed in Figma and designed the final screens with the team.</dd>
+              <dt>How it went</dt>
+              <dd>We ran out of semester before we could user test. Aether planned to show a prototype at a process chemistry conference and test it themselves.</dd>
+            </dl>
+          </aside>
+
+          <section id="problem">
+            <h2><span>01</span>Problem</h2>
+            <p>
+              When a drug is manufactured, chemists reach a stage where they try to find the cheapest, highest-yielding mix of chemicals to make a specific final molecule. Today that testing and iterating takes months and a lot of hard decisions, with very little technology helping. Aether uses robotics and data modeling to shorten that timeline, make projects and data easier to manage, and save millions of dollars.
+            </p>
+            <div class="callout">
+              <p><b>Goal:</b> our team of four designers was asked to design the interface for Aether’s web app, where <a href="https://www.acs.org/content/acs/en/careers/college-to-career/chemistry-careers/process-chemistry.html" target="_blank" rel="noopener">process chemists</a> would use Aether’s service to find enzymes that shorten how long it takes to synthesize a molecule.</p>
+            </div>
+          </section>
+
+          <section id="research">
+            <h2><span>02</span>User research</h2>
+            <p>
+              First we had to understand how Aether’s technology works. We met with our client several times to learn about chemistry, robotic testing and how machine learning applies to their use cases. There was a lot to learn, and we asked a lot of questions before we even started user research.
+            </p>
+            <p>
+              Then we realized we had no users to interview. Our client couldn’t give us any, and we had no easy way to reach our audience: PhDs in organic chemistry working as process chemists in the pharmaceutical industry. So we scraped LinkedIn for 300+ emails and asked for phone interviews.
+            </p>
+            <figure class="fig fig--small">
+              <img src="/design/aether/email.webp" width="763" height="633" alt="The email I sent, with the recipient’s name blacked out: a UC Berkeley student introduces themself, explains the interest in process chemists and design software, and asks for a quick 20 minute meeting" loading="lazy" />
+              <figcaption>The email I sent. Recipient’s name blacked out.</figcaption>
+            </figure>
+            <p>
+              We interviewed process chemists to get a picture of their daily workflow and find pain points. None of us are chemists, so we were especially curious what data they’d expect to put into a service like this and get back out.
+            </p>
+            <figure class="fig">
+              <img src="/design/aether/guide-1.webp" width="1600" height="2071" alt="Page one of the discussion guide: a description of the client, the research goals, our assumptions about the chemists, and a table of research methods" loading="lazy" />
+              <figcaption>Our discussion guide, page 1 of 3: goals, assumptions and methods.</figcaption>
+            </figure>
+            <figure class="fig">
+              <img src="/design/aether/guide-2.webp" width="1600" height="2071" alt="Page two of the discussion guide: the rest of the methods table, then interview questions about the chemist’s background, workday and software, and about using enzymes" loading="lazy" />
+              <figcaption>Page 2 of 3: the questions, with the ones to prioritize marked.</figcaption>
+            </figure>
+            <figure class="fig">
+              <img src="/design/aether/guide-3.webp" width="1600" height="2071" alt="Page three of the discussion guide: questions that walk the chemist through our screening and optimization pages, and an earlier version of those questions" loading="lazy" />
+              <figcaption>Page 3 of 3: walking them through our screening and optimization pages.</figcaption>
+            </figure>
+          </section>
+
+          <section id="insights">
+            <h2><span>03</span>Insights</h2>
+            <p>We did phone interviews with several chemists and heard some quotes worth keeping:</p>
+            <ul>
+              <li>“There is a lot of skepticism in predictive software. Chemists want to see the justification and decision-making process on how the predictions add up.”</li>
+              <li>“I usually keep track of data by writing it down in my notebooks.”</li>
+              <li>“I would want more information about how enzymes work in biocatalysis because it is not as accessible at the moment.”</li>
+            </ul>
+            <p>Our key takeaways:</p>
+            <ul>
+              <li>They’re skeptical of predictive software, and worried about the security of their work.</li>
+              <li>They mostly use physical notebooks or the Microsoft suite to track data.</li>
+              <li>They identify molecules visually more than by name.</li>
+              <li>They prefer a simple but technical layout, nothing cluttered or confusing.</li>
+              <li>They want a web app that can adapt to their company.</li>
+            </ul>
+            <p>We also came away with a list of the data they wanted or expected to see:</p>
+            <ul>
+              <li>Ratio</li>
+              <li>Conversion in mols</li>
+              <li>Yield</li>
+              <li>Iteration</li>
+              <li>Temperature</li>
+              <li>Solvent</li>
+              <li>Cofactor</li>
+            </ul>
+          </section>
+
+          <section id="ideation">
+            <h2><span>04</span>Ideation</h2>
+            <p>
+              We started with a general user flow, then split up to brainstorm rough wireframes on our own. After that we got back together with our client, talked through the ideas, kept what worked, dropped what didn’t, and got feedback on what to add.
+            </p>
+            <figure class="fig fig--tall">
+              <img src="/design/aether/lowfi.webp" width="973" height="1974" alt="Three photos: a chalkboard user flow from a list of drugs to a drug’s reactions to results, pages of rough pencil wireframes numbered one to seven, and a whiteboard of consolidated wireframes with open questions about web app versus desktop, sourcing and patents" loading="lazy" />
+              <figcaption>The user flow on the chalkboard, our individual wireframes, and the consolidated version.</figcaption>
+            </figure>
+            <p>
+              Our main goal was to let chemists compare the results of different tests easily, which led us to tabs. We also went back and forth on how to organize data and projects, from folders with tags to a cascading sidebar.
+            </p>
+          </section>
+
+          <section id="midfi">
+            <h2><span>05</span>Mid-fidelity</h2>
+            <p>
+              We took our sketches into Figma. We ended up with cards, with workspaces, screens and optimizations built into each project.
+            </p>
+            <figure class="fig">
+              <img src="/design/aether/midfi.webp" width="973" height="1042" alt="Six grayscale wireframes: a screening results page with a green, yellow and red table, an optimization page with a graph and table, lists of recently completed optimizations and screens, a projects grid, and a workspaces list" loading="lazy" />
+              <figcaption>The consolidated mid-fi screens.</figcaption>
+            </figure>
+          </section>
+
+          <section id="final">
+            <h2><span>06</span>Final screens</h2>
+            <p>First, the style guide.</p>
+            <figure class="fig fig--tall">
+              <img src="/design/aether/colors-1.webp" width="1440" height="2019" alt="Fonts and colors: Raleway for headings and Libre Baskerville for body text, four shades of blue, and the rationale for choosing dark blues for trust and a sans-serif plus serif pairing" loading="lazy" />
+              <figcaption>Fonts and colors. We went with darker blues to give a sense of trust and credibility, and paired a sans-serif and a serif to bridge modern tech and literature-based research.</figcaption>
+            </figure>
+            <figure class="fig">
+              <img src="/design/aether/colors-2.webp" width="1440" height="1149" alt="Component styles: a green Create button for confirmation, a gray Cancel button for options, a dropdown menu, a three-dot menu button and the box shadow settings" loading="lazy" />
+              <figcaption>Buttons, dropdowns and shadows.</figcaption>
+            </figure>
+            <p>
+              In the high-fidelity screens we fleshed out each project with a dashboard and an activity log, plus a description and comments. We also added an organization space for common project groupings and for managing teams, aimed at a company’s administrators.
+            </p>
+            <figure class="fig fig--tall">
+              <img src="/design/aether/hifi.webp" width="973" height="2909" alt="Sixteen final screens of the Aether app: the projects grid, create project and manage team dialogs, a project page with workspaces, the activity log and comments, the organization page, screening results, lists of screens and optimizations, settings, edit profile and an optimization page with a yield graph" loading="lazy" />
+              <figcaption>The final screens.</figcaption>
+            </figure>
+          </section>
+
+          <section id="next">
+            <h2><span>07</span>Next steps</h2>
+            <p>
+              The semester ended and our deliverables were due, so we didn’t get to user test. Aether plans to show a prototype built from our final designs at a process chemistry conference, and to run user testing themselves.
+            </p>
+          </section>
+
+          <section id="takeaways">
+            <h2><span>08</span>Takeaways</h2>
+            <h3>Know what you don’t know</h3>
+            <p>
+              We had no chemistry background, so we asked our client what we needed to understand. It also meant working out the right questions to ask users.
+            </p>
+            <h3>It’s okay to go off-script if the information is relevant</h3>
+            <p>
+              Aether’s CEO joined some of our interviews to bridge our lack of technical knowledge. Now and then he followed up on something a chemist said, and it surfaced things we never would have found with our original discussion guide.
+            </p>
+          </section>
+
+          <div class="next">
+            <span>Want to read another?</span>
+            <a href="/design/">All design work →</a>
+          </div>
+        </article>
+      </div>
+
+      <footer class="foot">
+        <nav aria-label="Elsewhere">
+          <a href="/">← Back to the cube</a>
+          <a href="mailto:CharlesDavidOlivar@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/charles-david-olivar" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </nav>
+        <span>Thanks for reading</span>
+      </footer>
+    </main>
+
+  </body>
+</html>

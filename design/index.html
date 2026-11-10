@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Design work — Charles David Olivar</title>
+    <meta name="description" content="UX design case studies from before I was a full-time engineer: a summer at Indeed and projects from UC Berkeley's Design Innovation certificate." />
+    <meta name="theme-color" content="#000000" />
+    <link rel="canonical" href="https://charlesdavidolivar.com/design/" />
+    <link rel="icon" href="/logo/logo.ico" />
+    <link rel="icon" type="image/svg+xml" href="/logo/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo/logo.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://charlesdavidolivar.com/design/" />
+    <meta property="og:title" content="Design work — Charles David Olivar" />
+    <meta property="og:description" content="UX case studies from Indeed and UC Berkeley." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:image" content="https://charlesdavidolivar.com/design/indeed/banner.webp" />
+    <script>
+      // Set the theme before first paint so there is no flash.
+      try {
+        var t = localStorage.getItem("theme");
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.dataset.theme = t;
+        document.querySelector('meta[name="theme-color"]').content = t === "light" ? "#ffffff" : "#000000";
+      } catch (e) {}
+    </script>
+    <script type="module" crossorigin src="/assets/modulepreload-polyfill-P2Xu9kJm.js"></script>
+    <script type="module" crossorigin src="/assets/design-Hbk-u9Uv.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/design-CI4SHw-f.css">
+  </head>
+  <body>
+    <a class="skip" href="#work">Skip to the work</a>
+    <div class="progress" aria-hidden="true"></div>
+
+    <header class="top">
+      <a class="top__logo" href="/" aria-label="Charles David Olivar — back to the cube">
+        <svg viewBox="0 0 187.31 187.29" aria-hidden="true">
+          <path d="M85,169.84A71.45,71.45,0,0,1,85,30.16V7.58a93.65,93.65,0,0,0,0,184.85Z" transform="translate(-6.47 -6.36)" />
+          <path d="M100.14,6.36H100v22.2h.14a71.45,71.45,0,0,1,0,142.9H100v22.2h.14a93.64,93.64,0,0,0,0-187.29Z" transform="translate(-6.47 -6.36)" />
+          <rect x="104.33" y="10.61" width="19.37" height="165.1" />
+        </svg>
+        <span>Charles David Olivar</span>
+        <span class="top__crumb" aria-hidden="true">/ Design</span>
+      </a>
+      <div class="top__actions">
+        <nav class="top__contact" aria-label="Site">
+          <a class="keep" href="/design/" aria-current="page">Design</a>
+          <a href="mailto:CharlesDavidOlivar@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/charles-david-olivar" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" /><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" /></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z" /></svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="wrap" id="main">
+      <section class="hero">
+        <p class="eyebrow">Before full-time engineering</p>
+        <h1>Design work</h1>
+        <p class="hero__lede">
+          I started out as a UX developer, and the Design Innovation certificate at Berkeley still shapes how I build. These are the projects from then, with the research, the sketches, the prototypes and what testing taught me.
+        </p>
+      </section>
+
+      <ol class="work" id="work">
+        <li>
+          <a class="work__row" href="/design/indeed/" data-preview="/design/indeed/banner.webp">
+            <span class="work__num">01</span>
+            <h2 class="work__title">Indeed</h2>
+            <p class="work__what"><b>Onboarding for the mobile app</b>Screens that ask job seekers what they want. I prototyped them in code and tested them with 8 people.</p>
+            <span class="work__meta"><span class="pill">UX design intern</span><span class="pill">Summer 2018</span><span class="pill">Mobile</span></span>
+            <span class="work__thumb"><img src="/design/indeed/banner.webp" width="1442" height="805" alt="Three iPhone mockups of Indeed onboarding screens: a commute-distance map, job types and a skills search" loading="lazy" /></span>
+          </a>
+        </li>
+        <li>
+          <a class="work__row" href="/design/skyalert/" data-preview="/design/skyalert/banner.webp">
+            <span class="work__num">02</span>
+            <h2 class="work__title">SkyAlert</h2>
+            <p class="work__what"><b>The first seismic prevention app</b>New onboarding for an earthquake warning app. 5,501 of its users answered our survey first.</p>
+            <span class="work__meta"><span class="pill">UC Berkeley</span><span class="pill">Mobile</span></span>
+            <span class="work__thumb"><img src="/design/skyalert/banner.webp" width="1442" height="805" alt="Three iPhone mockups of the SkyAlert app on an orange background" loading="lazy" /></span>
+          </a>
+        </li>
+        <li>
+          <a class="work__row" href="/design/aether/" data-preview="/design/aether/banner.webp">
+            <span class="work__num">03</span>
+            <h2 class="work__title">Aether</h2>
+            <p class="work__what"><b>Robotics and data modeling for chemists</b>A web app for process chemists. We knew no chemistry, so we found 300+ of them on LinkedIn and asked for interviews.</p>
+            <span class="work__meta"><span class="pill">UC Berkeley</span><span class="pill">Fall 2017</span><span class="pill">Web app</span></span>
+            <span class="work__thumb"><img src="/design/aether/banner.webp" width="1600" height="445" alt="Three screens of the Aether web app: projects, an optimization with a yield graph, and a project page" loading="lazy" /></span>
+          </a>
+        </li>
+        <li>
+          <a class="work__row" href="/design/socratic/" data-preview="/design/socratic/banner.webp">
+            <span class="work__num">04</span>
+            <h2 class="work__title">Socratic</h2>
+            <p class="work__what"><b>Discussing current events across disagreement</b>A web app built around one opinion a week and three articles from different sides. We tested it with 5 people.</p>
+            <span class="work__meta"><span class="pill">CS160</span><span class="pill">Fall 2017</span><span class="pill">Web app</span></span>
+            <span class="work__thumb"><img src="/design/socratic/banner.webp" width="1600" height="445" alt="Three screens of the Socratic web app: an opinion with articles, support and opposition comments, and a reply box" loading="lazy" /></span>
+          </a>
+        </li>
+      </ol>
+
+      <p class="note">These are student and internship projects, so you’ll get what the research and testing showed, not launch numbers.</p>
+
+      <footer class="foot">
+        <nav aria-label="Elsewhere">
+          <a href="/">← Back to the cube</a>
+          <a href="mailto:CharlesDavidOlivar@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/charles-david-olivar" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </nav>
+        <span>Charlottesville, VA</span>
+      </footer>
+    </main>
+
+    <div class="preview" aria-hidden="true"></div>
+  </body>
+</html>
