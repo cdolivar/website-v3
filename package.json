@@ -1,16 +1,26 @@
 {
-  "name": "website",
-  "version": "2.0.0",
+  "name": "charlesdavidolivar-com",
+  "version": "3.0.0",
+  "description": "Personal site: a draggable CSS 3D cube carrying a resume, plus design case studies.",
   "homepage": "https://charlesdavidolivar.com/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cdolivar/website-v3.git"
+  },
+  "license": "MIT",
+  "author": "Charles David Olivar",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=20.19"
+  },
   "scripts": {
     "dev": "vite",
-    "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "test": "node --test"
   },
   "dependencies": {
     "@fontsource/ibm-plex-mono": "^5.3.0",

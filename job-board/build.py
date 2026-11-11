@@ -1,6 +1,6 @@
 # Usage: python3 fetch_jobs.py && python3 build.py  -> writes index.html
 import csv, json, datetime, sys
-rows=list(csv.reader(open("companies.csv",encoding="utf-8")))[3:]
+rows=list(csv.reader(open("companies.csv",encoding="utf-8")))
 hdr=rows[0]; cos=[]
 jobs=json.load(open("jobs.json"))
 have={j["c"] for j in jobs}

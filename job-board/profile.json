@@ -1,0 +1,187 @@
+{
+ "_comment": "Edit this file to tune ranking for your own background. Each rule is [regex, points]; scores are clamped to 0-100.",
+ "title_points": [
+  [
+   "front.?end|\\bui\\b|web (engineer|developer)|react|javascript|typescript|design engineer",
+   42
+  ],
+  [
+   "full.?stack|product engineer|growth|experimentation|web platform",
+   34
+  ],
+  [
+   "software (engineer|developer)|\\bengineer\\b|developer",
+   18
+  ]
+ ],
+ "title_penalties": [
+  [
+   "\\bios\\b|android|mobile",
+   -22
+  ],
+  [
+   "devops|\\bsre\\b|reliability|infrastructure|platform eng|security|detection|cloud",
+   -18
+  ],
+  [
+   "data (scien|eng|analy)|machine learning|\\bml\\b|\\bai research|research",
+   -20
+  ],
+  [
+   "embedded|kernel|firmware|(?<!design )systems|database|\\bdba\\b|compiler",
+   -25
+  ],
+  [
+   "back.?end",
+   -10
+  ],
+  [
+   "\\brust\\b|\\bgolang\\b|\\bgo\\b|c\\+\\+|\\bjava\\b|\\.net|\\bphp\\b|\\bruby\\b|python|elixir|scala|kotlin|swift",
+   -12
+  ],
+  [
+   "sales|solutions|\\bsupport\\b|customer|success|recruit|marketing|finance|legal|people|\\baccount|partner|counsel|\\bprogram\\b|product manager|designer|writer",
+   -60
+  ]
+ ],
+ "seniority": [
+  [
+   "\\bsenior\\b|\\bsr\\.?\\b",
+   10,
+   "Senior level"
+  ],
+  [
+   "\\bstaff\\b",
+   -25,
+   null
+  ],
+  [
+   "principal|distinguished",
+   -4,
+   null
+  ],
+  [
+   "intern|junior|\\bjr\\b|associate|graduate|entry",
+   -18,
+   null
+  ],
+  [
+   "manager|director|\\bhead\\b|\\bvp\\b|chief|\\bmgr\\b",
+   -45,
+   null
+  ]
+ ],
+ "skill_gaps": [
+  [
+   "Python",
+   "\\bpython\\b"
+  ],
+  [
+   "Ruby",
+   "\\bruby\\b"
+  ],
+  [
+   "Rust",
+   "\\brust\\b"
+  ],
+  [
+   "Java",
+   "\\bjava\\b"
+  ],
+  [
+   "Go",
+   "\\bgolang\\b"
+  ],
+  [
+   "Kubernetes",
+   "kubernetes"
+  ],
+  [
+   "AWS",
+   "\\baws\\b"
+  ],
+  [
+   "SQL/Postgres",
+   "postgres|\\bsql\\b"
+  ],
+  [
+   "Elixir",
+   "elixir"
+  ],
+  [
+   "GraphQL",
+   "graphql"
+  ]
+ ],
+ "keywords": [
+  [
+   "React",
+   "\\bReact(\\.js|js)?\\b|\\breactjs\\b|\\breact\\.js\\b",
+   8
+  ],
+  [
+   "TypeScript",
+   "typescript",
+   8
+  ],
+  [
+   "JavaScript",
+   "javascript",
+   3
+  ],
+  [
+   "Next.js",
+   "next\\.?js",
+   3
+  ],
+  [
+   "Node",
+   "node(\\.js|js)?\\b",
+   2
+  ],
+  [
+   "Tailwind",
+   "tailwind",
+   2
+  ],
+  [
+   "Accessibility",
+   "web accessibility|accessible (ui|web|interface|component|product)|\\bwcag\\b|\\ba11y\\b|aria\\b",
+   5
+  ],
+  [
+   "A/B testing",
+   "a/b test|split test|experimentation (platform|framework)|feature flag",
+   5
+  ],
+  [
+   "Design systems",
+   "design system|component librar",
+   3
+  ],
+  [
+   "Jest/Cypress",
+   "jest|cypress|playwright|testing library",
+   1
+  ],
+  [
+   "GraphQL",
+   "graphql",
+   1
+  ]
+ ],
+ "keyword_penalties": [
+  [
+   "\\brust\\b.{0,40}(required|must|experience)",
+   -6
+  ],
+  [
+   "\\bc\\+\\+\\b",
+   -4
+  ],
+  [
+   "\\bkotlin\\b|\\bswift\\b",
+   -3
+  ]
+ ]
+}

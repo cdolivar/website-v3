@@ -1,24 +1,14 @@
 # Fetches open roles from public Greenhouse/Ashby boards, extracts salary bands,
-# remote/US eligibility and a resume-match score. Writes jobs.json.
-import sys, json, re, html, urllib.request, concurrent.futures as cf
+# remote/US eligibility and a profile-match score. Writes jobs.json.
+import os, sys, json, re, html, urllib.request, concurrent.futures as cf
 ARGS=[x for x in sys.argv[1:] if not x.startswith("--")]
 FEEDS_FILE=ARGS[0] if ARGS else "feeds.json"
 OUT_FILE=ARGS[1] if len(ARGS)>1 else "jobs.json"
 FEEDS=json.load(open(FEEDS_FILE))  # {company: {"ats": "gh"|"ashby"|"lever", "slug": str, "remote_only": bool}}
-# ---- Resume profile (Charles Olivar): React/TypeScript product frontend, growth experiments, a11y, ~7 yrs ----
-TITLE_PTS=[(r"front.?end|\bui\b|web (engineer|developer)|react|javascript|typescript|design engineer",42),
-           (r"full.?stack|product engineer|growth|experimentation|web platform",34),
-           (r"software (engineer|developer)|\bengineer\b|developer",18)]
-TITLE_NEG=[(r"\bios\b|android|mobile",-22),(r"devops|\bsre\b|reliability|infrastructure|platform eng|security|detection|cloud",-18),
-           (r"data (scien|eng|analy)|machine learning|\bml\b|\bai research|research",-20),(r"embedded|kernel|firmware|(?<!design )systems|database|\bdba\b|compiler",-25),
-           (r"back.?end",-10),(r"\brust\b|\bgolang\b|\bgo\b|c\+\+|\bjava\b|\.net|\bphp\b|\bruby\b|python|elixir|scala|kotlin|swift",-12),
-           (r"sales|solutions|\bsupport\b|customer|success|recruit|marketing|finance|legal|people|\baccount|partner|counsel|\bprogram\b|product manager|designer|writer",-60)]
-SENIOR=[(r"\bsenior\b|\bsr\.?\b",10,"Senior level"),(r"\bstaff\b",-25,None),(r"principal|distinguished",-4,None),(r"intern|junior|\bjr\b|associate|graduate|entry",-18,None),(r"manager|director|\bhead\b|\bvp\b|chief|\bmgr\b",-45,None)]
-GAPS=[("Python",r"\bpython\b"),("Ruby",r"\bruby\b"),("Rust",r"\brust\b"),("Java",r"\bjava\b"),("Go",r"\bgolang\b"),("Kubernetes",r"kubernetes"),("AWS",r"\baws\b"),("SQL/Postgres",r"postgres|\bsql\b"),("Elixir",r"elixir"),("GraphQL",r"graphql")]
-KW=[("React",r"\bReact(\.js|js)?\b|\breactjs\b|\breact\.js\b",8),("TypeScript",r"typescript",8),("JavaScript",r"javascript",3),("Next.js",r"next\.?js",3),("Node",r"node(\.js|js)?\b",2),
-    ("Tailwind",r"tailwind",2),("Accessibility",r"web accessibility|accessible (ui|web|interface|component|product)|\bwcag\b|\ba11y\b|aria\b",5),("A/B testing",r"a/b test|split test|experimentation (platform|framework)|feature flag",5),
-    ("Design systems",r"design system|component librar",3),("Jest/Cypress",r"jest|cypress|playwright|testing library",1),("GraphQL",r"graphql",1)]
-KW_NEG=[(r"\brust\b.{0,40}(required|must|experience)",-6),(r"\bc\+\+\b",-4),(r"\bkotlin\b|\bswift\b",-3)]
+# Ranking rules live in profile.json (title fit, seniority, keywords, skill gaps); edit it to match your background.
+PROFILE=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),"profile.json")))
+TITLE_PTS=PROFILE["title_points"]; TITLE_NEG=PROFILE["title_penalties"]; SENIOR=PROFILE["seniority"]
+GAPS=PROFILE["skill_gaps"]; KW=PROFILE["keywords"]; KW_NEG=PROFILE["keyword_penalties"]
 
 FULLY_REMOTE={"GitLab","Zapier","Supabase","Grafana Labs","PostHog","RevenueCat","Kit (formerly ConvertKit)","Customer.io","Ashby","Camunda","Huntress","Circle (circle.so)","Close","Tremendous","Deel","Buffer","Nearform","Linear","Bitwarden","Canonical","Docker"}
 ONSITE=re.compile(r"hybrid|on-?site|in.office|office",re.I)
@@ -63,7 +53,7 @@ def score(title,dept,desc):
         if re.search(r,d): pts+=p
     why+=hits[:4]
     gaps=[n for n,r in GAPS if re.search(r,d)][:4]
-    pts-=2*len(gaps)  # skills you lack lower the fit a little
+    pts-=2*len(gaps)  # skills outside your profile lower the fit a little
     return max(0,min(100,round(pts*100/80))), list(dict.fromkeys(why))[:5], gaps
 REM_TXT=re.compile(r"(?:held|based|work(?:ed)?|performed|done|located)\b[^.]{0,60}\bremotely\b[^.]{0,50}(?:united states|u\.s\.|\bus\b)|\bremote(?:ly)?\s+(?:anywhere\s+)?(?:in|within)\s+the\s+(?:united states|u\.s\.)|fully[- ]remote\s+(?:team|company|role|position)|\b(?:this|the)\s+(?:role|position)\s+is\s+(?:fully\s+)?remote",re.I)
 REM_NO=re.compile(r"hybrid|per year|a year|weeks? (?:per|a|each)|days? (?:per|a|each) week|in[- ]office|on[- ]site|onsite|some roles|many of our|may be",re.I)
